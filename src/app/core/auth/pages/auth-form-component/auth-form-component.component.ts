@@ -1,11 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
 import { authFormTemplateModel } from './auth-form.model';
 
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../auth.service';
+import { DataModel } from './auth-form-component.model';
 
 @Component({
   selector: 'app-auth-form-component',
@@ -15,7 +17,10 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService],
 })
 export class AuthFormComponentComponent {
-  private route = inject(ActivatedRoute);
+  private readonly route = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
   isRegister: boolean = true;
   authForm!: FormGroup<authFormTemplateModel>;
 
@@ -77,36 +82,42 @@ export class AuthFormComponentComponent {
     const email = this.authForm.controls.email?.value;
     const password = this.authForm.controls.password?.value;
 
-    if(!fullName || !email || !password) {
-      return this.showWarningMessage(
-        'All Fields are required',
-      );
+    if (!fullName || !email || !password) {
+      return this.showWarningMessage('All Fields are required');
     }
 
-    const data = {
+    const data: DataModel = {
       fullName,
       email,
       password,
     };
-    console.log('From Registeration form');
-    console.log(data);
+
+    this.authService.register(data).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err: string) => {
+        return this.showWarningMessage(err);
+      },
+      complete: () => {
+        this.router.navigate(['/']);
+      },
+    });
   }
 
   logIn() {
     const email = this.authForm.controls.email?.value;
     const password = this.authForm.controls.password?.value;
 
-    if(!email || !password) {
-      return this.showWarningMessage(
-        'All Fields are required',
-      );
+    if (!email || !password) {
+      return this.showWarningMessage('All Fields are required');
     }
 
-    const data = {
+    const data: DataModel = {
       email,
       password,
     };
-    console.log('From Login form');
+
     console.log(data);
   }
 
