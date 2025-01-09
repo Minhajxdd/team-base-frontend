@@ -6,3 +6,14 @@ export interface authFormTemplateModel {
   password: FormControl<string | null>;
   repassword?: FormControl<string | null>;
 }
+
+export interface RegisterResponseModel {
+	status: string;
+	message: string;
+	data: {
+		full_name: string;
+		email: string;
+		_id: string;
+	};
+	access_token: string
+}

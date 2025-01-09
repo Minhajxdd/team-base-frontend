@@ -6,7 +6,7 @@ import { authFormTemplateModel } from './auth-form.model';
 
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { AuthService } from '../../auth.service';
+import { AuthFormService } from './auth-form.service';
 import { DataModel } from './auth-form-component.model';
 
 @Component({
@@ -18,7 +18,7 @@ import { DataModel } from './auth-form-component.model';
 })
 export class AuthFormComponentComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(AuthFormService);
   private readonly router = inject(Router);
 
   isRegister: boolean = true;
@@ -93,14 +93,11 @@ export class AuthFormComponentComponent {
     };
 
     this.authService.register(data).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
       error: (err: string) => {
         return this.showWarningMessage(err);
       },
       complete: () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['register', 'verify']);
       },
     });
   }
