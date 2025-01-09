@@ -11,6 +11,7 @@ import { RegisterResponseModel } from './auth-form.model';
 })
 export class AuthFormService {
   private readonly http = inject(HttpClient);
+  private readonly authService = inject(AuthService);
 
   register(userData: DataModel) {
     return this.http
@@ -22,6 +23,25 @@ export class AuthFormService {
         }
       )
       .pipe(
+        catchError((err: HttpErrorResponse) => {
+          return throwError(() => err.error.message);
+        })
+      );
+  }
+
+  login(userData: DataModel) {
+    return this.http
+      .post<{ access_token: string }>(
+        `${environment.back_end}/auth/login`,
+        userData,
+        {
+          withCredentials: true,
+        }
+      )
+      .pipe(
+        tap((data) => {
+          this.authService.setAccessToken = data.access_token;
+        }),
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err.error.message);
         })

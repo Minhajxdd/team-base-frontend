@@ -115,7 +115,15 @@ export class AuthFormComponentComponent {
       password,
     };
 
-    console.log(data);
+    this.authService.login(data)
+    .subscribe({
+      error: (err: string) => {
+        return this.showWarningMessage(err);
+      },
+      complete: () => {
+        this.router.navigate(['']);
+      }
+    })
   }
 
   showWarningMessage(summary: string, detail: string = '') {
