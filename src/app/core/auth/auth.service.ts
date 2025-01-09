@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { DataModel } from './pages/auth-form-component/auth-form-component.model';
-import { catchError, throwError } from 'rxjs';
+import { of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +9,36 @@ import { catchError, throwError } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
 
-  register(userData: DataModel) {
+  private accessToken: string | null = null;
+
+  set setAccessToken(token: string) {
+    this.accessToken = token;
+  }
+
+  get getAccessToken() {
+    return this.accessToken;
+  }
+
+  refreshAccessToken() {
     return this.http
-      .post(environment.back_end + '/auth/register', userData)
+      .post<{ access_token: string }>(
+        `${environment.back_end}/auth/refresh`,
+        {},
+        { withCredentials: true }
+      )
       .pipe(
-        catchError((err: HttpErrorResponse) => {
-          return throwError( () => err.error.message);
-        })
+        tap((response) => {
+          this.setAccessToken = response.access_token;
+        }),
+        switchMap((response) => of(response.access_token))
       );
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.accessToken;
+  }
+
+  logout() {
+    this.accessToken = null;
   }
 }
