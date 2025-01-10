@@ -6,11 +6,10 @@ import { ThemeModeService } from './core/services/theme.service';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   constructor(private readonly themeModeService: ThemeModeService) {
     this.themeModeService.initializeTheme();
   }
-  
 }
