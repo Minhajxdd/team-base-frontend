@@ -14,7 +14,6 @@ export function TokenInterceptor(
     const cloned = req.clone({
       headers: req.headers.set(`Authorization`, `Bearer ${token}`),
     });
-    console.log(cloned);
     return next(cloned);
   }
   return next(req);
