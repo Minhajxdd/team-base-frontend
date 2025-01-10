@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { of, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
 
   private accessToken: string | null = null;
 
@@ -39,6 +41,16 @@ export class AuthService {
   }
 
   logout() {
-    this.accessToken = null;
+    return this.http
+      .post(
+        `${environment.back_end}/auth/logout`,
+        {},
+        { withCredentials: true }
+      )
+      .subscribe({
+        complete: () => {
+          (this.setAccessToken = ''), this.router.navigate(['login']);
+        },
+      });
   }
 }

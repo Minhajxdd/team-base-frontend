@@ -29,12 +29,6 @@ export class HomeComponent {
   }
 
   signOut() {
-    this.http.post(`${environment.back_end}/auth/logout`, {}, {withCredentials: true})
-    .subscribe({
-      complete: () => {
-        this.authService.setAccessToken = '';
-        this.router.navigate(['login']);
-      }
-    })
+    this.authService.logout();
   }
 }
