@@ -1,0 +1,53 @@
+<header class="shadow-lg py-4">
+  <div class="container mx-auto flex justify-between items-center px-6">
+    <h1 class="text-3xl font-bold" style="color: var(--accent-color)">
+      TeamBase
+    </h1>
+    <nav class="flex items-center space-x-6">
+      <ul class="flex space-x-6 text-lg"></ul>
+
+      @if (isDarkMode()) {
+      <div
+        (click)="onToggle()"
+        class="theme-toggle theme-toggle-dark mt-1 mr-3 flex justify-center align-center"
+      >
+        <i class="pi pi-sun text-black toggle-icon"></i>
+      </div>
+      } @else {
+      <div
+        (click)="onToggle()"
+        class="theme-toggle theme-toggle-light mt-1 mr-3 flex justify-center align-center"
+      >
+        <i class="pi pi-moon text-white toggle-icon"></i>
+      </div>
+
+      }
+
+      <!-- Profile Dropdown -->
+      <div class="relative">
+        <button
+          id="profileBtn"
+          class="flex items-center space-x-2 py-2 px-4 rounded-lg btn"
+        >
+          <img
+            src="https://via.placeholder.com/30"
+            alt="Profile"
+            class="w-8 h-8 rounded-full"
+          />
+          <span>username</span>
+        </button>
+        <div
+          id="profileDropdown"
+          class="absolute right-0 mt-2 w-48 bg-[#EEEEEE] text-[#222831] rounded-lg shadow-lg hidden dropdown-menu"
+        >
+          <a
+            href="/profile_edit.html"
+            class="block px-4 py-2 hover:bg-[#393E46]"
+            >Edit Profile</a
+          >
+          <a href="#" class="block px-4 py-2 hover:bg-[#393E46]">Log Out</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
