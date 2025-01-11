@@ -60,20 +60,21 @@
         <p class="text-gray-400">
           Didn't receive the code?
           <a
-            routerLink="/login"
-            class="text-indigo-400 hover:text-indigo-300 font-medium ml-1"
+            (click)="onResend()"
+            class="text-indigo-400 hover:text-indigo-300 font-medium ml-1 cursor-pointer"
             >Resend</a
           >
         </p>
 
         <p class="text-gray-400">
           Code expires in
-          <span class="text-indigo-400 mt-4">50:00</span>
+          <span class="text-indigo-400 mt-4">
+            {{ formattedTime() }}
+          </span>
         </p>
       </div>
     </div>
   </div>
 </div>
-
 
 <p-toast />

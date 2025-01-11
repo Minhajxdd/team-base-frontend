@@ -32,4 +32,18 @@ export class AuthOtpPageService {
         })
       );
   }
+
+  resend() {
+    return this.http
+      .post<{ message: String }>(
+        `${environment.back_end}/auth/register/resend`,
+        {},
+        { withCredentials: true }
+      )
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          return throwError(() => err.error.message);
+        })
+      );
+  }
 }
