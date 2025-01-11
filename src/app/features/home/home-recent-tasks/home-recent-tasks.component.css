@@ -1,0 +1,10 @@
+.btn {
+  background-color: var(--accent-color);
+}
+.btn:hover {
+  background-color: var(--hover-accent);
+}
+
+.box {
+  background-color: var(--bg-secondary);
+}

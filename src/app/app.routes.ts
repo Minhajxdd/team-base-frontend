@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './core/features/home/home.component';
 import { UserAuthGuard } from './core/guards/user.guard';
+import { HomeComponent } from './features/home/home.component';
 
 export const routes: Routes = [
   {
