@@ -87,14 +87,13 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
   }
 
   onResend() {
-    this.resetTimer();
-
     this.authOtpPageService.resend().subscribe({
       error: (err) => {
         return this.showMessage(err);
       },
       complete: () => {
         return this.showMessage('New Otp Send', 'success');
+        this.resetTimer();
       },
     });
   }
