@@ -10,11 +10,13 @@ import Aura from '@primeng/themes/aura';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { projectRoutes } from './features/project/project.routes';
+import { adminRoutes } from './features/admin/admin.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter([...authRoutes, ...routes]),
+    provideRouter([...authRoutes, ...routes, ...projectRoutes, ...adminRoutes]),
     provideHttpClient(withInterceptors([AuthInterceptor, TokenInterceptor])),
     provideAnimationsAsync(),
     providePrimeNG({

@@ -1,0 +1,54 @@
+<div id="container" class="flex items-center justify-center min-h-screen">
+  <div class="floating-card max-w-md w-full p-1 rounded-2xl shadow-2xl">
+    <div class="card-content rounded-2xl p-8">
+      <div class="text-center mb-4">
+        <h2
+          class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent"
+        >
+          Admin Login
+        </h2>
+      </div>
+
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="floating-input">
+          <input
+            formControlName="email"
+            type="email"
+            id="email"
+            placeholder=" "
+            class="text-gray-200"
+          />
+          <label for="email" class="text-gray-400">Your Email</label>
+        </div>
+
+        <div class="floating-input">
+          <input
+            formControlName="password"
+            type="password"
+            id="password"
+            placeholder=" "
+            class="text-gray-200"
+          />
+          <label for="password" class="text-gray-400">Password</label>
+        </div>
+
+        <button
+          type="submit"
+          class="glowing relative w-full rounded-lg overflow-hidden group"
+        >
+          <div
+            class="relative px-4 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-medium group-hover:opacity-90 transition-all duration-300 transform group-hover:scale-105"
+          >
+            Log In
+            <span
+              class="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >→</span
+            >
+          </div>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-toast />
