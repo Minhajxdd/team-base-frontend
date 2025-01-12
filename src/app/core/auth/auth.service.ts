@@ -6,6 +6,7 @@ import { of, switchMap, tap } from 'rxjs';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 import { environment } from '../../../environments/environment.development';
+import { JwtStructure } from './models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,14 +40,12 @@ export class AuthService {
       );
   }
 
-  isAuthenticated(): boolean {
-    return !!this.accessToken;
-  }
-
   getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    const match = document.cookie.match(
+      new RegExp('(^| )' + name + '=([^;]+)')
+    );
     return match ? decodeURIComponent(match[2]) : null;
-  }  
+  }
 
   logout() {
     return this.http
@@ -64,17 +63,33 @@ export class AuthService {
 
   private getDecodedAccessToken(token: string) {
     try {
-      return jwtDecode(token);
+      return jwtDecode<JwtStructure>(token);
     } catch (err) {
       return null;
     }
   }
 
-  userInProject(projectId: any ){
-    if(this.accessToken) {
-      return this.getDecodedAccessToken(this.accessToken);
-    
+  userInProject(projectId: any) {
+    let accesstToken = this.getCookie('access_token');
+    if (accesstToken) {
+      return this.getDecodedAccessToken(accesstToken);
     }
     return null;
+  }
+
+  whatIsRole() {
+    const accessToken = this.getCookie('access_token');
+    if (accessToken) {
+      return this.getDecodedAccessToken(accessToken)?.isAdmin;
+    }
+    return null;
+  }
+
+  isUser(): boolean {
+    const accessToken = this.getCookie('access_token');
+    if (accessToken) {
+      return !this.getDecodedAccessToken(accessToken)?.isAdmin;
+    }
+    return false;
   }
 }

@@ -18,13 +18,13 @@ export class UserAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
-    let isAuthenticated = this.authService.isAuthenticated();
+    let isAuthenticated = this.authService.isUser();
 
     if (!isAuthenticated) {
       try {
         await this.authService.refreshAccessToken().toPromise();
 
-        isAuthenticated = this.authService.isAuthenticated();
+        isAuthenticated = this.authService.isUser();
 
         if (!isAuthenticated) {
           this.router.navigate(['login']);
