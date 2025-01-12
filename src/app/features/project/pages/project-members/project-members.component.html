@@ -1,0 +1,88 @@
+<app-project-nav-bar>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Team Members</h1>
+
+      <div class="flex gap-2">
+        <button
+          type="button"
+          style="padding: 0 10px;"
+          class="text-white bg-gradient-to-r p-3 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
+        >
+          Add Member
+        </button>
+        <select class="role-filter" id="roleFilter">
+          <option value="all">All Roles</option>
+          <option value="project_manager">Project Manager</option>
+          <option value="developer">Developer</option>
+          <option value="designer">Designer</option>
+          <option value="qa_engineer">QA Engineer</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- <div class="team-grid" id="teamGrid"></div> -->
+
+    <div class="container">
+      <div class="cards-grid">
+        @for (profile of profiles; track profile.email) {
+        <div class="card">
+          <div class="profile-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+          <div class="profile-info">
+            <h3 class="name">{{ profile.name }}</h3>
+            <p class="email">{{ profile.email }}</p>
+            <span class="role">{{ profile.role }}</span>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+</app-project-nav-bar>
+
+
+
+
+
+<!-- <p-dialog
+  header="Create Project"
+  [(visible)]="isVisible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+>
+  <form [formGroup]="formGroup">
+    <div class="flex items-center gap-4 mb-4">
+      <label for="username" class="font-semibold w-24">Title</label>
+      <input 
+      formControlName="title"
+      pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+
+    <div class="flex items-center gap-4 mb-8">
+      <label for="description" class="font-semibold w-24">Description</label>
+      <textarea
+      formControlName="description"
+        pTextarea
+        pSize="small"
+        id="description"
+        cols="25"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <p-button (onClick)="formToggle()" label="Cancel" severity="secondary" />
+      <p-button (onClick)="onSubmit()" label="Save" />
+    </div>
+  </form>
+</p-dialog>
+
+
+<p-toast /> -->

@@ -1,0 +1,137 @@
+<!-- navbar -->
+<nav class="navbar">
+  <div class="logo_item">
+    <i class="bx bx-menu" id="sidebarOpen"></i>
+    <i> <img src="assets/images/team_base_logo.png" alt="" /></i>Team Base
+  </div>
+
+  <div class="navbar_content">
+    <i class="bi bi-grid"></i>
+
+    @if (isDarkMode()) {
+    <div
+      (click)="onToggle()"
+      class="theme-toggle theme-toggle-dark mt-1 mr-3 flex justify-center align-center"
+    >
+      <i class="pi pi-sun text-black toggle-icon"></i>
+    </div>
+    } @else {
+    <div
+      (click)="onToggle()"
+      class="theme-toggle theme-toggle-light mt-1 mr-3 flex justify-center align-center"
+    >
+      <i class="pi pi-moon text-black toggle-icon"></i>
+    </div>
+
+    }
+
+    <i class="bx bx-bell"></i>
+    <img src="images/profile.jpg" alt="" class="profile" />
+  </div>
+</nav>
+
+<div style="display: flex">
+  <!-- sidebar -->
+  <nav [ngClass]="{ close: toggleSideBar() }" class="sidebar">
+    <div class="menu_content">
+      <ul class="menu_items">
+        <!-- <div class="menu_title menu_dahsboard"></div> -->
+        <!-- start -->
+
+        <div class="flex flex-col gap-2">
+          <div
+            [routerLink]="['/project', projectId(), 'dashboard']"
+            class="flex items-center justify-start gap-3 px-6 py-4 cursor-pointer border rounded-md hover:shadow-md transition duration-200"
+            style="height: 40px"
+          >
+            <div style="margin-left: 10px">
+              <i class="pi pi-objects-column text-base"></i>
+            </div>
+
+            <span class="text-lg font-medium"> Dasboard </span>
+          </div>
+
+          <div
+            class="flex items-center justify-start gap-3 px-6 py-4 cursor-pointer border rounded-md hover:shadow-md transition duration-200"
+            style="height: 40px"
+          >
+            <div style="margin-left: 10px">
+              <i class="pi pi-objects-column text-base"></i>
+            </div>
+
+            <span class="text-lg font-medium"> Tasks </span>
+
+            <!-- <i class="pi pi-angle-right text-base"></i> -->
+          </div>
+
+          <div
+            class="flex items-center justify-start gap-3 px-6 py-4 cursor-pointer border rounded-md hover:shadow-md transition duration-200"
+            style="height: 40px"
+          >
+            <div style="margin-left: 10px">
+              <i class="pi pi-objects-column text-base"></i>
+            </div>
+
+            <span class="text-lg font-medium"> Tasks </span>
+
+            <!-- <i class="pi pi-angle-right text-base"></i> -->
+          </div>
+
+          <div
+            [routerLink]="['/project', projectId(), 'members']"
+            class="flex items-center justify-start gap-3 px-6 py-4 cursor-pointer border rounded-md hover:shadow-md transition duration-200"
+            style="height: 40px"
+          >
+            <div style="margin-left: 10px">
+              <i class="pi pi-objects-column text-base"></i>
+            </div>
+
+            <span class="text-lg font-medium"> Members </span>
+
+            <!-- <i class="pi pi-angle-right text-base"></i> -->
+          </div>
+        </div>
+
+        <!-- <div class="nav_link submenu_item sidenav_box flex items-center justify-center">
+          <span class="navlink_icon">
+            <i class="pi pi-chart-pie arrow-left text-xs ml-3"></i>
+          </span>
+          <span class="navlink">Dashboard</span>
+          <i class="pi pi-angle-right arrow-left text-xs ml-3"></i>
+        </div> -->
+
+        <ul class="menu_items submenu">
+          <a href="#" class="nav_link sublink">Nav Sub Link</a>
+          <a href="#" class="nav_link sublink">Nav Sub Link</a>
+          <a href="#" class="nav_link sublink">Nav Sub Link</a>
+          <a href="#" class="nav_link sublink">Nav Sub Link</a>
+        </ul>
+      </ul>
+
+      <!-- Sidebar Open / Close -->
+      <div class="bottom_content">
+        <div class="bottom expand_sidebar">
+          <span> Expand</span>
+          <i class="bx bx-log-in"></i>
+        </div>
+        <div (click)="onToggleSideBar()" class="bottom collapse_sidebar">
+          <span> Collapse</span>
+          <i class="bx bx-log-out"></i>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div
+    style="
+      width: 100%;
+      height: vh;
+      background-color: #393E46;
+      border: 0.5px solid white;
+      margin-top: 78px;
+      padding: 10px;
+    "
+  >
+    <ng-content></ng-content>
+  </div>
+</div>
