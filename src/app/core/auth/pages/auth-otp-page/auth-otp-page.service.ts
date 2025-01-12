@@ -25,12 +25,19 @@ export class AuthOtpPageService {
       )
       .pipe(
         tap((data) => {
-          this.authService.setAccessToken = data.access_token;
+          this.authService.setAccessToken = this.getCookie('access_token');
         }),
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err.error.message);
         })
       );
+  }
+
+  getCookie(name: string): string | null {
+    const match = document.cookie.match(
+      new RegExp('(^| )' + name + '=([^;]+)')
+    );
+    return match ? decodeURIComponent(match[2]) : null;
   }
 
   resend() {
