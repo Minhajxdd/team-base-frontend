@@ -1,6 +1,6 @@
 declare var google: any;
 
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
@@ -24,15 +24,20 @@ export class AuthFormComponentComponent implements OnInit {
   private readonly authService = inject(AuthFormService);
   private readonly router = inject(Router);
   private readonly googleAuthService = inject(GoogleAuthService);
+  private readonly destoryRef = inject(DestroyRef);
 
   isRegister: boolean = true;
   authForm!: FormGroup<authFormTemplateModel>;
 
   constructor(private fb: FormBuilder, private messageService: MessageService) {
-    this.route.url.subscribe((url) => {
+    const subscription = this.route.url.subscribe((url) => {
       const path = url[0].path;
       this.isRegister = path === 'register';
       this.authForm = this.fb.group(getAuthFormTemplate(this.isRegister));
+    });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 
@@ -140,13 +145,17 @@ export class AuthFormComponentComponent implements OnInit {
       password,
     };
 
-    this.authService.register(data).subscribe({
+    const subscription = this.authService.register(data).subscribe({
       error: (err: string) => {
         return this.showWarningMessage(err);
       },
       complete: () => {
         this.router.navigate(['register', 'verify']);
       },
+    });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 
@@ -163,13 +172,17 @@ export class AuthFormComponentComponent implements OnInit {
       password,
     };
 
-    this.authService.login(data).subscribe({
+    const subscription = this.authService.login(data).subscribe({
       error: (err: string) => {
         return this.showWarningMessage(err);
       },
       complete: () => {
         this.router.navigate(['']);
       },
+    });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 

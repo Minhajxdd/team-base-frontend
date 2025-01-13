@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { authAdminFormTemplate } from './auth-admin-login.template';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Toast } from 'primeng/toast';
@@ -19,6 +19,7 @@ export class AuthAdminLoginPageComponent {
   private messageService = inject(MessageService);
   private authService = inject(AuthAdminFormService);
   private router = inject(Router);
+  private destoryRef = inject(DestroyRef);
 
   authForm: FormGroup<authFormTemplateModel>;
 
@@ -59,7 +60,7 @@ export class AuthAdminLoginPageComponent {
 
     let sucessFullyLogged = false;
 
-    this.authService.login(data).subscribe({
+    const subscription = this.authService.login(data).subscribe({
       next:(data: any) => {
         if(!data.isAdmin) {
           return this.showWarningMessage('No Admin Found!');
@@ -76,6 +77,11 @@ export class AuthAdminLoginPageComponent {
         }
       },
     });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
+
   }
 
   propertyIsValid(propertyName: keyof typeof this.authForm.controls) {

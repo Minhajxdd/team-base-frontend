@@ -1,75 +1,78 @@
 #container {
-    background-color: black !important;
+  background-color: black !important;
 }
 
 input:-webkit-autofill:focus {
-    background-color: black !important;
-    box-shadow: 0 0 0 30px black inset !important;
+  background-color: black !important;
+  box-shadow: 0 0 0 30px black inset !important;
 }
 
 input:-webkit-autofill {
-    background-color: black !important;
-    box-shadow: 0 0 0 30px black inset !important;
+  background-color: black !important;
+  box-shadow: 0 0 0 30px black inset !important;
 }
 
-
 .floating-card {
-    background: linear-gradient(145deg, #2d2f39, #1a1b23);
+  background: linear-gradient(145deg, #2d2f39, #1a1b23);
 }
 
 .glowing {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .glowing::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, #6366f1, #3b82f6, #06b6d4);
-    animation: glowingBorder 3s linear infinite;
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #6366f1, #3b82f6, #06b6d4);
+  animation: glowingBorder 3s linear infinite;
 }
 
 @keyframes glowingBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .card-content {
-    background: #1a1b23;
-    position: relative;
-    z-index: 1;
+  background: #1a1b23;
+  position: relative;
+  z-index: 1;
 }
 
 .floating-input {
-    position: relative;
-    margin-bottom: 2rem;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .floating-input input {
-    width: 100%;
-    padding: 1rem;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #4b5563;
-    outline: none;
-    transition: all 0.3s ease;
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #4b5563;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 .floating-input label {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    transition: all 0.3s ease;
-    pointer-events: none;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .floating-input input:focus + label,
 .floating-input input:not(:placeholder-shown) + label {
-    top: -0.5rem;
-    left: 0;
-    font-size: 0.875rem;
-    color: #6366f1;
+  top: -0.5rem;
+  left: 0;
+  font-size: 0.875rem;
+  color: #6366f1;
 }
 
