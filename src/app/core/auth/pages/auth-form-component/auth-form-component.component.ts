@@ -1,13 +1,16 @@
+declare var google: any;
+
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
-import { authFormTemplateModel } from './auth-form.model';
+import { authFormTemplateModel, googleData } from './auth-form.model';
 
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthFormService } from './auth-form.service';
 import { DataModel } from './auth-form-component.model';
+import { GoogleAuthService } from '../../services/auth.google.service';
 
 @Component({
   selector: 'app-auth-form-component',
@@ -16,10 +19,11 @@ import { DataModel } from './auth-form-component.model';
   styleUrl: './auth-form-component.component.css',
   providers: [MessageService],
 })
-export class AuthFormComponentComponent {
+export class AuthFormComponentComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthFormService);
   private readonly router = inject(Router);
+  private readonly googleAuthService = inject(GoogleAuthService);
 
   isRegister: boolean = true;
   authForm!: FormGroup<authFormTemplateModel>;
@@ -32,6 +36,50 @@ export class AuthFormComponentComponent {
     });
   }
 
+  // Google Auth
+  ngOnInit(): void {
+    google.accounts.id.initialize({
+      client_id:
+        '137833444543-cfdelosuq0llrqo8sps3ef4khrn58jd7.apps.googleusercontent.com',
+      callback: (resp: any) => this.handleLogin(resp),
+    });
+
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'filled_blue',
+      size: 'large',
+      shape: 'rectangle',
+      width: 360,
+    });
+  }
+
+  private decodeToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  handleLogin(response: any) {
+    if (response) {
+      //decode the token
+      const payLoad: googleData = this.decodeToken(response.credential);
+      // emitting
+      this.googleAuthService
+        .googleLogin({
+          email: payLoad.email,
+          fullName: payLoad.name,
+          jetId: payLoad.jetId,
+          picture: payLoad.picture,
+        })
+        .subscribe({
+          error: (err: string) => {
+            return this.showWarningMessage(err);
+          },
+          complete: () => {
+            this.router.navigate(['']);
+          },
+        });
+    }
+  }
+
+  // Register & Signup Logic
   onSubmit() {
     if (this.propertyIsValid('fullname')) {
       return this.showWarningMessage(
@@ -115,15 +163,14 @@ export class AuthFormComponentComponent {
       password,
     };
 
-    this.authService.login(data)
-    .subscribe({
+    this.authService.login(data).subscribe({
       error: (err: string) => {
         return this.showWarningMessage(err);
       },
       complete: () => {
         this.router.navigate(['']);
-      }
-    })
+      },
+    });
   }
 
   showWarningMessage(summary: string, detail: string = '') {

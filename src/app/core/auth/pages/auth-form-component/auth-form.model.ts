@@ -8,12 +8,19 @@ export interface authFormTemplateModel {
 }
 
 export interface RegisterResponseModel {
-	status: string;
-	message: string;
-	data: {
-		full_name: string;
-		email: string;
-		_id: string;
-	};
-	access_token: string
+  status: string;
+  message: string;
+  data: {
+    full_name: string;
+    email: string;
+    _id: string;
+  };
+  access_token: string;
+}
+
+export interface googleData {
+  email: string;
+  name: string;
+  jetId?: string;
+  picture?: string;
 }
