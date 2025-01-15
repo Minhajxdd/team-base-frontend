@@ -4,13 +4,17 @@
       <h1 class="title">Team Members</h1>
 
       <div class="flex gap-2">
+        @if (role() === 'project_manager') {
         <button
+          (click)="formToggle()"
           type="button"
-          style="padding: 0 10px;"
-          class="text-white bg-gradient-to-r p-3 from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
+          style="padding: 0 10px"
+          class="text-white bg-gradient-to-r p-3 from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
         >
-          Add Member
+          + Add Member
         </button>
+        }
+
         <select class="role-filter" id="roleFilter">
           <option value="all">All Roles</option>
           <option value="project_manager">Project Manager</option>
@@ -35,7 +39,7 @@
             </svg>
           </div>
           <div class="profile-info">
-            <h3 class="name">{{ profile.name }}</h3>
+            <h3 class="name text-white">{{ profile.name }}</h3>
             <p class="email">{{ profile.email }}</p>
             <span class="role">{{ profile.role }}</span>
           </div>
@@ -45,44 +49,65 @@
     </div>
   </div>
 
+  <p-dialog
+    header="Add Members"
+    [(visible)]="isVisible"
+    [modal]="true"
+    [style]="{ width: '20rem' }"
+    [contentStyle]="{ padding: '2rem' }"
+    [closable]="false"
+  >
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      <!-- Form Content -->
+      <div class="p-fluid">
+        <!-- User Field -->
+        <div class="p-field mb-4">
+          <label for="user" class="block text-lg font-medium mb-2">User</label>
+          <p-autoComplete
+            [(ngModel)]="selectedUser"
+            [suggestions]="filteredUsers"
+            (completeMethod)="searchUsers($event)"
+            field="name"
+            [minLength]="1"
+            name="user"
+            id="user"
+            placeholder="Search for a user"
+          >
+          </p-autoComplete>
+        </div>
+
+        <!-- Role Dropdown -->
+        <div class="p-field mb-6" style="width: 240px">
+          <label for="role" class="block text-lg font-large mb-2">Role</label>
+          <p-dropdown
+            [(ngModel)]="selectedRole"
+            [options]="roles"
+            optionLabel="label"
+            name="role"
+            id="role"
+            placeholder="Select a role"
+          >
+          </p-dropdown>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-4">
+          <p-button
+            type="button"
+            (onClick)="formToggle()"
+            label="Cancel"
+            severity="secondary"
+            class="p-button-text"
+          ></p-button>
+          <p-button
+            type="submit"
+            label="Save"
+            class="p-button-success"
+          ></p-button>
+        </div>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-toast />
 </app-project-nav-bar>
-
-
-
-
-
-<!-- <p-dialog
-  header="Create Project"
-  [(visible)]="isVisible"
-  [modal]="true"
-  [style]="{ width: '25rem' }"
->
-  <form [formGroup]="formGroup">
-    <div class="flex items-center gap-4 mb-4">
-      <label for="username" class="font-semibold w-24">Title</label>
-      <input 
-      formControlName="title"
-      pInputText id="username" class="flex-auto" autocomplete="off" />
-    </div>
-
-    <div class="flex items-center gap-4 mb-8">
-      <label for="description" class="font-semibold w-24">Description</label>
-      <textarea
-      formControlName="description"
-        pTextarea
-        pSize="small"
-        id="description"
-        cols="25"
-        rows="3"
-      ></textarea>
-    </div>
-
-    <div class="flex justify-end gap-2">
-      <p-button (onClick)="formToggle()" label="Cancel" severity="secondary" />
-      <p-button (onClick)="onSubmit()" label="Save" />
-    </div>
-  </form>
-</p-dialog>
-
-
-<p-toast /> -->

@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { getLocaleMonthNames, NgClass } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -15,19 +15,29 @@ export class ProjectNavBarComponent implements OnInit {
 
   projectId = signal<null | string>(null);
 
+  isToggled = signal(true);
+  isProfileToggled = signal(false);
+
   ngOnInit() {
     this.projectId.set(this.route.snapshot.params['projectId']);
+
+    if (localStorage.getItem('side_bar_opened') === 'true') {
+      this.isToggled.set(true);
+    } else {
+      this.isToggled.set(false);
+    }
   }
 
-  isDarkMode = this.themeService.$isDarkMode;
-
-  toggleSideBar = signal(false);
-
-  onToggleSideBar() {
-    this.toggleSideBar.set(!this.toggleSideBar());
+  toggle() {
+    this.isToggled = signal(!this.isToggled());
+    localStorage.setItem('side_bar_opened', String(this.isToggled()));
   }
 
-  onToggle() {
+  toggleProfile() {
+    this.isProfileToggled.set(!this.isProfileToggled());
+  }
+
+  onThemeToggle() {
     this.themeService.toggle();
   }
 }

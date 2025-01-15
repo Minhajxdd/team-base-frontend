@@ -7,7 +7,7 @@ import { NavBarTypeModel } from './navbar.model';
   providedIn: 'root',
 })
 export class NavBarService {
-  unProtectedRoutes = ['/login', '/register'];
+  unProtectedRoutes = ['/login', '/register', '/reset-password'];
 
   navBar(events: Observable<any>): Observable<NavBarTypeModel> {
     return events.pipe(

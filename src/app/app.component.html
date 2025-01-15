@@ -1,7 +1,9 @@
 @switch (navbarType()) {
     @case ('user') {
         <app-user-navbar></app-user-navbar>
+        <router-outlet />
+    }
+    @default {
+        <router-outlet />
     }
 }
-
-<router-outlet />

@@ -206,3 +206,11 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
 }
+
+.p-component {
+  width: 255px;
+}
+
+p-dropdown > .p-autocomplete-input {
+  width: 285px !important;
+}
