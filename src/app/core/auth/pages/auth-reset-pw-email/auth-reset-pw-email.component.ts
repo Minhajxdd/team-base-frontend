@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -24,7 +24,8 @@ export class AuthResetPwEmailComponent {
     private messageService: MessageService,
     private fb: FormBuilder,
     private authResetPwEmailService: AuthResetPwEmailService,
-    private router: Router
+    private router: Router,
+    private destroyRef: DestroyRef
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -35,7 +36,7 @@ export class AuthResetPwEmailComponent {
     if (this.form.valid) {
       const email = this.form.value.email;
 
-      this.authResetPwEmailService.sendEmail(email).subscribe({
+      const subscription = this.authResetPwEmailService.sendEmail(email).subscribe({
         error: (err) => {
           this.showWarningMessage(err);
         },
@@ -43,6 +44,12 @@ export class AuthResetPwEmailComponent {
           this.router.navigate(['reset-password', 'verify']);
         },
       });
+
+
+      this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+      })
+
     } else {
       return this.showWarningMessage(`Please fill in the required fields`);
     }

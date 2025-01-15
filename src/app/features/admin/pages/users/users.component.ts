@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, signal } from '@angular/core';
 import { AdminNavbarComponent } from '../../../../shared/components/navbar/admin-navbar/admin-navbar.component';
 import { UserComponentService } from './user.component.service';
 import { UserListComponent } from './user-list/user-list.component';
@@ -11,15 +11,22 @@ import { User } from './user.model';
   styleUrl: './users.component.css',
 })
 export class UsersComponent implements OnInit {
-  constructor(private userComponentService: UserComponentService) {}
+  constructor(
+    private userComponentService: UserComponentService,
+    private destoryRef: DestroyRef
+  ) {}
 
   usersData = signal<User[] | []>([]);
 
   ngOnInit(): void {
-    this.userComponentService.getUser().subscribe({
+    const subscription = this.userComponentService.getUser().subscribe({
       next: (data: User[]) => {
         this.usersData.set(data);
       },
+    });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 }

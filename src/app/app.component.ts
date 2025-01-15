@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, DestroyRef, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ThemeModeService } from './core/services/theme.service';
 import { NavBarService } from './shared/components/navbar/navbar.service';
@@ -16,13 +16,20 @@ export class AppComponent {
   constructor(
     private readonly themeModeService: ThemeModeService,
     private readonly router: Router,
-    private readonly navbarService: NavBarService
+    private readonly navbarService: NavBarService,
+    private readonly destroyRef: DestroyRef
   ) {
     // Initializing themes
     this.themeModeService.initializeTheme();
 
-    this.navbarService.navBar(this.router.events).subscribe((type) => {
-      this.navbarType.set(type);
+    const subscription = this.navbarService
+      .navBar(this.router.events)
+      .subscribe((type) => {
+        this.navbarType.set(type);
+      });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 }

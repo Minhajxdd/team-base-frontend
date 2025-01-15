@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, input, OnInit, signal } from '@angular/core';
 import { User } from '../user.model';
 import { AdminUserService } from '../admin.users.service';
 
@@ -9,7 +9,10 @@ import { AdminUserService } from '../admin.users.service';
   styleUrl: './user-list.component.css',
 })
 export class UserListComponent implements OnInit {
-  constructor(private adminUserService: AdminUserService) {}
+  constructor(
+    private adminUserService: AdminUserService,
+    private destoryRef: DestroyRef
+  ) {}
 
   user = input.required<User>();
 
@@ -20,10 +23,16 @@ export class UserListComponent implements OnInit {
   }
 
   onToggleBlock() {
-    this.adminUserService.updateUserBlockStatus(this.user()._id).subscribe({
-      complete: () => {
-        this.isBlocked.set(!this.isBlocked());
-      },
+    const subscription = this.adminUserService
+      .updateUserBlockStatus(this.user()._id)
+      .subscribe({
+        complete: () => {
+          this.isBlocked.set(!this.isBlocked());
+        },
+      });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 }

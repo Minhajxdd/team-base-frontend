@@ -1,4 +1,11 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +27,7 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
   private authOtpPageService = inject(AuthOtpPageService);
   private router = inject(Router);
+  private destoryRef = inject(DestroyRef);
 
   timeLeft = signal<number>(300);
   timer: any;
@@ -65,7 +73,7 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
     sessionStorage.setItem('timeLeft', this.timeLeft().toString());
   }
 
-  get formattedTime(){
+  get formattedTime() {
     const date = new Date(0);
     date.setSeconds(this.timeLeft());
     return signal(date.toISOString().substr(14, 5));
@@ -76,7 +84,7 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
       return this.showMessage(`Otp Include 4 Numbers`);
     }
 
-    this.authOtpPageService.verify(this.value).subscribe({
+    const subscription = this.authOtpPageService.verify(this.value).subscribe({
       error: (err) => {
         return this.showMessage(err);
       },
@@ -84,10 +92,14 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
         return this.router.navigate(['/']);
       },
     });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 
   onResend() {
-    this.authOtpPageService.resend().subscribe({
+    const subscription = this.authOtpPageService.resend().subscribe({
       error: (err) => {
         return this.showMessage(err);
       },
@@ -95,6 +107,10 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
         return this.showMessage('New Otp Send', 'success');
         this.resetTimer();
       },
+    });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 

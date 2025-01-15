@@ -66,7 +66,7 @@ export class AuthFormComponentComponent implements OnInit {
       //decode the token
       const payLoad: googleData = this.decodeToken(response.credential);
       // emitting
-      this.googleAuthService
+      const subscription = this.googleAuthService
         .googleLogin({
           email: payLoad.email,
           fullName: payLoad.name,
@@ -81,6 +81,11 @@ export class AuthFormComponentComponent implements OnInit {
             this.router.navigate(['']);
           },
         });
+
+        this.destoryRef.onDestroy(() => {
+          subscription.unsubscribe();
+        })
+
     }
   }
 

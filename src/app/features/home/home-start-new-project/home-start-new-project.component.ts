@@ -1,4 +1,10 @@
-import { Component, inject, Injectable, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Injectable,
+  signal,
+} from '@angular/core';
 
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -32,6 +38,7 @@ export class HomeStartNewProjectComponent {
     HomeStartNewProjectService
   );
   private homeComponentService = inject(HomeComponentService);
+  private destoryRef = inject(DestroyRef);
 
   isVisible = false;
   value1 = '';
@@ -51,23 +58,27 @@ export class HomeStartNewProjectComponent {
         return this.showWarningMessage('Invalid Input');
       }
 
-      this.homeStartNewProjectService
+      const subscription = this.homeStartNewProjectService
         .createProject({
           name,
           description,
         })
         .subscribe({
           error: (err) => {
-            console.log(err)
+            console.log(err);
             return this.showWarningMessage('Something Went Wrong');
           },
           complete: () => {
             this.isVisible = false;
           },
           next: (data) => {
-            this.homeComponentService.pushValues(data.data)
-          }
+            this.homeComponentService.pushValues(data.data);
+          },
         });
+
+      this.destoryRef.onDestroy(() => {
+        subscription.unsubscribe();
+      });
     } else {
       const titleErrors = this.formGroup.get('title')?.errors;
       const descriptionErrors = this.formGroup.get('description')?.errors;

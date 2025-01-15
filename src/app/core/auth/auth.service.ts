@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { of, switchMap, tap } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { JwtStructure } from './models/auth.model';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   private accessToken: string | null = null;
 
@@ -48,7 +49,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.http
+    const subscription = this.http
       .post(
         `${environment.back_end}/auth/logout`,
         {},
@@ -59,6 +60,10 @@ export class AuthService {
           (this.setAccessToken = ''), this.router.navigate(['login']);
         },
       });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
   }
 
   private getDecodedAccessToken(token: string) {

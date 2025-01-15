@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ export class AuthResetVerifyComponent {
   private messageService = inject(MessageService);
   private authResetVerifyService = inject(AuthResetVerifyService);
   private router = inject(Router);
+  private destoryRef = inject(DestroyRef);
 
   ngOnInit(): void {}
 
@@ -28,7 +29,7 @@ export class AuthResetVerifyComponent {
       return this.showMessage(`Otp Include 4 Numbers`);
     }
 
-    this.authResetVerifyService.sendOtp(this.value).subscribe({
+    const subscription = this.authResetVerifyService.sendOtp(this.value).subscribe({
       error: (err) => {
         return this.showMessage(err);
       },
@@ -36,6 +37,11 @@ export class AuthResetVerifyComponent {
         this.router.navigate(['reset-password', 'change']);
       },
     });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
+
   }
 
   showMessage(message: string, severity = 'error') {

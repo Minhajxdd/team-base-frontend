@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { HomeYourProjectsService } from './home-your-projects.component.service';
 import { ProjectBoxComponent } from './project-box/project-box.component';
 import { Skeleton } from 'primeng/skeleton';
@@ -14,6 +14,7 @@ import { HomeComponentService } from '../home-component.service';
 export class HomeYourProjectsComponent {
   private readonly homeYourProjectsService = inject(HomeYourProjectsService);
   private homeComponentService = inject(HomeComponentService);
+  private destroyRef = inject(DestroyRef);
 
   allProjectDetails = this.homeComponentService.allProjectDetails;
   isLoading = signal<boolean>(true);
@@ -23,14 +24,20 @@ export class HomeYourProjectsComponent {
   }
 
   getAllProjects() {
-    this.homeYourProjectsService.getProjectDetails().subscribe({
-      next: (data) => {
-        this.homeComponentService.allProjectDetails.set(data.data.projects);
-        console.log(this.allProjectDetails)
-      },
-      complete: () => {
-        this.isLoading.set(false);
-      },
+    const subscription = this.homeYourProjectsService
+      .getProjectDetails()
+      .subscribe({
+        next: (data) => {
+          this.homeComponentService.allProjectDetails.set(data.data.projects);
+          console.log(this.allProjectDetails);
+        },
+        complete: () => {
+          this.isLoading.set(false);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
     });
   }
 }
