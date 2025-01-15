@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
-import { googleData } from '../pages/auth-form-component/auth-form.model';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +27,6 @@ export class GoogleAuthService {
         withCredentials: true,
       })
       .pipe(
-        tap((data) => {
-          this.authService.setAccessToken = this.getCookie('access_token');
-        }),
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err.error.message);
         })

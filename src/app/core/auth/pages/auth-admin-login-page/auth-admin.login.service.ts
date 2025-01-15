@@ -22,9 +22,6 @@ export class AuthAdminFormService {
         }
       )
       .pipe(
-        tap((data) => {
-          this.authService.setAccessToken = this.getCookie('access_token');
-        }),
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err.error.message);
         })

@@ -11,7 +11,7 @@
           style="padding: 0 10px"
           class="text-white bg-gradient-to-r p-3 from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
         >
-          + Add Member
+          + Invite Member
         </button>
         }
 
@@ -50,62 +50,73 @@
   </div>
 
   <p-dialog
-    header="Add Members"
+    header="Invite Member"
     [(visible)]="isVisible"
     [modal]="true"
     [style]="{ width: '20rem' }"
-    [contentStyle]="{ padding: '2rem' }"
+    [contentStyle]="{
+      padding: '2rem',
+      height: '20rem'
+    }"
     [closable]="false"
   >
     <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-      <!-- Form Content -->
       <div class="p-fluid">
-        <!-- User Field -->
         <div class="p-field mb-4">
-          <label for="user" class="block text-lg font-medium mb-2">User</label>
-          <p-autoComplete
-            [(ngModel)]="selectedUser"
-            [suggestions]="filteredUsers"
-            (completeMethod)="searchUsers($event)"
-            field="name"
-            [minLength]="1"
-            name="user"
-            id="user"
-            placeholder="Search for a user"
-          >
-          </p-autoComplete>
+
+          <div class="flex gap-3 flex-col" style="margin-top: -30px">
+            <label for="email-add" class="block text-lg font-medium mb-2"
+              >Email</label
+            >
+            <p-autocomplete
+              id="email-add"
+              [(ngModel)]="selectedItem"
+              [suggestions]="filteredItems"
+              (completeMethod)="search($event)"
+              delay="300"
+              placeholder="Search..."
+              size="large"
+            />
+          </div>
+
+          <div class="p-field mb-6 flex gap-3 flex-col" style="width: 240px; margin-top: 1.2rem">
+            <label for="role" class="block text-lg font-large mb-2">Role</label>
+
+            <p-dropdown
+              [(ngModel)]="selectedRole"
+              [options]="roles"
+              optionLabel="label"
+              name="role"
+              id="role"
+              placeholder="Select a role"
+              size="large"
+              [style]="{
+              width: '253px',
+            }"
+            >
+            </p-dropdown>
+          </div>
+
+          <div class="flex justify-end gap-4" style="margin-top: 1.5rem;">
+            <p-button
+              type="button"
+              (onClick)="formToggle()"
+              label="Cancel"
+              severity="secondary"
+              class="p-button-text"
+            ></p-button>
+            <p-button
+              type="submit"
+              label="Save"
+              class="p-button-success"
+            ></p-button>
+          </div>
+
+
         </div>
 
-        <!-- Role Dropdown -->
-        <div class="p-field mb-6" style="width: 240px">
-          <label for="role" class="block text-lg font-large mb-2">Role</label>
-          <p-dropdown
-            [(ngModel)]="selectedRole"
-            [options]="roles"
-            optionLabel="label"
-            name="role"
-            id="role"
-            placeholder="Select a role"
-          >
-          </p-dropdown>
-        </div>
-
-        <!-- Buttons -->
-        <div class="flex justify-end gap-4">
-          <p-button
-            type="button"
-            (onClick)="formToggle()"
-            label="Cancel"
-            severity="secondary"
-            class="p-button-text"
-          ></p-button>
-          <p-button
-            type="submit"
-            label="Save"
-            class="p-button-success"
-          ></p-button>
-        </div>
       </div>
+
     </form>
   </p-dialog>
 

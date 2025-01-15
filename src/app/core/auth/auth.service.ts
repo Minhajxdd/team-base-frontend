@@ -16,16 +16,6 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
-  private accessToken: string | null = null;
-
-  set setAccessToken(token: string | null) {
-    this.accessToken = token;
-  }
-
-  get getAccessToken() {
-    return this.accessToken;
-  }
-
   refreshAccessToken() {
     return this.http
       .post<{ access_token: string }>(
@@ -35,7 +25,7 @@ export class AuthService {
       )
       .pipe(
         tap((response) => {
-          this.setAccessToken = this.getCookie('access_token');
+          this.getCookie('access_token');
         }),
         switchMap((response) => of(response.access_token))
       );
@@ -57,7 +47,7 @@ export class AuthService {
       )
       .subscribe({
         complete: () => {
-          (this.setAccessToken = ''), this.router.navigate(['login']);
+          (this.router.navigate(['login']));
         },
       });
 
