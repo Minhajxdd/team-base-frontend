@@ -1,17 +1,21 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AdminAuthGuard } from '../../core/guards/admin.guard';
-import { UsersComponent } from './pages/users/users.component';
 
 export const adminRoutes: Routes = [
   {
     path: 'admin/dashboard',
-    component: DashboardComponent,
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
     canActivate: [AdminAuthGuard],
   },
   {
     path: 'admin/users',
-    component: UsersComponent,
+    loadComponent: () => 
+      import('./pages/users/users.component').then(
+        (m) => m.UsersComponent
+      ),
     canActivate: [AdminAuthGuard],
   },
 ];
