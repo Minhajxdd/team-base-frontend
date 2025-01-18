@@ -1,0 +1,20 @@
+<div class="container">
+  @if (isLoadingError()) {
+  <app-something-went-wrong></app-something-went-wrong>
+  } @else if (isLoading()) {
+
+  <app-loading-spinner></app-loading-spinner>
+
+  } @else {
+  
+    @if (teamMembers.length <= 0) {
+        <app-profile-no-members></app-profile-no-members>
+    } @else {
+        <div class="cards-grid">
+            @for (teamMember of teamMembers; track teamMember.userId._id) {
+                <app-profile-card [member]="teamMember"></app-profile-card>
+            }
+        </div>
+    }
+  }
+</div>
