@@ -23,7 +23,6 @@ export class ProjectRolesGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     const projectId = route.params['projectId'];
-
     if (!projectId) {
       return of(false);
     }

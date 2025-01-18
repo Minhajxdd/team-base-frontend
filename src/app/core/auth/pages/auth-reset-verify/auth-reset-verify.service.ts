@@ -10,7 +10,6 @@ export class AuthResetVerifyService {
   constructor(private http: HttpClient) {}
 
   sendOtp(otp: string) {
-    console.log('here')
     return this.http
       .post(
         `${environment.back_end}/auth/reset-password/verify`,

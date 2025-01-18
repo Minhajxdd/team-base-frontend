@@ -10,7 +10,7 @@ export class HomeStartNewProjectService {
   private readonly http = inject(HttpClient);
 
   createProject(projectData: { name: string; description: string }) {
-    console.log(projectData);
+ 
     return this.http.post<CreateProjectResponse>(
       `${environment.back_end}/project/create`,
       projectData,

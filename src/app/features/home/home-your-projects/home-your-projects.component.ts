@@ -29,7 +29,7 @@ export class HomeYourProjectsComponent {
       .subscribe({
         next: (data) => {
           this.homeComponentService.allProjectDetails.set(data.data.projects);
-          console.log(this.allProjectDetails);
+  
         },
         complete: () => {
           this.isLoading.set(false);
