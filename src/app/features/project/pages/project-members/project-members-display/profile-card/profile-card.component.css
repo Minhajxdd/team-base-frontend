@@ -1,0 +1,89 @@
+.card {
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: 0 4px 6px var(--neutral-gray-light);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px var(--neutral-gray);
+  transform: translateY(-5px);
+}
+
+.profile-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--first-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--accent-color);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.email {
+  font-size: 0.875rem;
+  color: var(--neutral-gray);
+  margin-bottom: 0.75rem;
+}
+
+.role {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--muted-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--hover-accent);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.profile-icons-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-icons {
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: 500ms;
+}
+
+.edit-icon {
+  font-size: 1.3rem;
+}
+
+.edit-icon:hover {
+  color: rgb(106, 106, 210);
+
+}
+
+.x-icon {
+  font-size: 2rem;
+}
+
+.x-icon:hover {
+  color: rgb(216, 146, 146);
+}

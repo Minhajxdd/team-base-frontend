@@ -1,0 +1,61 @@
+<p-dialog
+  header="Change Member Role"
+  [visible]="isVisible()"
+  [modal]="true"
+  [style]="{
+    width: '20rem'
+  }"
+  [contentStyle]="{
+    height: '12.5rem'
+  }"
+  [closable]="false"
+>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div class="p-fluid">
+      <div class="p-field mb-4">
+        <div class="p-field mb-6 flex gap-3 flex-col" style="width: 240px">
+          <label for="role" class="block text-lg font-large mb-2">Role</label>
+
+          <p-dropdown
+            [(ngModel)]="selectedRole"
+            [options]="roles"
+            optionLabel="label"
+            name="role"
+            id="role"
+            required
+            #roledrop="ngModel"
+            placeholder="Select a role"
+            size="large"
+            [style]="{
+              width: '253px',
+            }"
+          >
+          </p-dropdown>
+
+          @if (roledrop.invalid && roledrop.touched) {
+          <small class="p-error">Role is required.</small>
+          }
+        </div>
+
+        <div class="flex justify-end gap-4" style="margin-top: 1.5rem">
+          <button
+            type="button"
+            (click)="onCloseForm()"
+            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Update Role
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-toast />
