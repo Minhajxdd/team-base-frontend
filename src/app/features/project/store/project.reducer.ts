@@ -1,13 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
 import { intialState } from './project.state';
-import { addProjectId } from './project.action';
+import { addProjectId, clearProject, validateUserAccessSuccess } from './project.action';
 
 const _projectReducer = createReducer(
   intialState,
   on(addProjectId, (state, action) => ({
     ...state,
     projectId: action.projectId,
-  }))
+  })),
+  on(validateUserAccessSuccess, (state, action) => ({
+    ...state,
+    role: action.role,
+  })),
+  on(clearProject, (state, action) => (intialState))
 );
 
 export function ProjectReducer(state: any, action: any) {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -6,37 +6,38 @@ import {
   Router,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { ProjectAuthService } from '../auth/services/auth.project.roles.service';
+import { Store } from '@ngrx/store';
+import { catchError, filter, first, map, switchMap } from 'rxjs/operators';
+import * as ProjectActions from '../../features/project/store/project.action';
+import {
+  selectProjectRole,
+  selectProjectId,
+} from '../../features/project/store/project.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectRolesGuard implements CanActivate {
   constructor(
-    private projectAuthService: ProjectAuthService,
-    private router: Router
+    private store: Store,
+    private router: Router,
+    private destroyRef: DestroyRef
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const projectId = route.params['projectId'];
+
     if (!projectId) {
+      this.router.navigate(['']);
       return of(false);
     }
 
-    return this.projectAuthService.validateUserAccess(projectId).pipe(
-      map((response) => {
-        if (response && response.role) {
-          this.projectAuthService.setRoleForProject(projectId, response.role);
-          return true;
-        } else {
-          this.router.navigate(['']);
-          return false;
-        }
-      }),
+    this.store.dispatch(ProjectActions.addProjectId({ projectId }));
+
+    return this.store.select(selectProjectRole).pipe(
+      filter((role) => !!role),
+      first(),
+      map(() => true),
       catchError(() => {
         this.router.navigate(['']);
         return of(false);

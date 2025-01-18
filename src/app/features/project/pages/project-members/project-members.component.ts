@@ -1,4 +1,11 @@
-import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -6,16 +13,18 @@ import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { Toast } from 'primeng/toast';
 import { ActivatedRoute, RouterEvent } from '@angular/router';
-import { ProjectAuthService } from '../../../../core/auth/services/auth.project.roles.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProjectNavBarComponent } from '../../../../shared/components/navbar/project-nav-bar/project-nav-bar.component';
 import { ProjectMemberService } from './project-members.service';
-import { profiles, roles } from './project-members.constants';
+import { roles } from './project-members.constants';
 import { ProjectMembersDisplayComponent } from './project-members-display/project-members-display.component';
 import { Store } from '@ngrx/store';
 import { addProjectId } from '../../store/project.action';
-import { getProjectId } from '../../store/project.selector';
+import {
+  selectProjectId,
+  selectProjectRole,
+} from '../../store/project.selector';
 
 @Component({
   selector: 'app-project-members',
@@ -37,14 +46,12 @@ import { getProjectId } from '../../store/project.selector';
 export class ProjectMembersComponent {
   private readonly projectMemberService = inject(ProjectMemberService);
   private readonly destoryRef = inject(DestroyRef);
-  private readonly projectAuthService = inject(ProjectAuthService);
 
   projectId = signal<string>('');
   role = signal<string>('');
   isVisible = false;
 
   value = '';
-  profiles = profiles;
 
   roles = roles;
 
@@ -53,23 +60,24 @@ export class ProjectMembersComponent {
 
   addMemberFormErrorMessage = signal<string>('');
 
-  constructor(private store: Store<{ project: { projectId: string } }>) {
+  constructor(private store: Store) {
     let projectId = inject(ActivatedRoute).snapshot.params['projectId'];
+
     this.store.dispatch(addProjectId({ projectId: projectId }));
 
-    const subscription1 = this.store.select(getProjectId).subscribe((data) => {
-      this.projectId.set(data);
-    });
-
-    const subscription2 = this.projectAuthService
-      .getRoleForProject(projectId)
-      .subscribe({
-        next: (role) => {
-          if (role) {
-            this.role.set(role);
-          }
-        },
+    const subscription1 = this.store
+      .select(selectProjectId)
+      .subscribe((data) => {
+        this.projectId.set(data);
       });
+
+    const subscription2 = this.store.select(selectProjectRole).subscribe({
+      next: (role) => {
+        if (role) {
+          this.role.set(role);
+        }
+      },
+    });
 
     this.destoryRef.onDestroy(() => {
       subscription1.unsubscribe();

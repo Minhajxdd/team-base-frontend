@@ -17,9 +17,9 @@ import { RoleChangeFormService } from './role-change-form.service';
 
 import { Store } from '@ngrx/store';
 
-import { getProjectId } from '../../../../../store/project.selector';
 import { MessageService } from 'primeng/api';
 import { ProjectMembersShared } from '../../../project-members.shared';
+import { selectProjectId } from '../../../../../store/project.selector';
 
 @Component({
   selector: 'app-role-change-form',
@@ -56,7 +56,7 @@ export class RoleChangeFormComponent {
       let projectId = '';
 
       const subscription1 = this.store
-        .select(getProjectId)
+        .select(selectProjectId)
         .subscribe((data) => {
           projectId = data;
         });

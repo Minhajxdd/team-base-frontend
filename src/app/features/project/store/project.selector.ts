@@ -1,10 +1,13 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { projectModel } from "./model/project.model";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { projectModel } from './model/project.model';
 
+const selectProjectState = createFeatureSelector<projectModel>('project');
 
-const getProjectState = createFeatureSelector<projectModel>('project');
+export const selectProjectId = createSelector(selectProjectState, (state) => {
+  return state.projectId;
+});
 
-
-export const getProjectId = createSelector(getProjectState, (state) => {
-    return state.projectId;
-})
+export const selectProjectRole = createSelector(
+  selectProjectState,
+  (state) => state.role
+);

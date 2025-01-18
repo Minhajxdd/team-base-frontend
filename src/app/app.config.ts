@@ -14,6 +14,8 @@ import { adminRoutes } from './features/admin/admin.routes';
 import { MessageService } from 'primeng/api';
 import { provideStore } from '@ngrx/store';
 import { ProjectReducer } from './features/project/store/project.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { ProjectEffects } from './features/project/store/project.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,5 +32,6 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       project: ProjectReducer,
     }),
+    provideEffects([ProjectEffects]),
   ],
 };
