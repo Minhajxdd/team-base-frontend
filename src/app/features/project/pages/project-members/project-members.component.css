@@ -5,29 +5,9 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background-color: #0f172a;
-  color: #e2e8f0;
-  padding: 2rem;
-}
-
 .container {
   max-width: 900px;
   margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3rem;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #f8fafc;
 }
 
 .role-filter {
@@ -49,17 +29,6 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-}
-
-.member-card {
-  background-color: #1e293b;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: transform 0.2s;
-}
-
-.member-card:hover {
-  transform: translateY(-2px);
 }
 
 .member-header {
@@ -120,6 +89,35 @@ body {
 
 .member-card.editing .role-select {
   display: block;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #f8fafc;
+}
+
+.invite-members-btn {
+  padding: 0 10px;
+}
+
+@media (max-width: 680px) {
+  .title {
+    font-size: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 
 .container {
@@ -205,12 +203,4 @@ body {
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-}
-
-.p-component {
-  width: 255px;
-}
-
-p-dropdown > .p-autocomplete-input {
-  width: 285px !important;
 }

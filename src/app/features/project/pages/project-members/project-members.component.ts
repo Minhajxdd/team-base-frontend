@@ -1,23 +1,21 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { Toast } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterEvent } from '@angular/router';
 import { ProjectAuthService } from '../../../../core/auth/services/auth.project.roles.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
-import { ProjectNavBarComponent } from "../../../../shared/components/navbar/project-nav-bar/project-nav-bar.component";
-
-
-interface Profile {
-  name: string;
-  email: string;
-  role: string;
-}
+import { ProjectNavBarComponent } from '../../../../shared/components/navbar/project-nav-bar/project-nav-bar.component';
+import { ProjectMemberService } from './project-members.service';
+import { profiles, roles } from './project-members.constants';
+import { ProjectMembersDisplayComponent } from './project-members-display/project-members-display.component';
+import { Store } from '@ngrx/store';
+import { addProjectId } from '../../store/project.action';
+import { getProjectId } from '../../store/project.selector';
 
 @Component({
   selector: 'app-project-members',
@@ -30,44 +28,52 @@ interface Profile {
     Toast,
     AutoCompleteModule,
     DropdownModule,
-    ProjectNavBarComponent
-],
+    ProjectNavBarComponent,
+    ProjectMembersDisplayComponent,
+  ],
   templateUrl: './project-members.component.html',
   styleUrl: './project-members.component.css',
-  providers: [MessageService],
 })
 export class ProjectMembersComponent {
-  // private messageService = inject(MessageService)
+  private readonly projectMemberService = inject(ProjectMemberService);
+  private readonly destoryRef = inject(DestroyRef);
+  private readonly projectAuthService = inject(ProjectAuthService);
 
   projectId = signal<string>('');
   role = signal<string>('');
   isVisible = false;
 
-  filteredUsers: any[] = ['hello', 'world'];
-  selectedUser: any = null;
-  selectedRole: any = null;
+  value = '';
+  profiles = profiles;
 
-  roles = [
-    { label: 'Project Manager', value: 'project_manager' },
-    { label: 'Team Lead', value: 'team_lead' },
-    { label: 'Developer', value: 'developer' },
-  ];
+  roles = roles;
 
+  filteredItems: any[] = [];
+  selectedItem: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private projectAuthService: ProjectAuthService
-  ) {
-    let projectId = route.snapshot.params['projectId'];
-    this.projectId.set(projectId);
+  addMemberFormErrorMessage = signal<string>('');
 
-    this.projectAuthService.getRoleForProject(projectId).subscribe({
-      next: (role) => {
-        if (role) {
-          this.role.set(role);
-          console.log(role);
-        }
-      },
+  constructor(private store: Store<{ project: { projectId: string } }>) {
+    let projectId = inject(ActivatedRoute).snapshot.params['projectId'];
+    this.store.dispatch(addProjectId({ projectId: projectId }));
+
+    const subscription1 = this.store.select(getProjectId).subscribe((data) => {
+      this.projectId.set(data);
+    });
+
+    const subscription2 = this.projectAuthService
+      .getRoleForProject(projectId)
+      .subscribe({
+        next: (role) => {
+          if (role) {
+            this.role.set(role);
+          }
+        },
+      });
+
+    this.destoryRef.onDestroy(() => {
+      subscription1.unsubscribe();
+      subscription2.unsubscribe();
     });
   }
 
@@ -77,34 +83,53 @@ export class ProjectMembersComponent {
 
   onSubmit(form: any) {
     if (form.valid) {
-      console.log('Form Submitted', form.value);
+      this.addMemberFormErrorMessage.set('');
+
+      const subscription = this.projectMemberService
+        .sentRequest(
+          {
+            email: form.value.email,
+            roles: form.value.role.value,
+            message: form.value.message,
+          },
+          this.projectId()
+        )
+        .subscribe({
+          complete: () => {
+            this.projectMemberService.showToast(
+              'success',
+              'Request Sent Successfully!'
+            );
+
+            this.formToggle();
+          },
+          error: (err) => {
+            this.addMemberFormErrorMessage.set(err);
+          },
+        });
+
+      this.destoryRef.onDestroy(() => {
+        subscription.unsubscribe();
+      });
     } else {
       console.log('Form is invalid');
     }
   }
 
-  searchUsers(event: any) {
+  search(event: any) {
     const query = event.query;
-    // this.http.get<any[]>(`/api/users?search=${query}`).subscribe((data) => {
-    //   this.filteredUsers = data;
-    // });
+    const subscription = this.projectMemberService
+      .getUserData(query)
+      .subscribe({
+        next: (data) => {
+          this.filteredItems = data.map((item: any) => item.email);
+        },
+      });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 
-  profiles: Profile[] = [
-    {
-      name: 'Sarah Johnson',
-      email: 'sarah.j@company.com',
-      role: 'Product Designer',
-    },
-    {
-      name: 'Michael Chen',
-      email: 'michael.c@company.com',
-      role: 'Frontend Developer',
-    },
-    {
-      name: 'Emma Wilson',
-      email: 'emma.w@company.com',
-      role: 'Project Manager',
-    },
-  ];
+  selectedRole: string = '';
 }

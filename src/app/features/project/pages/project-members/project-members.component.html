@@ -1,69 +1,53 @@
 <app-project-nav-bar>
   <div class="container">
     <div class="header">
-      <h1 class="title">Team Members</h1>
+      <div>
+        <h1 class="title">Team Members</h1>
+      </div>
+
 
       <div class="flex gap-2">
         @if (role() === 'project_manager') {
         <button
           (click)="formToggle()"
           type="button"
-          style="padding: 0 10px"
-          class="text-white bg-gradient-to-r p-3 from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
+          class="invite-members-btn text-white bg-gradient-to-r p-3 from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2"
         >
-          + Invite Member
+          + <span>Invite Member</span>
         </button>
         }
 
-        <select class="role-filter" id="roleFilter">
-          <option value="all">All Roles</option>
+        <select [(ngModel)]="selectedRole" class="role-filter" id="roleFilter">
+          <option value="">All Roles</option>
           <option value="project_manager">Project Manager</option>
+          <option value="team_lead">Team Lead</option>
           <option value="developer">Developer</option>
-          <option value="designer">Designer</option>
-          <option value="qa_engineer">QA Engineer</option>
         </select>
       </div>
     </div>
 
-    <!-- <div class="team-grid" id="teamGrid"></div> -->
-
-    <div class="container">
-      <div class="cards-grid">
-        @for (profile of profiles; track profile.email) {
-        <div class="card">
-          <div class="profile-icon">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-              />
-            </svg>
-          </div>
-          <div class="profile-info">
-            <h3 class="name text-white">{{ profile.name }}</h3>
-            <p class="email">{{ profile.email }}</p>
-            <span class="role">{{ profile.role }}</span>
-          </div>
-        </div>
-        }
-      </div>
-    </div>
+    <app-project-members-display
+      [role]="selectedRole"
+      [projectId]="projectId()"
+    ></app-project-members-display>
   </div>
 
   <p-dialog
     header="Invite Member"
     [(visible)]="isVisible"
     [modal]="true"
-    [style]="{ width: '20rem' }"
+    [style]="{
+      width: '20rem'
+    }"
     [contentStyle]="{
       padding: '2rem',
-      height: '20rem'
+      height: '25rem'
     }"
     [closable]="false"
   >
     <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
       <div class="p-fluid">
         <div class="p-field mb-4">
-
           <div class="flex gap-3 flex-col" style="margin-top: -30px">
             <label for="email-add" class="block text-lg font-medium mb-2"
               >Email</label
@@ -72,14 +56,25 @@
               id="email-add"
               [(ngModel)]="selectedItem"
               [suggestions]="filteredItems"
+              name="email"
+              required
+              email
+              #email="ngModel"
               (completeMethod)="search($event)"
               delay="300"
               placeholder="Search..."
               size="large"
             />
+
+            @if(email.invalid && email.touched) {
+            <small class="p-error">Email is required & must be valid.</small>
+            }
           </div>
 
-          <div class="p-field mb-6 flex gap-3 flex-col" style="width: 240px; margin-top: 1.2rem">
+          <div
+            class="p-field mb-6 flex gap-3 flex-col"
+            style="width: 240px; margin-top: 1.2rem"
+          >
             <label for="role" class="block text-lg font-large mb-2">Role</label>
 
             <p-dropdown
@@ -88,6 +83,8 @@
               optionLabel="label"
               name="role"
               id="role"
+              required
+              #roledrop="ngModel"
               placeholder="Select a role"
               size="large"
               [style]="{
@@ -95,9 +92,42 @@
             }"
             >
             </p-dropdown>
+
+            @if (roledrop.invalid && roledrop.touched) {
+            <small class="p-error">Role is required.</small>
+            }
           </div>
 
-          <div class="flex justify-end gap-4" style="margin-top: 1.5rem;">
+          <div
+            class="p-field mb-6 flex gap-3 flex-col"
+            style="width: 240px; margin-top: 1.2rem"
+          >
+            <label for="role" class="block text-lg font-large mb-2"
+              >Additional Message</label
+            >
+
+            <textarea
+              style="width: 253px; resize: none"
+              rows="4"
+              name="message"
+              pTextarea
+              [(ngModel)]="value"
+              maxlength="200"
+              #message="ngModel"
+            ></textarea>
+
+            @if(message.errors?.['maxlength'] && message.touched) {
+            <small class="p-error">
+              Message cannot exceed 200 characters.
+            </small>
+            }
+          </div>
+
+          @if (addMemberFormErrorMessage()) {
+          <small class="p-error"> addMemberFormErrorMessage() </small>
+          }
+
+          <div class="flex justify-end gap-4" style="margin-top: 1.5rem">
             <p-button
               type="button"
               (onClick)="formToggle()"
@@ -107,16 +137,12 @@
             ></p-button>
             <p-button
               type="submit"
-              label="Save"
+              label="Sent Request"
               class="p-button-success"
             ></p-button>
           </div>
-
-
         </div>
-
       </div>
-
     </form>
   </p-dialog>
 
