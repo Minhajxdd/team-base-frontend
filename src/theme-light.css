@@ -1,7 +1,14 @@
 :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f3f4f6;
-    --text-primary: #111827;
-    --accent-color: #2563eb;
-    --hover-accent: #1d4ed8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --accent-color: #2563eb;
+  --hover-accent: #1d4ed8;
+}
+
+:root {
+  --white-color: #fff;
+  --blue-color: #4070f4;
+  --grey-color: #707070;
+  --grey-color-light: #aaa;
 }
