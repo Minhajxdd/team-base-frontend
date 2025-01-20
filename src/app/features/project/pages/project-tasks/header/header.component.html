@@ -1,5 +1,7 @@
 <div class="header">
     <h1>Project Tasks</h1>
+
+  @if (role !== 'developer') {
     <button 
     (click)="onFormOpen()"
     class="add-task-btn">
@@ -16,6 +18,8 @@
       </svg>
       Add Task
     </button>
+  }
+
   </div>
 
   <app-add-task-form [isVisible]="isFormVisible()" (closeForm)="onFormClose($event)"></app-add-task-form>
