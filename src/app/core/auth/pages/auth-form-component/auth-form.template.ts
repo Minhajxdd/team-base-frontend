@@ -10,10 +10,10 @@ export function getAuthFormTemplate(isRegister: boolean) {
         Validators.pattern(/^[A-Za-z ]+$/),
       ],
     }),
-    email: new FormControl('', {
+    email: new FormControl('testing@gmail.com', {
       validators: [Validators.email, Validators.required],
     }),
-    password: new FormControl('', {
+    password: new FormControl('testing123', {
       validators: [
         Validators.required,
         Validators.minLength(6),
