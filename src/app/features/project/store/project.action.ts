@@ -6,8 +6,8 @@ export const addProjectId = createAction(
 );
 
 export const validateUserAccessSuccess = createAction(
-  '[Project] Validate User Access Success',
-  props<{ role: string }>()
+  '[Project] Validate User Access Success Role',
+  props<{ role: string; userId: string }>()
 );
 
 export const clearProject = createAction('[Project] Clear Project');

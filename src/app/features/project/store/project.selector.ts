@@ -11,3 +11,8 @@ export const selectProjectRole = createSelector(
   selectProjectState,
   (state) => state.role
 );
+
+export const selectProjectUserId = createSelector(
+  selectProjectState,
+  (state) => state.userId
+);

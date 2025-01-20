@@ -25,14 +25,17 @@ export class ProjectEffects {
         }
 
         return this.http
-          .post<{ role: string }>(
+          .post<{ role: string, userId: string }>(
             `${environment.back_end}/project/${projectId}/validate`,
             {},
             { withCredentials: true }
           )
           .pipe(
             map((response) =>
-              ProjectActions.validateUserAccessSuccess({ role: response.role })
+              ProjectActions.validateUserAccessSuccess({
+                role: response.role,
+                userId: response.userId,
+              })
             ),
             catchError((error) => {
               console.error('Error validating user access:', error);
