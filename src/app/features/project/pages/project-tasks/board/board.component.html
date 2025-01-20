@@ -1,0 +1,59 @@
+
+@if (isLoading()) {
+  
+
+} @else {
+<div class="board">
+  <div class="column">
+    <div class="column-header">To-Do</div>
+    <div
+      class="task-list"
+      cdkDropList
+      id="todo"
+      [cdkDropListConnectedTo]="['progress', 'done']"
+      [cdkDropListData]="todos"
+      (cdkDropListDropped)="drop($event)"
+    >
+    @for (todo of todos; track todo._id) {
+        <app-task-card [cdkDragDisabled]="isDraggable(todo.assignedTo._id)"  [task]="todo" cdkDrag></app-task-card>
+    }
+
+    </div>
+  </div>
+  <div class="column">
+    <div class="column-header">In Progress</div>
+    <div
+      class="task-list"
+      cdkDropList
+      id="progress"
+      [cdkDropListConnectedTo]="['todo', 'done']"
+      [cdkDropListData]="inprogresss"
+      (cdkDropListDropped)="drop($event)"
+    >
+        
+    @for (inprogress of inprogresss; track inprogress._id) {
+        <app-task-card [cdkDragDisabled]="isDraggable(inprogress.assignedTo._id)" [task]="inprogress" cdkDrag></app-task-card>
+    }
+    
+
+    </div>
+  </div>
+  <div class="column">
+    <div class="column-header">Completed</div>
+    <div
+      class="task-list"
+      cdkDropList
+      id="done"
+      [cdkDropListConnectedTo]="['todo', 'progress']"
+      [cdkDropListData]="dones"
+      (cdkDropListDropped)="drop($event)"
+    >
+
+        @for (done of dones; track done._id) {
+            <app-task-card [cdkDragDisabled]="isDraggable(done.assignedTo._id)" [task]="done" cdkDrag></app-task-card>
+        }
+
+    </div>
+  </div>
+</div>
+}

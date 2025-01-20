@@ -14,6 +14,7 @@ import { MessageService } from 'primeng/api';
 import { MemberResponseModel } from './add-task-form.model';
 
 import { Toast } from 'primeng/toast';
+import { ProjectTasksService } from '../../project-tasks.service';
 
 @Component({
   selector: 'app-add-task-form',
@@ -36,7 +37,8 @@ export class AddTaskFormComponent {
     private addTaskFormService: AddTaskFormService,
     private store: Store,
     private destoryRef: DestroyRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private projectTasksService: ProjectTasksService
   ) {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
@@ -84,9 +86,10 @@ export class AddTaskFormComponent {
             this.messageService.add({
               severity: 'success',
               summary: 'Successfully Task Assigned!',
-              });
+            });
 
             this.oncloseForm();
+            this.projectTasksService.emitRefreshEvent();
           },
           error: () => {
             this.messageService.add({

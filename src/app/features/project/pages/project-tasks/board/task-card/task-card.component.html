@@ -1,0 +1,12 @@
+<div class="task-card">
+  <div class="task-title">{{ task().title }}</div>
+  <div class="task-description">{{ task().description }}</div>
+
+  <div class="task-developer">
+    <div class="developer-avatar"></div>
+    <div class="developer-card">
+      <div class="developer-name">{{ task().assignedTo.full_name }}</div>
+      <div class="developer-deadline">{{ task().deadline | date: 'dd/MM/yyyy'}}</div>
+    </div>
+  </div>
+</div>
