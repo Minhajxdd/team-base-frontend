@@ -1,0 +1,23 @@
+@if (isVisible()) {
+
+    <div class="modal hidden" id="taskModal" style="display: block">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add New Task</h2>
+        </div>
+    
+        <div class="modal-actions">
+          <button 
+            (click)="onCloseDialoge()"
+          type="button" class="cancel-btn">
+            Cancel
+          </button>
+          <button 
+            (click)="onRemoveUser()"
+          type="submit" class="save-btn">
+            Save Task
+          </button>
+        </div>
+      </div>
+    </div>
+}

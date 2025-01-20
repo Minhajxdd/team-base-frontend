@@ -15,10 +15,13 @@
 
     @if (projectRole === 'project_manager') {
       <i (click)="onOpenForm()" class='edit-icon profile-icons bx bx-edit'></i>
-      <i class='x-icon profile-icons bx bx-x'></i>
+      <i (click)="onOpenDeleteDialoge()" class='x-icon profile-icons bx bx-x'></i>
     }
   </div>
 </div>
 
 
 <app-role-change-form [userId]="member().userId._id" [isVisible]="isEditFormVisible" (closeForm)="onCloseForm($event)"></app-role-change-form>
+
+
+<app-delete-user-dialoge [isVisible]="isDeleteDialogeVisible" (closeDialoge)="onCloseDeleteDialoge($event)" (removeUser)="RemoveUser()"></app-delete-user-dialoge>
