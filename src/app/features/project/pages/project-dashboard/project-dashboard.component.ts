@@ -1,21 +1,11 @@
-import { Component, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
-import { HeaderComponent } from "./header/header.component";
-import { BoardComponent } from "./board/board.component";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-project-dashboard',
-  imports: [HeaderComponent, BoardComponent],
+  imports: [],
   templateUrl: './project-dashboard.component.html',
-  styleUrl: './project-dashboard.component.css',
-  encapsulation: ViewEncapsulation.ShadowDom
+  styleUrl: './project-dashboard.component.css'
 })
-export class ProjectDashboardComponent  implements OnInit{
-  private authService = inject(AuthService);
-  private route  = inject(ActivatedRoute);
+export class ProjectDashboardComponent {
 
-  ngOnInit(): void {
-    // console.log(this.route.snapshot.params["projectId"]);
-  }
 }
