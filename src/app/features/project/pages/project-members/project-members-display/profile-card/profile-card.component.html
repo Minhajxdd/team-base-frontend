@@ -12,8 +12,11 @@
     <span class="role">{{ member().role }}</span>
   </div>
   <div class="profile-icons-div">
-    <i (click)="onOpenForm()" class='edit-icon profile-icons bx bx-edit'></i>
-    <i class='x-icon profile-icons bx bx-x'></i>
+
+    @if (projectRole === 'project_manager') {
+      <i (click)="onOpenForm()" class='edit-icon profile-icons bx bx-edit'></i>
+      <i class='x-icon profile-icons bx bx-x'></i>
+    }
   </div>
 </div>
 
