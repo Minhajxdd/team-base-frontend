@@ -1,11 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectNavBarComponent } from "../../../../shared/components/navbar/project-nav-bar/project-nav-bar.component";
 
 @Component({
   selector: 'app-project-dashboard',
-  imports: [ProjectNavBarComponent],
+  imports: [],
   templateUrl: './project-dashboard.component.html',
   styleUrl: './project-dashboard.component.css',
 })

@@ -1,7 +1,9 @@
 import { getLocaleMonthNames, NgClass } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectProjectId } from '../../../../features/project/store/project.selector';
 
 @Component({
   selector: 'app-project-nav-bar',
@@ -11,7 +13,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class ProjectNavBarComponent implements OnInit {
   private readonly themeService = inject(ThemeModeService);
-  private route = inject(ActivatedRoute);
+  private readonly store = inject(Store);
+  private readonly destroyRef = inject(DestroyRef);
 
   projectId = signal<null | string>(null);
 
@@ -19,7 +22,15 @@ export class ProjectNavBarComponent implements OnInit {
   isProfileToggled = signal(false);
 
   ngOnInit() {
-    this.projectId.set(this.route.snapshot.params['projectId']);
+    const subscription = this.store
+      .select(selectProjectId)
+      .subscribe((data) => {
+        this.projectId.set(data);
+      });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
 
     if (localStorage.getItem('side_bar_opened') === 'true') {
       this.isToggled.set(true);

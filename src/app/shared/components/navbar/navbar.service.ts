@@ -23,7 +23,7 @@ export class NavBarService {
   private getNavBarType(url: string): NavBarTypeModel {
     if (url.startsWith('/admin')) {
       return 'admin';
-    } else if (url.startsWith('/project')) {
+    } else if (url.includes('/project')) {
       return 'project';
     } else if (this.unProtectedRoutes.some((route) => url.startsWith(route))) {
       return null;

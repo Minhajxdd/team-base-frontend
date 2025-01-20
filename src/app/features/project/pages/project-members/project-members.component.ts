@@ -1,9 +1,7 @@
 import {
   Component,
   DestroyRef,
-  effect,
   inject,
-  OnInit,
   signal,
 } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
@@ -15,7 +13,6 @@ import { Toast } from 'primeng/toast';
 import { ActivatedRoute, RouterEvent } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
-import { ProjectNavBarComponent } from '../../../../shared/components/navbar/project-nav-bar/project-nav-bar.component';
 import { ProjectMemberService } from './project-members.service';
 import { roles } from './project-members.constants';
 import { ProjectMembersDisplayComponent } from './project-members-display/project-members-display.component';
@@ -37,7 +34,6 @@ import {
     Toast,
     AutoCompleteModule,
     DropdownModule,
-    ProjectNavBarComponent,
     ProjectMembersDisplayComponent,
   ],
   templateUrl: './project-members.component.html',

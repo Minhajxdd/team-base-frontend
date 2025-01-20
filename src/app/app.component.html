@@ -3,6 +3,11 @@
         <app-user-navbar></app-user-navbar>
         <router-outlet />
     }
+    @case ('project') {
+        <app-project-nav-bar>
+            <router-outlet />
+        </app-project-nav-bar>
+    }
     @default {
         <router-outlet />
     }
