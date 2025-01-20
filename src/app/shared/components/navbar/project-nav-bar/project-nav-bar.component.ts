@@ -1,13 +1,13 @@
 import { getLocaleMonthNames, NgClass } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectProjectId } from '../../../../features/project/store/project.selector';
 
 @Component({
   selector: 'app-project-nav-bar',
-  imports: [NgClass, RouterLink],
+  imports: [NgClass, RouterLink, RouterLinkActive],
   templateUrl: './project-nav-bar.component.html',
   styleUrl: './project-nav-bar.component.css',
 })

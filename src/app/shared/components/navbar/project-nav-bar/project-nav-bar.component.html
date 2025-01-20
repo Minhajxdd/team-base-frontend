@@ -4,9 +4,10 @@
       <nav class="nav">
         <div>
           <a class="nav__logo">
-            <i 
-            [routerLink]="['']"
-            class="bx bxs-grid nav__logo-icon  cursor-pointer"></i>
+            <i
+              [routerLink]="['']"
+              class="bx bxs-grid nav__logo-icon cursor-pointer"
+            ></i>
             <span class="nav__logo-text">Team Base</span>
           </a>
 
@@ -20,21 +21,30 @@
 
           <ul class="nav__list">
             <a
+              routerLinkActive="active"
               [routerLink]="['/project', projectId(), 'dashboard']"
-              class="nav__link active"
+              routerLinkActive="active"
+              class="nav__link"
             >
               <i class="bx bx-pie-chart-alt-2 nav__icon"></i>
               <span class="nav__text">Dashboard</span>
             </a>
-            <a class="nav__link">
+            <a
+            routerLinkActive="active"
+              [routerLink]="['/project', projectId(), 'tasks']"
+              class="nav__link"
+            >
               <i class="bx bx-task nav__icon"></i>
               <span class="nav__text">Tasks</span>
             </a>
-            <a class="nav__link">
+            <a 
+            routerLinkActive="active"
+            class="nav__link">
               <i class="bx bx-chat nav__icon"></i>
               <span class="nav__text">Chat</span>
             </a>
             <a
+            routerLinkActive="active"
               [routerLink]="['/project', projectId(), 'members']"
               class="nav__link"
             >
@@ -93,9 +103,10 @@
   </div>
 </div>
 
-<div [ngClass]="{ expand: isToggled() }" class="content-div" style="width: 100%;">
-
+<div
+  [ngClass]="{ expand: isToggled() }"
+  class="content-div"
+  style="width: 100%"
+>
   <ng-content></ng-content>
-
-  
 </div>
