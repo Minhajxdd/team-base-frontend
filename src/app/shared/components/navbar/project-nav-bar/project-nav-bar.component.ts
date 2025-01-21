@@ -18,6 +18,9 @@ export class ProjectNavBarComponent implements OnInit {
 
   projectId = signal<null | string>(null);
 
+  isDarkMode = this.themeService.$isDarkMode;
+
+
   isToggled = signal(true);
   isProfileToggled = signal(false);
 

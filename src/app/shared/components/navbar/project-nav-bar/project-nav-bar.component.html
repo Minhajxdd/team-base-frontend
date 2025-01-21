@@ -77,6 +77,18 @@
 
 <div class="top-navbar">
   <div class="top_nav_inner">
+    <div class="top_nav_content theme_switch_box">
+      <div 
+      (click)="onThemeToggle()"
+      class="them_switch_div">
+        @if (isDarkMode()) {
+          <i class="bx bx-sun nav__icon bell_icon"></i>
+        } @else {
+          <i class="bx bx-moon nav__icon bell_icon"></i>
+        }
+      </div>
+    </div>
+
     <div class="top_nav_content">
       <i class="bx bx-bell nav__icon bell_icon"></i>
     </div>

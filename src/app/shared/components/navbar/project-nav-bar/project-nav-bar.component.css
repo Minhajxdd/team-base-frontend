@@ -274,3 +274,22 @@ a {
 .body-component {
   margin-top: 2rem;
 }
+
+.theme_switch_box {
+  margin-right: 10px;
+}
+
+.theme_switch_box > div {
+  width: 35px;
+  height: 35px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.them_switch_div {
+  background-color: var(--text-primary);
+}
+
+.them_switch_div > i{
+  color: var(--bg-secondary);
+}
