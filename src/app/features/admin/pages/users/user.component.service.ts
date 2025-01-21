@@ -10,8 +10,13 @@ import { User } from './user.model';
 export class UserComponentService {
   constructor(private http: HttpClient) {}
 
-  getUser(keyword: string = ''): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.back_end}/users`, {
+  getUser(
+    keyword: string = '',
+    limit?: number,
+    skip?: number
+  ): Observable<User[]> {
+    let url = `${environment.back_end}/users?query=${keyword}&limit=${limit}&skip=${skip}`;
+    return this.http.get<User[]>(url, {
       withCredentials: true,
     });
   }

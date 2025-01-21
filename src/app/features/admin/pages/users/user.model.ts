@@ -6,3 +6,8 @@ export interface User {
   isAdmin: boolean;
   isBlocked: boolean;
 }
+
+export interface PaginatedResponse {
+  users: User[];
+  total: number;
+}
