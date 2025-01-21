@@ -36,7 +36,18 @@
               size="large"
             ></p-inputotp>
           </div>
-  
+
+        <div style="text-align: center;">
+          <p class="text-gray-400">
+            Code expires in
+            <span class="text-indigo-400 mt-4">
+              {{ formattedTime() }}
+            </span>
+          </p>
+
+        </div>
+
+
           <button
             (click)="onSubmit()"
             type="button"

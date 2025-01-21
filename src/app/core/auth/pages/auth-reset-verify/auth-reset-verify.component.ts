@@ -22,26 +22,25 @@ export class AuthResetVerifyComponent {
   private router = inject(Router);
   private destoryRef = inject(DestroyRef);
 
-  ngOnInit(): void {}
-
   onSubmit() {
     if (this.value.length !== 4) {
       return this.showMessage(`Otp Include 4 Numbers`);
     }
 
-    const subscription = this.authResetVerifyService.sendOtp(this.value).subscribe({
-      error: (err) => {
-        return this.showMessage(err);
-      },
-      complete: () => {
-        this.router.navigate(['reset-password', 'change']);
-      },
-    });
+    const subscription = this.authResetVerifyService
+      .sendOtp(this.value)
+      .subscribe({
+        error: (err) => {
+          return this.showMessage(err);
+        },
+        complete: () => {
+          this.router.navigate(['reset-password', 'change']);
+        },
+      });
 
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();
-    })
-
+    });
   }
 
   showMessage(message: string, severity = 'error') {
@@ -50,5 +49,43 @@ export class AuthResetVerifyComponent {
       summary: 'Invalid Input',
       detail: message,
     });
+  }
+
+  timeLeft = signal<number>(300);
+  timer: any;
+
+  isRunning: boolean = false;
+
+  ngOnInit(): void {
+    const savedTime = sessionStorage.getItem('timeLeft');
+    if (savedTime) {
+      const parsedTime = parseInt(savedTime, 10);
+      if (!isNaN(parsedTime)) {
+        this.timeLeft.set(parsedTime);
+      } else {
+        console.error('Invalid time value retrieved from sessionStorage');
+      }
+    }
+    this.startTime();
+  }
+
+  startTime() {
+    this.isRunning = true;
+    this.timer = setInterval(() => {
+      if (this.timeLeft() > 0) {
+        this.timeLeft.set(this.timeLeft() - 1);
+
+        sessionStorage.setItem('timeLeft', this.timeLeft().toString());
+      } else {
+        clearInterval(this.timer);
+        this.isRunning = false;
+      }
+    }, 1000);
+  }
+
+  get formattedTime() {
+    const date = new Date(0);
+    date.setSeconds(this.timeLeft());
+    return signal(date.toISOString().substr(14, 5));
   }
 }
