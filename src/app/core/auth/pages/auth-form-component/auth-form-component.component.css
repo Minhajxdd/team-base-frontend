@@ -76,3 +76,7 @@ input:-webkit-autofill {
   color: #6366f1;
 }
 
+.err-msg {
+  font-weight: bolder;
+  color: red;
+}

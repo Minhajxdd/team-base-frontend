@@ -1,23 +1,20 @@
 declare var google: any;
 
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
 import { authFormTemplateModel, googleData } from './auth-form.model';
 
-import { Toast } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { AuthFormService } from './auth-form.service';
 import { DataModel } from './auth-form-component.model';
 import { GoogleAuthService } from '../../services/auth.google.service';
 
 @Component({
   selector: 'app-auth-form-component',
-  imports: [ReactiveFormsModule, Toast, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './auth-form-component.component.html',
   styleUrl: './auth-form-component.component.css',
-  providers: [MessageService],
 })
 export class AuthFormComponentComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -29,7 +26,9 @@ export class AuthFormComponentComponent implements OnInit {
   isRegister: boolean = true;
   authForm!: FormGroup<authFormTemplateModel>;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService) {
+  errMsg = signal<string>('');
+
+  constructor(private fb: FormBuilder) {
     const subscription = this.route.url.subscribe((url) => {
       const path = url[0].path;
       this.isRegister = path === 'register';
@@ -75,46 +74,37 @@ export class AuthFormComponentComponent implements OnInit {
         })
         .subscribe({
           error: (err: string) => {
-            return this.showWarningMessage(err);
+            return this.errMsg.set(err);
           },
           complete: () => {
             this.router.navigate(['']);
           },
         });
 
-        this.destoryRef.onDestroy(() => {
-          subscription.unsubscribe();
-        })
-
+      this.destoryRef.onDestroy(() => {
+        subscription.unsubscribe();
+      });
     }
   }
 
   // Register & Signup Logic
   onSubmit() {
     if (this.propertyIsValid('fullname')) {
-      return this.showWarningMessage(
-        'Invalid Full Name',
-        'Please Enter a valid Full Name'
-      );
+      return this.errMsg.set(`Please Enter a valid Full Name`);
     }
 
     if (this.propertyIsValid('email')) {
-      return this.showWarningMessage(
-        'Invalid Email',
-        'Please Enter Valid Email'
-      );
+      return this.errMsg.set('Please Enter Valid Email');
     }
 
     if (this.propertyIsValid('password')) {
-      return this.showWarningMessage(
-        'Invalid Password',
+      return this.errMsg.set(
         'Password Should Be 6 Characters & Should Contain One Number or Symbol'
       );
     }
 
     if (this.propertyIsValid('repassword')) {
-      return this.showWarningMessage(
-        'Invalid Re-Enter Password',
+      return this.errMsg.set(
         'Password Should Be 6 Characters & Should Contain One Number or Symbol'
       );
     }
@@ -124,10 +114,7 @@ export class AuthFormComponentComponent implements OnInit {
         this.authForm.controls.password.value !==
         this.authForm.controls.repassword?.value
       ) {
-        return this.showWarningMessage(
-          'Invalid Password',
-          'Both Passwords should be same'
-        );
+        return this.errMsg.set('Both Passwords should be same');
       }
 
       return this.register();
@@ -141,7 +128,7 @@ export class AuthFormComponentComponent implements OnInit {
     const password = this.authForm.controls.password?.value;
 
     if (!fullName || !email || !password) {
-      return this.showWarningMessage('All Fields are required');
+      return this.errMsg.set('All Fields are required');
     }
 
     const data: DataModel = {
@@ -152,7 +139,8 @@ export class AuthFormComponentComponent implements OnInit {
 
     const subscription = this.authService.register(data).subscribe({
       error: (err: string) => {
-        return this.showWarningMessage(err);
+
+      return this.errMsg.set(err);
       },
       complete: () => {
         this.router.navigate(['register', 'verify']);
@@ -169,7 +157,7 @@ export class AuthFormComponentComponent implements OnInit {
     const password = this.authForm.controls.password?.value;
 
     if (!email || !password) {
-      return this.showWarningMessage('All Fields are required');
+      return this.errMsg.set('All Fields are required');
     }
 
     const data: DataModel = {
@@ -179,7 +167,8 @@ export class AuthFormComponentComponent implements OnInit {
 
     const subscription = this.authService.login(data).subscribe({
       error: (err: string) => {
-        return this.showWarningMessage(err);
+
+      return this.errMsg.set(err);
       },
       complete: () => {
         this.router.navigate(['']);
@@ -188,14 +177,6 @@ export class AuthFormComponentComponent implements OnInit {
 
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();
-    });
-  }
-
-  showWarningMessage(summary: string, detail: string = '') {
-    return this.messageService.add({
-      severity: 'warn',
-      summary: summary,
-      detail: detail,
     });
   }
 
