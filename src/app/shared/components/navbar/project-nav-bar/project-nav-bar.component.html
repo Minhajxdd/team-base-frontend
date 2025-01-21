@@ -30,21 +30,19 @@
               <span class="nav__text">Dashboard</span>
             </a>
             <a
-            routerLinkActive="active"
+              routerLinkActive="active"
               [routerLink]="['/project', projectId(), 'tasks']"
               class="nav__link"
             >
               <i class="bx bx-task nav__icon"></i>
               <span class="nav__text">Tasks</span>
             </a>
-            <a 
-            routerLinkActive="active"
-            class="nav__link">
+            <a routerLinkActive="active" class="nav__link">
               <i class="bx bx-chat nav__icon"></i>
               <span class="nav__text">Chat</span>
             </a>
             <a
-            routerLinkActive="active"
+              routerLinkActive="active"
               [routerLink]="['/project', projectId(), 'members']"
               class="nav__link"
             >
@@ -103,10 +101,4 @@
   </div>
 </div>
 
-<div
-  [ngClass]="{ expand: isToggled() }"
-  class="content-div"
-  style="width: 100%"
->
-  <ng-content></ng-content>
-</div>
+<ng-content></ng-content>

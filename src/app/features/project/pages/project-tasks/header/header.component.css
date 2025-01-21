@@ -16,3 +16,17 @@
   border-color: #45a049;
   box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
 }
+
+:host {
+  width: 100%;
+}
+
+.header {
+  padding: 0 10px;
+}
+
+@media (max-width: 640px) {
+  .add-task-span{
+    display: none;
+  }
+}
