@@ -24,6 +24,8 @@ import { Router } from '@angular/router';
 export class AuthOtpPageComponent implements OnInit, OnDestroy {
   value: any;
 
+  errMsg = signal<string>('');
+
   private messageService = inject(MessageService);
   private authOtpPageService = inject(AuthOtpPageService);
   private router = inject(Router);
@@ -81,12 +83,12 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.value.length !== 4) {
-      return this.showMessage(`Otp Include 4 Numbers`);
+      return this.errMsg.set(`Otp Include 4 Numbers`);
     }
 
     const subscription = this.authOtpPageService.verify(this.value).subscribe({
       error: (err) => {
-        return this.showMessage(err);
+        return this.errMsg.set(err);
       },
       complete: () => {
         return this.router.navigate(['/']);
@@ -101,10 +103,10 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
   onResend() {
     const subscription = this.authOtpPageService.resend().subscribe({
       error: (err) => {
-        return this.showMessage(err);
+        return this.errMsg.set(err);
       },
       complete: () => {
-        return this.showMessage('New Otp Send', 'success');
+        this.showMessage('New Otp Send', 'success');
         this.resetTimer();
       },
     });
@@ -117,8 +119,7 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
   showMessage(message: string, severity = 'error') {
     this.messageService.add({
       severity: severity,
-      summary: 'Invalid Input',
-      detail: message,
+      summary: message,
     });
   }
 }

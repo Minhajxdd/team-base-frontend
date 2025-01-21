@@ -37,6 +37,11 @@
           ></p-inputotp>
         </div>
 
+        <div class="floating-input">
+          <span class="err-msg">{{ errMsg() }}</span>
+        </div>
+
+
         <button
           (click)="onSubmit()"
           type="button"
