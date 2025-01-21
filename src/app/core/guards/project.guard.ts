@@ -1,28 +1,21 @@
-import { DestroyRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { catchError, filter, first, map, switchMap } from 'rxjs/operators';
 import * as ProjectActions from '../../features/project/store/project.action';
-import {
-  selectProjectRole,
-  selectProjectId,
-} from '../../features/project/store/project.selector';
+import { selectProjectRole } from '../../features/project/store/project.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectRolesGuard implements CanActivate {
-  constructor(
-    private store: Store,
-    private router: Router,
-    private destroyRef: DestroyRef
-  ) {}
+  constructor(private store: Store, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const projectId = route.params['projectId'];
