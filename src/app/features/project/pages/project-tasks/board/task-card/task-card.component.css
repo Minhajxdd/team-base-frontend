@@ -1,3 +1,5 @@
 .task-card {
   transition: 0;
+  border: 1px solid var(--text-primary);
+  background-color: var(--bg-secondary);
 }
