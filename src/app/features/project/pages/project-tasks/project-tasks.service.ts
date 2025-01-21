@@ -5,13 +5,13 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectTasksService {
-  private refreshSubject: Subject<void> = new Subject<void>();
+  private refreshSubject: Subject<string | null> = new Subject<string | null>();
 
-  emitRefreshEvent(): void {
-    this.refreshSubject.next();
+  emitRefreshEvent(userId: string | null = null) {
+    this.refreshSubject.next(userId);
   }
 
-  getRefreshListener(): Observable<void> {
+  getRefreshListener(): Observable<string | null> {
     return this.refreshSubject.asObservable();
   }
 }

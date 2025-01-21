@@ -72,8 +72,8 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     const subscription = this.projectTasksService
       .getRefreshListener()
-      .subscribe(() => {
-        this.fetchUserData();
+      .subscribe((data) => {
+        if (data) this.fetchUserData(data);
       });
 
     this.destoryRef.onDestroy(() => {
@@ -81,26 +81,28 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  fetchUserData() {
+  fetchUserData(memberId?: string) {
     this.isLoading.set(false);
-    const subscription = this.boardService.getTasks(this.projectId).subscribe({
-      next: (data) => {
-        this.todos = data.filter(
-          (task: BoardCardModel) => task.status === 'todo'
-        );
+    const subscription = this.boardService
+      .getTasks(this.projectId, memberId)
+      .subscribe({
+        next: (data) => {
+          this.todos = data.filter(
+            (task: BoardCardModel) => task.status === 'todo'
+          );
 
-        this.inprogresss = data.filter(
-          (task: BoardCardModel) => task.status === 'progress'
-        );
+          this.inprogresss = data.filter(
+            (task: BoardCardModel) => task.status === 'progress'
+          );
 
-        this.dones = data.filter(
-          (task: BoardCardModel) => task.status === 'done'
-        );
-      },
-      complete: () => {
-        this.isLoading.set(false);
-      },
-    });
+          this.dones = data.filter(
+            (task: BoardCardModel) => task.status === 'done'
+          );
+        },
+        complete: () => {
+          this.isLoading.set(false);
+        },
+      });
 
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();

@@ -9,13 +9,16 @@ import { BoardCardModel } from './board.model';
 export class BoardService {
   constructor(private http: HttpClient) {}
 
-  getTasks(projectId: string) {
-    return this.http.get<BoardCardModel[]>(
-      `${environment.back_end}/project/${projectId}/tasks`,
-      {
-        withCredentials: true,
-      }
-    );
+  getTasks(projectId: string, memberId: string | null = null) {
+    let url = `${environment.back_end}/project/${projectId}/tasks`;
+
+    if (memberId && memberId !== 'null') {
+      url += `?member=${memberId}`;
+    }
+
+    return this.http.get<BoardCardModel[]>(url, {
+      withCredentials: true,
+    });
   }
 
   updateTaskStatus(projectId: string, taskId: string, status: string) {
@@ -23,7 +26,7 @@ export class BoardService {
       `${environment.back_end}/project/${projectId}/tasks`,
       {
         taskId,
-        status
+        status,
       },
       {
         withCredentials: true,

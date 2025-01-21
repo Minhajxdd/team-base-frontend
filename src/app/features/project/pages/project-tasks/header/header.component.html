@@ -1,10 +1,17 @@
 <div class="header">
-    <h1>Project Tasks</h1>
+  <h1>Project Tasks</h1>
 
-  @if (role !== 'developer') {
-    <button 
-    (click)="onFormOpen()"
-    class="add-task-btn">
+  <div
+    class="header-options-div"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    "
+  >
+    @if (role !== 'developer') {
+    <button (click)="onFormOpen()" class="add-task-btn">
       <svg
         width="16"
         height="16"
@@ -18,8 +25,19 @@
       </svg>
       Add Task
     </button>
-  }
+    }
 
+    <select (change)="onDropChange($event)" [(ngModel)]="members" class="member-filter">
+      <option value="null" selected>All Member</option>
+
+      @for (Member of Members; track Member.userId._id) {
+      <option [value]="Member.userId._id">{{ Member.userId.full_name }}</option>
+      }
+    </select>
   </div>
+</div>
 
-  <app-add-task-form [isVisible]="isFormVisible()" (closeForm)="onFormClose($event)"></app-add-task-form>
+<app-add-task-form
+  [isVisible]="isFormVisible()"
+  (closeForm)="onFormClose($event)"
+></app-add-task-form>
