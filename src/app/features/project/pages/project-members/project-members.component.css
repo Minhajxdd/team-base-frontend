@@ -99,9 +99,10 @@
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #f8fafc;
+  font-size: 1.875rem;
+  background: linear-gradient(to right, var(--accent-color), var(--hover-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .invite-members-btn {
@@ -204,3 +205,4 @@
   font-size: 0.875rem;
   font-weight: 500;
 }
+
