@@ -1,1 +1,242 @@
-<p>project-chat works!</p>
+<div class="flex h-[92vh] relative chat-container">
+  <!-- Sidebar Toggle for Mobile -->
+  <button
+    id="sidebarToggle"
+    class="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 rounded-md text-gray-300 hover:text-white"
+  >
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div
+    id="sidebar"
+    class="w-64 bg-[color:var(--second-navbar)] border-r border-[color:var(--text-primary)] flex-none transform -translate-x-full lg:translate-x-0 transition-transform duration-300 fixed lg:relative h-full z-40"
+  >
+    <div class="flex flex-col h-full">
+      <!-- User Profile -->
+      <div class="p-4 border-b border-[color:var(--text-primary)]">
+        <div class="flex items-center">
+          <div
+            class="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center"
+          >
+            <i class="fas fa-user text-blue-400"></i>
+          </div>
+          <div class="ml-3">
+            <div class="text-sm font-medium text-[color:var(--text-primary)]">
+              Alex Johnson
+            </div>
+            <div class="text-xs text-[color:var(--accent-color)]">
+              [Frontend Dev]
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chats -->
+      <div class="flex-1 overflow-y-auto p-4">
+        <div class="space-y-4">
+          <!-- Members -->
+          <div>
+            <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2">
+              Members
+            </h3>
+            <div class="space-y-2">
+
+                
+
+              <div
+                class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md"
+              >
+                <div class="relative">
+                  <div
+                    class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+                  >
+                    <i class="fas fa-user text-gray-400"></i>
+                  </div>
+                  <div
+                    class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+                  ></div>
+                </div>
+                <div class="ml-2 flex-1">
+                  <div
+                    class="text-sm font-medium text-[color:var(--text-primary)]"
+                  >
+                    Mike
+                  </div>
+                  <div class="text-xs text-gray-400">[Developer]</div>
+                </div>
+              </div>
+
+
+              <div
+              class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md"
+            >
+              <div class="relative">
+                <div
+                  class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+                >
+                  <i class="fas fa-user text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+                ></div>
+              </div>
+              <div class="ml-2 flex-1">
+                <div
+                  class="text-sm font-medium text-[color:var(--text-primary)]"
+                >
+                  John
+                </div>
+                <div class="text-xs text-gray-400">[Developer]</div>
+              </div>
+            </div>
+            
+
+
+
+            <div
+            class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md"
+          >
+            <div class="relative">
+              <div
+                class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+              >
+                <i class="fas fa-user text-gray-400"></i>
+              </div>
+              <div
+                class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+              ></div>
+            </div>
+            <div class="ml-2 flex-1">
+              <div
+                class="text-sm font-medium text-[color:var(--text-primary)]"
+              >
+                David
+              </div>
+              <div class="text-xs text-gray-400">[Developer]</div>
+            </div>
+          </div>
+
+
+
+
+          <div
+          class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md"
+        >
+          <div class="relative">
+            <div
+              class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+            >
+              <i class="fas fa-user text-gray-400"></i>
+            </div>
+            <div
+              class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+            ></div>
+          </div>
+          <div class="ml-2 flex-1">
+            <div
+              class="text-sm font-medium text-[color:var(--text-primary)]"
+            >
+              Rogger
+            </div>
+            <div class="text-xs text-gray-400">[Developer]</div>
+          </div>
+        </div>
+
+
+
+        <div
+        class="flex items-center  bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md"
+      >
+        <div class="relative">
+          <div
+            class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+          >
+            <i class="fas fa-user text-gray-400"></i>
+          </div>
+          <div
+            class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+          ></div>
+        </div>
+        <div class="ml-2 flex-1">
+          <div
+            class="text-sm font-medium text-[color:var(--text-primary)]"
+          >
+            Ibanus
+          </div>
+          <div class="text-xs text-gray-400">[Developer]</div>
+        </div>
+      </div>
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="flex-1 flex flex-col">
+    <!-- Chat header -->
+    <div
+      class="bg-[color:var(--second-navbar)] border-b border-[color:var(--text-primary)] p-3.5"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div
+            class="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center"
+          >
+            <i class="fas fa-code text-blue-400"></i>
+          </div>
+          <div class="ml-3">
+            <div class="flex items-center">
+              <h3 class="font-medium text-[color:var(--text-primary)]">
+                Frontend Team
+              </h3>
+            </div>
+            <p class="text-sm text-[color:var(--accent-color)]">5 members</p>
+          </div>
+        </div>
+        <div class="flex space-x-4">
+          <button
+            class="p-2 hover:bg-gray-700 rounded-full text-gray-300 hover:text-white"
+          >
+            <i class="fas fa-phone"></i>
+          </button>
+          <button
+            class="p-2 hover:bg-gray-700 rounded-full text-gray-300 hover:text-white"
+          >
+            <i class="fas fa-video"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages area -->
+    <div
+      class="flex-1 overflow-y-auto p-4 space-y-4 bg-[color:var(--bg-secondary)]"
+      id="messages"
+    >
+      <!-- Example messages will be added here -->
+    </div>
+
+    <!-- Input area -->
+    <div
+      class="bg-[color:var(--second-navbar)] border-t border[color:var(--text-primary)] p-4"
+    >
+      <div class="flex items-center space-x-2">
+        <input
+          type="text"
+          class="flex-1 bg-[color:var(--bg-secondary)] border border-[color:var(--text-primary)] rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+          placeholder="Type your message..."
+        />
+        <button class="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <i class="bx bx-send"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
