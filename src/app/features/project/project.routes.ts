@@ -39,6 +39,14 @@ export const projectRoutes: Routes = [
           ),
         canActivate: [UserAuthGuard, ProjectRolesGuard],
       },
+      {
+        path: ':projectId/chats',
+        loadComponent: () =>
+          import('./pages/project-chat/project-chat.component').then(
+            (m) => m.ProjectChatComponent
+          ),
+        canActivate: [UserAuthGuard, ProjectRolesGuard],
+      }
     ],
   },
 ];

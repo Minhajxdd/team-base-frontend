@@ -37,7 +37,11 @@
               <i class="bx bx-task nav__icon"></i>
               <span class="nav__text">Tasks</span>
             </a>
-            <a routerLinkActive="active" class="nav__link">
+            <a 
+              routerLinkActive="active"
+              [routerLink]="['/project', projectId(), 'chats']"
+              class="nav__link"
+            >
               <i class="bx bx-chat nav__icon"></i>
               <span class="nav__text">Chat</span>
             </a>
