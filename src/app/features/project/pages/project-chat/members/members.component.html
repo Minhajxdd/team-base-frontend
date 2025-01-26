@@ -1,0 +1,21 @@
+<div class="flex-1 overflow-y-auto p-4">
+  <div class="space-y-4">
+    <!-- Members -->
+    <div>
+      <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2">
+        Members
+      </h3>
+      <div class="space-y-2">
+        @if (isLoading()) {
+            <div class="loading_spinner_div">
+                <app-small-spninner></app-small-spninner>
+            </div>
+
+        } @else { @for (projectMember of projectMembers; track
+        projectMember.userId._id) {
+        <app-members-card [member]="projectMember" class="mt-2"></app-members-card>
+        } }
+      </div>
+    </div>
+  </div>
+</div>
