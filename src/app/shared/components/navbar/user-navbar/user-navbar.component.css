@@ -38,3 +38,7 @@ header {
 .toggle-icon {
   font-size: 1.5rem;
 }
+
+.active {
+  pointer-events: none;
+}

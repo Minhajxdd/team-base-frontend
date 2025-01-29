@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-user-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css',
 })
