@@ -10,7 +10,9 @@ export class ChatSocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(`${environment.back_end}/chats`, { withCredentials: true });
+    this.socket = io(`${environment.back_end}/chats`, {
+      withCredentials: true,
+    });
   }
 
   emit(event: string, data: any) {
@@ -22,10 +24,14 @@ export class ChatSocketService {
       this.socket.on(event, (data) => {
         observer.next(data);
       });
-
-      return () => {
-        this.socket.off(event);
-      };
     });
+  }
+
+  connect() {
+    this.socket.connect();
+  }
+
+  disconnect() {
+    this.socket.disconnect();
   }
 }
