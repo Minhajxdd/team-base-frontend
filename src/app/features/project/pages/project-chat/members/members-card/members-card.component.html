@@ -5,11 +5,16 @@ class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--se
   <div
     class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
   >
-    <i class="fas fa-user text-gray-400"></i>
+    <img src="" alt="">
   </div>
-  <div
-    class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
-  ></div>
+
+  @if (isOnline()) {
+    <div
+      class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+    ></div>
+
+  }
+
 </div>
 <div class="ml-2 flex-1">
   <div

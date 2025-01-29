@@ -5,8 +5,9 @@ import { projectMember } from '../../../project-members/project-members-display/
   selector: 'app-members-card',
   imports: [],
   templateUrl: './members-card.component.html',
-  styleUrl: './members-card.component.css'
+  styleUrl: './members-card.component.css',
 })
 export class MembersCardComponent {
   member = input.required<projectMember>();
+  isOnline = input<boolean>(false);
 }

@@ -7,13 +7,17 @@
       </h3>
       <div class="space-y-2">
         @if (isLoading()) {
-            <div class="loading_spinner_div">
-                <app-small-spninner></app-small-spninner>
-            </div>
+        <div class="loading_spinner_div">
+          <app-small-spninner></app-small-spninner>
+        </div>
 
         } @else { @for (projectMember of projectMembers; track
         projectMember.userId._id) {
-        <app-members-card [member]="projectMember" class="mt-2"></app-members-card>
+        <app-members-card
+          [member]="projectMember"
+          [isOnline]="isMemberOnline(projectMember.userId._id)"
+          class="mt-2"
+        ></app-members-card>
         } }
       </div>
     </div>
