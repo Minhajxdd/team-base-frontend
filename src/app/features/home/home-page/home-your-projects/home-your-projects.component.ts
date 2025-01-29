@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { HomeYourProjectsService } from './home-your-projects.component.service';
 import { ProjectBoxComponent } from './project-box/project-box.component';
 import { Skeleton } from 'primeng/skeleton';
-import { Project } from '../home-component.mode';
 import { HomeComponentService } from '../home-component.service';
 
 @Component({
