@@ -16,6 +16,8 @@ import { provideStore } from '@ngrx/store';
 import { ProjectReducer } from './features/project/store/project.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { ProjectEffects } from './features/project/store/project.effects';
+import { UserEffects } from './shared/store/user/user.effects';
+import { userReducer } from './shared/store/user/user.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,7 +33,8 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     provideStore({
       project: ProjectReducer,
+      user: userReducer,
     }),
-    provideEffects([ProjectEffects]),
+    provideEffects([ProjectEffects, UserEffects]),
   ],
 };
