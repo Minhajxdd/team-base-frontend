@@ -23,8 +23,3 @@ export const updateProfilePictureSuccess = createAction(
   '[User] Update Profile Picture Success',
   props<{ profile: string }>()
 );
-
-export const updateProfilePictureFailure = createAction(
-  '[User] Update Profile Picture Failure',
-  props<{ error: any }>()
-);

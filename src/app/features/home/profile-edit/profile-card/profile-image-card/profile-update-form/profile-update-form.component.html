@@ -1,0 +1,63 @@
+<div class="grow">
+  <div class="flex items-center gap-x-2">
+    <div>
+      <input
+        id="file-input"
+        type="file"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        style="display: none"
+      />
+
+      @if (isUploadLoading()) {
+          <div role="status" class="max-w-sm animate-pulse mt-2">
+            <div
+            style="width: 123px; margin-top: 16px;"
+              class="h-8 bg-gray-200 rounded-md dark:bg-gray-700 w-35 mb-4"
+            ></div>
+          </div>
+    } @else {   
+        <label
+          for="file-input"
+          class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <svg
+            class="shrink-0 size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" x2="12" y1="3" y2="15"></line>
+          </svg>
+          Upload photo
+        </label>
+    }
+        
+
+
+   
+    </div>
+
+    <button
+      type="button"
+      class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+      (click)="removeFile()"
+    >
+      Remove
+    </button>
+  </div>
+
+  @if (errorMessage) {
+  <div class="text-red-500 text-sm mt-2">
+    {{ errorMessage }}
+  </div>
+  }
+</div>

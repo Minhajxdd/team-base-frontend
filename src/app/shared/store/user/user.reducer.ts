@@ -36,10 +36,4 @@ export const userReducer = createReducer(
     profile,
     loading: false,
   })),
-
-  on(UserActions.updateProfilePictureFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  }))
 );

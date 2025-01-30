@@ -1,0 +1,43 @@
+<div class="flex items-center space-x-6">
+
+  <div class="flex flex-wrap items-center gap-3 sm:gap-5">
+
+  @if (imageUrl()) {
+    <img
+      id="profilePicPreview"
+      [src]="imageUrl()"
+      alt="Profile"
+      class="w-20 h-20 rounded-full shadow-md"
+    />
+  } @else {
+
+    <div>
+      <span
+        class="group-has-[div]:hidden flex shrink-0 justify-center items-center size-20 border-2 border-dotted border-gray-300 text-gray-400 cursor-pointer rounded-full hover:bg-gray-50"
+      >
+        <svg
+          class="shrink-0 size-7"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="10" r="3"></circle>
+          <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
+        </svg>
+      </span>
+    </div>
+
+  }
+
+  <app-profile-update-form></app-profile-update-form>
+
+ 
+  </div>
+</div>
