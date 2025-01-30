@@ -8,7 +8,7 @@ import { environment } from '../../../../../../../environments/environment.devel
 export class ProfileUpdateFormService {
   constructor(private readonly http: HttpClient) {}
 
-  uploadFile(file: File) {
+  uploadProfile(file: File) {
     const formData = new FormData();
     formData.append('profile', file);
 
@@ -19,5 +19,11 @@ export class ProfileUpdateFormService {
         withCredentials: true,
       }
     );
+  }
+
+  removeProfile() {
+    return this.http.delete(`${environment.back_end}/user-profile/image`, {
+      withCredentials: true,
+    });
   }
 }

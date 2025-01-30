@@ -1,4 +1,4 @@
-import { Component, DestroyRef, signal } from '@angular/core';
+import { Component, DestroyRef, input, signal } from '@angular/core';
 import { ProfileUpdateFormService } from './profile-update-form.service';
 import { Store } from '@ngrx/store';
 import { updateProfilePictureSuccess } from '../../../../../../shared/store/user/user.actions';
@@ -15,13 +15,13 @@ export class ProfileUpdateFormComponent {
   maxFileSize = 5 * 1024 * 1024;
 
   isUploadLoading = signal(false);
+  profileUrl = input.required<string | null | undefined>();
 
   constructor(
     private profileUpdateFormService: ProfileUpdateFormService,
     private destoryRef: DestroyRef,
     private store: Store
-  ) {
-  }
+  ) {}
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -45,7 +45,7 @@ export class ProfileUpdateFormComponent {
 
     this.selectedFile = file;
     const subscription = this.profileUpdateFormService
-      .uploadFile(file)
+      .uploadProfile(file)
       .subscribe({
         next: (response: any) => {
           const updatedProfielUrl = response.data.imageUrl;
@@ -56,6 +56,7 @@ export class ProfileUpdateFormComponent {
         },
         error: (err) => {
           console.log(err);
+          this.errorMessage = `Failed to Update`;
         },
         complete: () => {
           this.isUploadLoading.set(false);
@@ -71,9 +72,23 @@ export class ProfileUpdateFormComponent {
     this.selectedFile = null;
     this.errorMessage = '';
 
-    const fileInput = document.getElementById('file-input') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = '';
-    }
+    this.store.dispatch(updateProfilePictureSuccess({ profile: '' }));
+
+    const subscription = this.profileUpdateFormService
+      .removeProfile()
+      .subscribe({
+        error: () => {
+          const profileUrl = this.profileUrl();
+          if (profileUrl) {
+            this.store.dispatch(
+              updateProfilePictureSuccess({ profile: profileUrl })
+            );
+          }
+        },
+      });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
