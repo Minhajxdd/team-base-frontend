@@ -1,8 +1,6 @@
 <header class="shadow-lg py-4">
   <div class="container mx-auto flex justify-between items-center px-6">
-    <h1
-      class="text-3xl font-bold cursor-pointer text-[var(--accent-color)]"
-    >
+    <h1 class="text-3xl font-bold cursor-pointer text-[var(--accent-color)]">
       TeamBase
     </h1>
     <nav class="flex items-center space-x-6">
@@ -33,11 +31,11 @@
           class="flex items-center space-x-2 py-2 px-4 rounded-lg btn"
         >
           <img
-            src="https://via.placeholder.com/30"
+            [src]="user()?.profile"
             alt="Profile"
             class="w-8 h-8 rounded-full"
           />
-          <span>username</span>
+          <span>{{ user()?.fullName?.split(" ")?.[0] }}</span>
         </button>
         <div
           id="profileDropdown"
