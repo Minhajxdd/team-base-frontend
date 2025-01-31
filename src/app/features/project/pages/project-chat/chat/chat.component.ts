@@ -27,11 +27,6 @@ export class ChatComponent {
     private destoryRef: DestroyRef,
     private store: Store
   ) {
-    this.chatSocketService.on('message').subscribe((data) => {
-      console.log('Message received');
-      console.log(data);
-    });
-
     const subscription = this.store.select(selectUser).subscribe((data) => {
       this.user = data;
     });
@@ -41,68 +36,67 @@ export class ChatComponent {
         if (data) this.role = data;
       });
 
-      
-      const subscription2 = this.membersServices.projectMembers$.subscribe((data) => {
+    const subscription2 = this.membersServices.projectMembers$.subscribe(
+      (data) => {
         this.members = data;
-      })
-      
-      this.destoryRef.onDestroy(() => {
-        subscription.unsubscribe();
-        subscription1.unsubscribe();
-        subscription2.unsubscribe();
+      }
+    );
+
+    const subscription3 = this.chatSocketService
+      .on('message')
+      .subscribe((data: ChatModel) => {
+        this.messages.push(data)
       });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+      subscription1.unsubscribe();
+      subscription2.unsubscribe();
+      subscription3.unsubscribe();
+    });
   }
 
   user!: User;
   role!: string;
 
-  dummydatas: ChatModel[] = [
+  messages: ChatModel[] = [
     {
-      _id: '678a14d4d96aa61716335f6f4',
       senderId: '678a14d4d96aa61716f45f64',
       text: 'fd',
-      time: '11:14:37 PM',
+      time: '11:14:3e PM',
     },
     {
-      _id: '678a14d4d96aa61716335f6fd',
       senderId: '678e8d0980716bac133cdba0',
       text: 'Hi There',
-      time: '12:35:37 PM',
+      time: '12:35:3d PM',
     },
     {
-      _id: '678a14d2d96aa61716335f6f4',
       senderId: '678f3d6dcb15516c96de58b1',
       text: 'done randomly',
-      time: '12:35:37 PM',
+      time: '12:35:c7 PM',
     },
     {
-      _id: '278a14d4d96aa61716335f6f4',
       senderId: '678a14d4d96aa61716f45f64',
       text: 'fd',
-      time: '12:35:37 PM',
+      time: '12:35:b7 PM',
     },
     {
-      _id: '678ab4d4d96aa61716335f6f4',
       senderId: '678e8d0980716bac133cdba0',
       text: 'Hi There',
-      time: '12:35:37 PM',
+      time: '12:35:3 PM',
     },
     {
-      _id: '678a14d4d96aa617f6335f6f4',
       senderId: '678f3d6dcb15516c96de58b1',
       text: 'done randomly',
-      time: '12:35:37 PM',
+      time: '12:35:3a PM',
     },
   ];
 
   onSendMessage(message: string) {
     this.chatSocketService.emit('message', { text: message });
-    console.log(message);
   }
-
 
   getProjectMemberById(memberId: string): projectMember | undefined {
-    return this.members.find(member => member.userId._id === memberId);
+    return this.members.find((member) => member.userId._id === memberId);
   }
-  
 }

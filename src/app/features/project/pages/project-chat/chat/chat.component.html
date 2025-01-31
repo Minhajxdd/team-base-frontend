@@ -1,5 +1,5 @@
 <!-- Chat -->
-<div class="h-full w-full">
+<div class="w-full">
   <!-- Messages area -->
   <div
     style="height: 79%"
@@ -8,10 +8,10 @@
   >
     <!-- messages will be added here -->
 
-    @for (dummydata of dummydatas; track dummydata._id) { @if
-    (dummydata.senderId=== user.id) {
+    @for (message of messages; track message.time) { @if
+    (message.senderId=== user.id) {
     <app-user-chat
-      [chat]="dummydata"
+      [chat]="message"
       [profile]="user.profile"
       [role]="role"
     ></app-user-chat>
@@ -19,8 +19,8 @@
     } @else {
 
     <app-receiving-chat
-      [chat]="dummydata"
-      [member]="getProjectMemberById(dummydata.senderId)"
+      [chat]="message"
+      [member]="getProjectMemberById(message.senderId)"
     ></app-receiving-chat>
     } }
   </div>
