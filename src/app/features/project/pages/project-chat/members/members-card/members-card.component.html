@@ -1,27 +1,34 @@
 <div
-class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md mt-2"
+  class="flex items-center bg-[color:var(--bg-secondary)] hover:bg-[color:var(--second-color)] p-2 rounded-md mt-2"
 >
-<div class="relative">
-  <div
-    class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
-  >
-    <img src="" alt="">
-  </div>
+  <div class="relative">
+    <div class="w-8 h-8 flex items-center justify-center">
+      @if (member().userId.profile) {
+      <img
+        class="w-8 h-8 rounded-full bg-gray-700"
+        [src]="member().userId.profile"
+        alt=""
+      />
+      } @else {
+      <div
+        class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700"
+      >
+        <i class="text-[1.6rem] text-white bx bx-user"></i>
+      </div>
+      }
+    </div>
 
-  @if (isOnline()) {
+    @if (isOnline()) {
     <div
-      class="absolute bottom-0 right-0 w-2 h-2 bg-gray-500 rounded-full"
+      class="absolute bottom-0 right-0 w-2 h-2 bg-red-500 rounded-full"
     ></div>
 
-  }
-
-</div>
-<div class="ml-2 flex-1">
-  <div
-    class="text-sm font-medium text-[color:var(--text-primary)]"
-  >
-    {{ member().userId.full_name}}
+    }
   </div>
-  <div class="text-xs text-gray-400">[ {{ member().role }} ]</div>
-</div>
+  <div class="ml-2 flex-1">
+    <div class="text-sm font-medium text-[color:var(--text-primary)]">
+      {{ member().userId.full_name }}
+    </div>
+    <div class="text-xs text-gray-400">[ {{ member().role }} ]</div>
+  </div>
 </div>

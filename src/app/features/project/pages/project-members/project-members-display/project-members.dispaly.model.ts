@@ -5,5 +5,6 @@ export interface projectMember {
     full_name: string;
     email: string;
     isBlocked: string;
+    profile: string;
   };
 }

@@ -1,0 +1,29 @@
+<!-- Chat -->
+<div class="h-full w-full">
+  <!-- Messages area -->
+  <div
+    style="height: 79%"
+    class="w-full flex-1 overflow-y-auto p-4 space-y-4 bg-[color:var(--bg-secondary)]"
+    id="messages"
+  >
+    <!-- messages will be added here -->
+
+    @for (dummydata of dummydatas; track dummydata._id) { @if
+    (dummydata.senderId=== user.id) {
+    <app-user-chat
+      [chat]="dummydata"
+      [profile]="user.profile"
+      [role]="role"
+    ></app-user-chat>
+
+    } @else {
+
+    <app-receiving-chat
+      [chat]="dummydata"
+      [member]="getProjectMemberById(dummydata.senderId)"
+    ></app-receiving-chat>
+    } }
+  </div>
+
+  <app-input (message)="onSendMessage($event)"></app-input>
+</div>

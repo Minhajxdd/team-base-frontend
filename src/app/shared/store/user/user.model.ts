@@ -6,3 +6,10 @@ export interface UserState {
   loading: boolean;
   error: string | null;
 }
+
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  profile: string;
+}

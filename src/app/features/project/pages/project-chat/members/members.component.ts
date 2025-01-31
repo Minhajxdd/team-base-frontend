@@ -52,16 +52,15 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   fetchUsers() {
     this.isLoading.set(true);
-    const subscription = this.membersServices
-      .FetchProjectMembers(this.projectId())
-      .subscribe({
-        next: (data) => {
-          this.projectMembers = data;
-        },
-        complete: () => {
-          this.isLoading.set(false);
-        },
-      });
+    
+    this.membersServices.FetchProjectMembers(this.projectId());
+
+    const subscription = this.membersServices.projectMembers$.subscribe({
+      next: (data) => {
+        this.projectMembers = data;
+        this.isLoading.set(false);
+      },
+    });
 
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();

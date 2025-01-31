@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment.development';
 import { projectMember } from '../../project-members/project-members-display/project-members.dispaly.model';
 
@@ -7,14 +8,25 @@ import { projectMember } from '../../project-members/project-members-display/pro
   providedIn: 'root',
 })
 export class MembersServices {
-  constructor(private http: HttpClient) {}
+  private projectMembersSubject: BehaviorSubject<projectMember[]> =
+    new BehaviorSubject<projectMember[]>([]);
+  projectMembers$: Observable<projectMember[]> =
+    this.projectMembersSubject.asObservable();
 
-  FetchProjectMembers(projectId: string) {
-    return this.http.get<projectMember[]>(
-      `${environment.back_end}/project/${projectId}/members/details`,
-      {
-        withCredentials: true,
-      }
-    );
+  constructor(private http: HttpClient, private destoryRef: DestroyRef) {}
+
+  FetchProjectMembers(projectId: string): void {
+    const subscription = this.http
+      .get<projectMember[]>(
+        `${environment.back_end}/project/${projectId}/members/details`,
+        { withCredentials: true }
+      )
+      .subscribe((members: projectMember[]) => {
+        this.projectMembersSubject.next(members);
+      });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
