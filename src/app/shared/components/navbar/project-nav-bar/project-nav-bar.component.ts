@@ -4,6 +4,10 @@ import { ThemeModeService } from '../../../../core/services/theme.service';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectProjectId } from '../../../../features/project/store/project.selector';
+import { Observable, Subscription } from 'rxjs';
+import { selectUser } from '../../../store/user/user.selector';
+import { User } from '../navbar.model';
+import { loadUser } from '../../../store/user/user.actions';
 
 @Component({
   selector: 'app-project-nav-bar',
@@ -13,16 +17,26 @@ import { selectProjectId } from '../../../../features/project/store/project.sele
 })
 export class ProjectNavBarComponent implements OnInit {
   private readonly themeService = inject(ThemeModeService);
-  private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
+
+  user$: Observable<any>;
+
+  constructor(private store: Store) {
+    this.store.dispatch(loadUser());
+
+    this.user$ = this.store.select(selectUser);
+  }
 
   projectId = signal<null | string>(null);
 
   isDarkMode = this.themeService.$isDarkMode;
 
-
   isToggled = signal(true);
   isProfileToggled = signal(false);
+
+  subscription1$!: Subscription;
+
+  user = signal<User | null>(null);
 
   ngOnInit() {
     const subscription = this.store
@@ -40,6 +54,14 @@ export class ProjectNavBarComponent implements OnInit {
     } else {
       this.isToggled.set(false);
     }
+
+    this.subscription1$ = this.user$.subscribe((userData) => {
+      this.user.set(userData);
+    });
+
+    this.destroyRef.onDestroy(() => {
+      this.subscription1$.unsubscribe();
+    });
   }
 
   toggle() {

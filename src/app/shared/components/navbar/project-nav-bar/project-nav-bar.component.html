@@ -37,7 +37,7 @@
               <i class="bx bx-task nav__icon"></i>
               <span class="nav__text">Tasks</span>
             </a>
-            <a 
+            <a
               routerLinkActive="active"
               [routerLink]="['/project', projectId(), 'chats']"
               class="nav__link"
@@ -82,13 +82,11 @@
 <div class="top-navbar">
   <div class="top_nav_inner">
     <div class="top_nav_content theme_switch_box">
-      <div 
-      (click)="onThemeToggle()"
-      class="them_switch_div">
+      <div (click)="onThemeToggle()" class="them_switch_div">
         @if (isDarkMode()) {
-          <i class="bx bx-sun nav__icon bell_icon"></i>
+        <i class="bx bx-sun nav__icon bell_icon"></i>
         } @else {
-          <i class="bx bx-moon nav__icon bell_icon"></i>
+        <i class="bx bx-moon nav__icon bell_icon"></i>
         }
       </div>
     </div>
@@ -96,12 +94,18 @@
     <div class="top_nav_content">
       <i class="bx bx-bell nav__icon bell_icon"></i>
     </div>
+
+    @if (user()?.profile) {
     <img
       (click)="toggleProfile()"
-      src="https://www.pngitem.com/pimgs/m/504-5040528_empty-profile-picture-png-transparent-png.png"
-      class="top_nav_content"
+      [src]="user()?.profile"
+      alt="Profile"
+      class="w-8 h-8 rounded-full"
     />
-
+    } @else {
+    <i (click)="toggleProfile()" style="font-size: 1.6rem;" class="bx bx-user"></i>
+    } 
+    
     @if (isProfileToggled()) {
     <div class="top_nav_profile_popup">
       <div class="top_nav_profile_popup_card">
@@ -119,5 +123,4 @@
 
 <div class="body-component">
   <ng-content></ng-content>
-
 </div>
