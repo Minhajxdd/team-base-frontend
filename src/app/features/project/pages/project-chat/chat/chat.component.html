@@ -1,31 +1,120 @@
 <!-- Chat -->
 <div
-class="flex flex-col h-[calc(100vh-18vh)] max-h-[calc(100vh-18vh)] overflow-hidden">
+  class="flex flex-col h-[calc(100vh-18vh)] max-h-[calc(100vh-18vh)] overflow-hidden"
+>
   <!-- Messages area -->
   <div class="flex-grow overflow-hidden relative">
     <!-- Messages will be added here -->
-    <div #scrollableDiv class="absolute inset-0 overflow-y-auto p-4 space-y-4">
-      @for (message of messages; track message.time) { 
-        @if (message.senderId === user.id) {
-          <app-user-chat
-            [chat]="message"
-            [profile]="user.profile"
-            [role]="role"
-          ></app-user-chat>
-        } @else {
-          <app-receiving-chat
-            [chat]="message"
-            [member]="getProjectMemberById(message.senderId)"
-          ></app-receiving-chat>
-        } 
-      }
-      <div style="width: 10px; height: 200px;"></div>
+    <div
+      #scrollableDiv
+      class="absolute inset-0 overflow-y-scroll p-4 space-y-4"
+    >
+      <div class="flex items-center justify-center">
+        <div (click)="onFetchData()">
+          <div>
+
+            @if(!isNewChatFetching()) {
+              <svg
+                fill="#000000"
+                height="1.5rem"
+                width="800px"
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 512 512"
+                xml:space="preserve"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M511.957,185.214L512,15.045l-67.587,67.587l-7.574-7.574c-48.332-48.332-112.593-74.95-180.946-74.95
+          C114.792,0.107,0,114.901,0,256s114.792,255.893,255.893,255.893S511.785,397.099,511.785,256h-49.528
+          c0,113.79-92.575,206.365-206.365,206.365S49.528,369.79,49.528,256S142.103,49.635,255.893,49.635
+          c55.124,0,106.947,21.467,145.925,60.445l7.574,7.574l-67.58,67.58L511.957,185.214z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg"
+              height="2.7rem"
+              viewBox="0 0 200 200">
+                <radialGradient
+                  id="a12"
+                  cx=".66"
+                  fx=".66"
+                  cy=".3125"
+                  fy=".3125"
+                  gradientTransform="scale(1.5)"
+                >
+                  <stop offset="0" stop-color="#FF0000"></stop>
+                  <stop offset=".3" stop-color="#FF0000" stop-opacity=".9"></stop>
+                  <stop offset=".6" stop-color="#FF0000" stop-opacity=".6"></stop>
+                  <stop offset=".8" stop-color="#FF0000" stop-opacity=".3"></stop>
+                  <stop offset="1" stop-color="#FF0000" stop-opacity="0"></stop>
+                </radialGradient>
+                <circle
+                  transform-origin="center"
+                  fill="none"
+                  stroke="url(#a12)"
+                  stroke-width="19"
+                  stroke-linecap="round"
+                  stroke-dasharray="200 1000"
+                  stroke-dashoffset="0"
+                  cx="100"
+                  cy="100"
+                  r="70"
+                >
+                  <animateTransform
+                    type="rotate"
+                    attributeName="transform"
+                    calcMode="spline"
+                    dur="2"
+                    values="360;0"
+                    keyTimes="0;1"
+                    keySplines="0 0 1 1"
+                    repeatCount="indefinite"
+                  ></animateTransform>
+                </circle>
+                <circle
+                  transform-origin="center"
+                  fill="none"
+                  opacity=".2"
+                  stroke="#FF0000"
+                  stroke-width="19"
+                  stroke-linecap="round"
+                  cx="100"
+                  cy="100"
+                  r="70"
+                ></circle>
+              </svg>
+            }
+
+
+          </div>
+        </div>
+      </div>
+
+      @for (message of messages; track message._id) { @if (message.senderId ===
+      user.id) {
+      <app-user-chat
+        [chat]="message"
+        [profile]="user.profile"
+        [role]="role"
+      ></app-user-chat>
+      } @else {
+      <app-receiving-chat
+        [chat]="message"
+        [member]="getProjectMemberById(message.senderId)"
+      ></app-receiving-chat>
+      } }
+      <div style="width: 10px; height: 200px"></div>
     </div>
-  
+
     <!-- Input Field (Fixed to Bottom) -->
     <div class="absolute bottom-0 left-0 w-full">
       <app-input (message)="onSendMessage($event)"></app-input>
     </div>
   </div>
-  
 </div>

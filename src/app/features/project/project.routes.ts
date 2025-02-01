@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { ProjectRolesGuard } from '../../core/guards/project.guard';
 import { UserAuthGuard } from '../../core/guards/user.guard';
+import { AppComponent } from '../../app.component';
 
 export const projectRoutes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('../../app.component').then((m) => m.AppComponent),
+    component: AppComponent,
     children: [
       {
         path: 'project',

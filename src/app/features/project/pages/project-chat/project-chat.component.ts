@@ -2,7 +2,6 @@ import {
   Component,
   DestroyRef,
   OnInit,
-  ViewEncapsulation,
 } from '@angular/core';
 import { ChatSocketService } from './chat.socket.service';
 import { Store } from '@ngrx/store';

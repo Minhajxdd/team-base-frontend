@@ -1,4 +1,11 @@
-import { Component, DestroyRef, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ReceivingChatComponent } from './receiving-chat/receiving-chat.component';
 import { InputComponent } from './input/input.component';
@@ -7,9 +14,13 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../../shared/store/user/user.selector';
 import { ChatModel } from './chat.model';
 import { User } from '../../../../../shared/store/user/user.model';
-import { selectProjectRole } from '../../../store/project.selector';
+import {
+  selectProjectId,
+  selectProjectRole,
+} from '../../../store/project.selector';
 import { MembersServices } from '../members/members.services';
 import { projectMember } from '../../project-members/project-members-display/project-members.dispaly.model';
+import { ChatService } from './chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +30,10 @@ import { projectMember } from '../../project-members/project-members-display/pro
 })
 export class ChatComponent {
   private membersServices = inject(MembersServices);
+  private chatService = inject(ChatService);
+
+  projectId!: string;
+  skip = 0;
 
   members!: projectMember[];
 
@@ -42,10 +57,25 @@ export class ChatComponent {
       }
     );
 
-    const subscription3 = this.chatSocketService
+    const subscription3 = this.store
+      .select(selectProjectId)
+      .subscribe((data) => {
+        this.projectId = data;
+      });
+
+    const subscription4 = this.chatService
+      .getChat(this.projectId, this.skip)
+      .subscribe({
+        next: (data) => {
+          this.messages = data;
+        },
+      });
+
+    const subscription5 = this.chatSocketService
       .on('message')
       .subscribe((data: ChatModel) => {
-        this.messages.push(data)
+        this.messages.push(data);
+        this.scrollChatDiv();
       });
 
     this.destoryRef.onDestroy(() => {
@@ -53,74 +83,57 @@ export class ChatComponent {
       subscription1.unsubscribe();
       subscription2.unsubscribe();
       subscription3.unsubscribe();
+      subscription4.unsubscribe();
+      subscription5.unsubscribe();
     });
+  }
+
+  
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.scrollChatDiv();
+    }, 100)
   }
 
   user!: User;
   role!: string;
 
-  messages: ChatModel[] = [
-    {
-      senderId: '678a14d4d96aa61716f45f64',
-      text: 'fd',
-      time: '11:14:3e PM',
-    },
-    {
-      senderId: '678e8d0980716bac133cdba0',
-      text: 'Hi There',
-      time: '12:35:3d PM',
-    },
-    {
-      senderId: '678f3d6dcb15516c96de58b1',
-      text: 'done randomly',
-      time: '12:3325:c7 PM',
-    },
-    {
-      senderId: '678a14d4d96aa61716f45f64',
-      text: 'fd',
-      time: '12:3325fdsafd:b7 PM',
-    },
-    {
-      senderId: '678e8d0980716bac133cdba0',
-      text: 'Hi There',
-      time: '12:335fdafd:3 PM',
-    },
-    {
-      senderId: '678f3d6dcb15516c96de58b1',
-      text: 'done randomly',
-      time: '12:3325:3a PM',
-    },
-    {
-      senderId: '678f3d6dcb15516c96de58b1',
-      text: 'done randomly',
-      time: '12:332fd5:c7 PM',
-    },
-    {
-      senderId: '678a14d4d96aa61716f45f64',
-      text: 'fd',
-      time: '12:332fda5:b7 PM',
-    },
-    {
-      senderId: '678e8d0980716bac133cdba0',
-      text: 'Hi There',
-      time: '12:35fdafd: PM',
-    },
-    {
-      senderId: '678f3d6dcb15516c96de58b1',
-      text: 'done randomly',
-      time: '12:35fdafdas323a PM',
-    },
-  ];
-
-  @ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
+  messages: ChatModel[] = [];
 
   onSendMessage(message: string) {
     this.chatSocketService.emit('message', { text: message });
+    this.scrollChatDiv();
+  }
 
-    this.scrollableDiv.nativeElement.scrollTop = this.scrollableDiv.nativeElement.scrollHeight;
+  @ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
+
+  scrollChatDiv() {
+    this.scrollableDiv.nativeElement.scrollTop =
+      this.scrollableDiv.nativeElement.scrollHeight;
+  }
+
+  isNewChatFetching = signal(false);
+
+  onFetchData() {
+    this.skip += 10;
+    this.isNewChatFetching.set(true);
+
+
+    const subscription = this.chatService.getChat(this.projectId, this.skip)
+    .subscribe({
+      next: (data) => {
+        this.messages = [...data, ...this.messages];
+      },
+      complete: () => {
+        this.isNewChatFetching.set(false);
+      }
+    })
+
   }
 
   getProjectMemberById(memberId: string): projectMember | undefined {
     return this.members.find((member) => member.userId._id === memberId);
   }
+
 }
