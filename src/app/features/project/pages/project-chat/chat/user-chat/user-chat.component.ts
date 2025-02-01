@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ChatModel } from '../chat.model';
 
 @Component({
@@ -11,4 +11,10 @@ export class UserChatComponent {
   chat = input.required<ChatModel>();
   profile = input.required<string>();
   role = input.required<string>();
+
+  editTask = output<ChatModel>();
+
+  oneEditTask() {
+    this.editTask.emit(this.chat());
+  }
 }

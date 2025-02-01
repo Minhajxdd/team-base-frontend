@@ -1,7 +1,16 @@
 <!-- Chat -->
 <div
-  class="flex flex-col h-[calc(100vh-18vh)] max-h-[calc(100vh-18vh)] overflow-hidden"
+  class="relative flex flex-col h-[calc(100vh-18vh)] max-h-[calc(100vh-18vh)] overflow-hidden"
 >
+
+
+<!-- Edit Message Popup -->
+<app-edit-input
+  style="z-index: 10;"
+class="app-input"></app-edit-input>
+
+
+
   <!-- Messages area -->
   <div class="flex-grow overflow-hidden relative">
     <!-- Messages will be added here -->
@@ -99,6 +108,7 @@
       @for (message of messages; track message._id) { @if (message.senderId ===
       user.id) {
       <app-user-chat
+      (editTask)="onEditTask($event)"
         [chat]="message"
         [profile]="user.profile"
         [role]="role"

@@ -7,10 +7,13 @@
       >
       <span class="ml-2 text-xs text-blue-400">[{{role()}}]</span>
     </div>
-    <div class="mt-1 max-w-xs sm:max-w-md bg-blue-600 rounded-lg p-3">
-      <p class="text-white">
+    <div class="relative mt-1 max-w-xs sm:max-w-md bg-blue-600 rounded-lg p-3">
+      <p
+      style="margin-right: 16px;"
+      class="text-white">
         {{chat().text}}
       </p>
+      <i (click)="oneEditTask()" class='bx bx-message-square-edit absolute top-[7px] right-[10px] cursor-pointer text-teal-400 hover:text-teal-500 focus:ring-2 focus:ring-teal-400 transition-colors duration-200'></i>
     </div>
   </div>
   <div class="flex-shrink-0">

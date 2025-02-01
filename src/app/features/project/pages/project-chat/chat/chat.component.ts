@@ -21,10 +21,17 @@ import {
 import { MembersServices } from '../members/members.services';
 import { projectMember } from '../../project-members/project-members-display/project-members.dispaly.model';
 import { ChatService } from './chat.service';
+import { EditInputComponent } from './edit-input/edit-input.component';
+import { EditInputService } from './edit-input/edit-input.service';
 
 @Component({
   selector: 'app-chat',
-  imports: [UserChatComponent, ReceivingChatComponent, InputComponent],
+  imports: [
+    UserChatComponent,
+    ReceivingChatComponent,
+    InputComponent,
+    EditInputComponent,
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
@@ -40,7 +47,8 @@ export class ChatComponent {
   constructor(
     private chatSocketService: ChatSocketService,
     private destoryRef: DestroyRef,
-    private store: Store
+    private store: Store,
+    private editInputService: EditInputService
   ) {
     const subscription = this.store.select(selectUser).subscribe((data) => {
       this.user = data;
@@ -78,6 +86,14 @@ export class ChatComponent {
         this.scrollChatDiv();
       });
 
+    const subscription6 = this.chatSocketService
+      .on('edit-message')
+      .subscribe((data: ChatModel) => {
+        this.messages = this.messages.map((chat: ChatModel) => {
+          return chat._id === data._id ? { ...chat, text: data.text } : chat;
+        });
+      });
+
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();
       subscription1.unsubscribe();
@@ -85,15 +101,14 @@ export class ChatComponent {
       subscription3.unsubscribe();
       subscription4.unsubscribe();
       subscription5.unsubscribe();
+      subscription6.unsubscribe();
     });
   }
-
-  
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.scrollChatDiv();
-    }, 100)
+    }, 100);
   }
 
   user!: User;
@@ -119,21 +134,23 @@ export class ChatComponent {
     this.skip += 10;
     this.isNewChatFetching.set(true);
 
+    const subscription = this.chatService
+      .getChat(this.projectId, this.skip)
+      .subscribe({
+        next: (data) => {
+          this.messages = [...data, ...this.messages];
+        },
+        complete: () => {
+          this.isNewChatFetching.set(false);
+        },
+      });
+  }
 
-    const subscription = this.chatService.getChat(this.projectId, this.skip)
-    .subscribe({
-      next: (data) => {
-        this.messages = [...data, ...this.messages];
-      },
-      complete: () => {
-        this.isNewChatFetching.set(false);
-      }
-    })
-
+  onEditTask(event: ChatModel) {
+    this.editInputService.pushMessage(event);
   }
 
   getProjectMemberById(memberId: string): projectMember | undefined {
     return this.members.find((member) => member.userId._id === memberId);
   }
-
 }

@@ -1,3 +1,42 @@
 :host {
-    height: 93vh;
+  height: 93vh;
+}
+
+.app-input {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  right: 50%;
+  width: 350px;
+}
+
+@media (max-width: 1150px) {
+  .app-input {
+    left: 30%;
+  }
+}
+
+@media (max-width: 800px) {
+  .app-input {
+    left: 25%;
+  }
+}
+
+@media (max-width: 680px) {
+  .app-input {
+    left: 20%;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-input {
+    left: 15%;
+  }
+}
+
+@media (max-width: 550px) {
+  .app-input {
+    left: 10%;
+    width: 300px;
+  }
 }
