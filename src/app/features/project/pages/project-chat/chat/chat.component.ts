@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, ViewChild } from '@angular/core';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ReceivingChatComponent } from './receiving-chat/receiving-chat.component';
 import { InputComponent } from './input/input.component';
@@ -73,27 +73,51 @@ export class ChatComponent {
     {
       senderId: '678f3d6dcb15516c96de58b1',
       text: 'done randomly',
-      time: '12:35:c7 PM',
+      time: '12:3325:c7 PM',
     },
     {
       senderId: '678a14d4d96aa61716f45f64',
       text: 'fd',
-      time: '12:35:b7 PM',
+      time: '12:3325fdsafd:b7 PM',
     },
     {
       senderId: '678e8d0980716bac133cdba0',
       text: 'Hi There',
-      time: '12:35:3 PM',
+      time: '12:335fdafd:3 PM',
     },
     {
       senderId: '678f3d6dcb15516c96de58b1',
       text: 'done randomly',
-      time: '12:35:3a PM',
+      time: '12:3325:3a PM',
+    },
+    {
+      senderId: '678f3d6dcb15516c96de58b1',
+      text: 'done randomly',
+      time: '12:332fd5:c7 PM',
+    },
+    {
+      senderId: '678a14d4d96aa61716f45f64',
+      text: 'fd',
+      time: '12:332fda5:b7 PM',
+    },
+    {
+      senderId: '678e8d0980716bac133cdba0',
+      text: 'Hi There',
+      time: '12:35fdafd: PM',
+    },
+    {
+      senderId: '678f3d6dcb15516c96de58b1',
+      text: 'done randomly',
+      time: '12:35fdafdas323a PM',
     },
   ];
 
+  @ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
+
   onSendMessage(message: string) {
     this.chatSocketService.emit('message', { text: message });
+
+    this.scrollableDiv.nativeElement.scrollTop = this.scrollableDiv.nativeElement.scrollHeight;
   }
 
   getProjectMemberById(memberId: string): projectMember | undefined {

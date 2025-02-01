@@ -20,9 +20,6 @@ export class AppComponent {
     private readonly navbarService: NavBarService,
     private readonly destroyRef: DestroyRef
   ) {
-    // Initializing themes
-    this.themeModeService.initializeTheme();
-
     const subscription = this.navbarService
       .navBar(this.router.events)
       .subscribe((type) => {
@@ -32,5 +29,9 @@ export class AppComponent {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+    
+    // Initializing themes
+    this.themeModeService.initializeTheme();
+
   }
 }
