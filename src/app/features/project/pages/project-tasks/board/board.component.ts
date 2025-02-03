@@ -18,6 +18,7 @@ import {
   selectProjectUserId,
 } from '../../../store/project.selector';
 import { ProjectTasksService } from '../project-tasks.service';
+import { NotificationSocketService } from '../../../../../shared/notification/notification.socket.service';
 
 @Component({
   selector: 'app-board',
@@ -40,7 +41,8 @@ export class BoardComponent implements OnInit {
     private boardService: BoardService,
     private store: Store,
     private destoryRef: DestroyRef,
-    private projectTasksService: ProjectTasksService
+    private projectTasksService: ProjectTasksService,
+    private notificationSocketService: NotificationSocketService
   ) {
     const subscription1 = this.store
       .select(selectProjectId)
@@ -120,6 +122,11 @@ export class BoardComponent implements OnInit {
         .updateTaskStatus(this.projectId, taskId, newStatus)
         .subscribe();
 
+      // Sent Notification on update task
+      if (task.assignedTo._id !== this.userId) {
+        this.sentTaskChangeNotification(task, newStatus);
+      }
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -131,6 +138,15 @@ export class BoardComponent implements OnInit {
         subscription.unsubscribe();
       });
     }
+  }
+
+  sentTaskChangeNotification(task: BoardCardModel, status: string) {
+    this.notificationSocketService.emit('send-notification', {
+      senderId: task.assignedTo._id,
+      title: `${task.title} Status Changed`,
+      description: `${task.title} status changed to ${status}`,
+      redirect_url: `project/${this.projectId}/tasks`,
+    });
   }
 
   isDraggable(assignedTo: string) {
