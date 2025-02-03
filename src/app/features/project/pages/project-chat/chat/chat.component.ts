@@ -23,6 +23,8 @@ import { projectMember } from '../../project-members/project-members-display/pro
 import { ChatService } from './chat.service';
 import { EditInputComponent } from './edit-input/edit-input.component';
 import { EditInputService } from './edit-input/edit-input.service';
+import { DeleteInputComponent } from './delete-input/delete-input.component';
+import { DeleteInputService } from './delete-input/delete-input.service';
 
 @Component({
   selector: 'app-chat',
@@ -31,6 +33,7 @@ import { EditInputService } from './edit-input/edit-input.service';
     ReceivingChatComponent,
     InputComponent,
     EditInputComponent,
+    DeleteInputComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -38,6 +41,7 @@ import { EditInputService } from './edit-input/edit-input.service';
 export class ChatComponent {
   private membersServices = inject(MembersServices);
   private chatService = inject(ChatService);
+  private deleteInputService = inject(DeleteInputService);
 
   projectId!: string;
   skip = 0;
@@ -94,6 +98,14 @@ export class ChatComponent {
         });
       });
 
+    const subscription7 = this.chatSocketService
+      .on('delete-message')
+      .subscribe((data: string) => {
+        this.messages = this.messages.filter((chat) => {
+          return chat._id != data;
+        });
+      });
+
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();
       subscription1.unsubscribe();
@@ -102,6 +114,13 @@ export class ChatComponent {
       subscription4.unsubscribe();
       subscription5.unsubscribe();
       subscription6.unsubscribe();
+      subscription7.unsubscribe();
+    });
+  }
+
+  onRemoveUnrefreshed(data: ChatModel | null) {
+    this.messages = this.messages.filter((chat) => {
+      return chat != data;
     });
   }
 
@@ -144,10 +163,17 @@ export class ChatComponent {
           this.isNewChatFetching.set(false);
         },
       });
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 
   onEditTask(event: ChatModel) {
     this.editInputService.pushMessage(event);
+  }
+
+  onDeleteMessage(event: ChatModel) {
+    this.deleteInputService.pushMessage(event);
   }
 
   getProjectMemberById(memberId: string): projectMember | undefined {

@@ -13,8 +13,14 @@ export class UserChatComponent {
   role = input.required<string>();
 
   editTask = output<ChatModel>();
+  deleteMessage = output<ChatModel>();
 
   oneEditTask() {
     this.editTask.emit(this.chat());
   }
+
+  onDeleteMessage() {
+    this.deleteMessage.emit(this.chat());
+    console.log(this.chat()._id);console.log('from user essage componetns')
+   }
 }

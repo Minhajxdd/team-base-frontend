@@ -1,9 +1,9 @@
-import { Component, DestroyRef, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ThemeModeService } from './core/services/theme.service';
 import { NavBarService } from './shared/components/navbar/navbar.service';
 import { UserNavbarComponent } from './shared/components/navbar/user-navbar/user-navbar.component';
-import { ProjectNavBarComponent } from "./shared/components/navbar/project-nav-bar/project-nav-bar.component";
+import { ProjectNavBarComponent } from './shared/components/navbar/project-nav-bar/project-nav-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -29,9 +29,8 @@ export class AppComponent {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
-    
+
     // Initializing themes
     this.themeModeService.initializeTheme();
-
   }
 }
