@@ -5,5 +5,5 @@
 }
 
 @if(currentNotification()) {
-<app-notification-card></app-notification-card>
+<app-notification-card [notificationData]="currentNotification()"></app-notification-card>
 }

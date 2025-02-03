@@ -29,14 +29,13 @@
           <div>
             <div class="flex items-center space-x-2">
               <h3 class="font-semibold text-gray-800 dark:text-gray-200">
-                New Message
+                {{ notificationData()?.title }}
               </h3>
             </div>
             <p
               class="text-gray-600 dark:text-gray-400 text-sm mt-1 leading-relaxed"
             >
-              Sarah Johnson shared the updated project timeline and roadmap for
-              Q2 2024.
+              {{ notificationData()?.description }}
             </p>
           </div>
           <button
