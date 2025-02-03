@@ -104,7 +104,7 @@ export class ChatComponent {
       .on('delete-message')
       .subscribe((data: string) => {
         this.messages = this.messages.filter((chat) => {
-          return chat._id != data;
+          return chat.uuid != data;
         });
       });
 
