@@ -1,14 +1,13 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { NotificationSocketService } from '../../../../notification/notification.socket.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment.development';
 import { ToastModule } from 'primeng/toast';
 import { NotificationCardComponent } from './notification-card/notification-card.component';
 import { Notification } from './notification.model';
+import { NotificationDropComponent } from './notification-drop/notification-drop.component';
 
 @Component({
   selector: 'app-notification',
-  imports: [ToastModule, NotificationCardComponent],
+  imports: [ToastModule, NotificationCardComponent, NotificationDropComponent],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
 })
@@ -16,20 +15,26 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private readonly notificationSocketService = inject(
     NotificationSocketService
   );
-  private http = inject(HttpClient);
-
   private worker!: Worker;
 
   currentNotification = signal<Notification | null>(null);
+
+  showNotification: boolean = true;
 
   ngOnInit(): void {
     this.worker = new Worker(
       new URL('./notification.worker.ts', import.meta.url)
     );
 
+    this.getShowNotification()
+
     this.notificationSocketService.on('notification').subscribe({
       next: (data: Notification) => {
-        this.worker.postMessage(data);
+        this.getShowNotification();
+
+        if (this.showNotification) {
+          this.worker.postMessage(data);
+        }
       },
       error: (err) => {
         console.log(err);
@@ -43,33 +48,24 @@ export class NotificationComponent implements OnInit, OnDestroy {
       }, 5100);
     };
 
-    this.sendSampleNotificaoitn();
   }
 
   ngOnDestroy(): void {
     this.worker.terminate();
   }
 
-  sendSampleNotificaoitn() {
-    this.notificationSocketService.emit('send-notification', {
-      senderId: '678f3d6dcb15516c96de58b1',
-      title: 'Notification Title',
-      description:
-        'This is the description area were it contains all the descriptions and things like that is found here',
-      redirect_url: 'http://www.google.com',
-    });
+  getShowNotification() {
+    const value = localStorage.getItem('project_notification_visibility');
+
+    if (value) {
+      this.showNotification = JSON.parse(value);
+    }
   }
 
-  fetchHttpData() {
-    this.http
-      .get(`${environment.back_end}/notification`, { withCredentials: true })
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+  // Toggle Notification
+  isToggled = signal<boolean>(false);
+
+  toggleDropDown() {
+    this.isToggled.set(!this.isToggled());
   }
 }

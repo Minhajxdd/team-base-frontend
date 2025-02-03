@@ -40,3 +40,13 @@
     font-weight: bolder;
   }
 
+  .nav__icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    transition: 0.5s;
+    color: var(--text-primary);
+  }
+
+  .bell_icon {
+    font-size: 1.8rem;
+  }

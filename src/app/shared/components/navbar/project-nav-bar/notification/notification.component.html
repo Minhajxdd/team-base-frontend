@@ -1,8 +1,8 @@
-<div class="top_nav_profile_popup">
-  <div class="top_nav_profile_popup_card"></div>
-  <div class="top_nav_profile_popup_card"></div>
-  <div class="top_nav_profile_popup_card"></div>
-</div>
+<i (click)="toggleDropDown()" class="bx bx-bell nav__icon bell_icon"></i>
+
+@if (isToggled()) {
+    <app-notification-drop class="fixed right-[5%] top-[59px]"></app-notification-drop>
+}
 
 @if(currentNotification()) {
 <app-notification-card></app-notification-card>

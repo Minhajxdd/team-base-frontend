@@ -1,0 +1,29 @@
+<div class="p-3 hover:bg-gray-50">
+  <div class="flex items-start space-x-2">
+    <div class="w-2 h-2 mt-1.5 rounded-full bg-blue-600"></div>
+    <div class="flex-1 min-w-0">
+      <div class="flex justify-between text-xs">
+        <span class="font-medium text-gray-900">{{
+          notification().title
+        }}</span>
+        <span class="text-gray-500">2m ago</span>
+      </div>
+      <p class="text-xs text-gray-500 truncate mt-0.5">
+        {{ notification().description }}
+      </p>
+      <div class="mt-1 flex items-center space-x-2">
+
+        @if (notification().redirect_url) {
+            <button (click)="redirectToPage()" class="text-xs text-blue-600 hover:text-blue-800">View</button>
+            <span class="text-gray-300">•</span>
+
+        }
+        <button
+            (click)="markAsRead()"
+        class="text-xs text-gray-500 hover:text-gray-700">
+          Mark read
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

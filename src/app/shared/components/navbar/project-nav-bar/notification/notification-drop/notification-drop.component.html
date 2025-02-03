@@ -1,0 +1,111 @@
+<div class="w-80 shadow-lg rounded-lg">
+  <!-- Notification Panel Header -->
+  <div class="bg-gray-800 p-3 rounded-t-lg flex justify-between items-center">
+    <h2 class="text-white text-sm font-medium">Notifications</h2>
+    <div class="flex items-center space-x-3">
+      <button
+        (click)="markAllNotification()"
+        class="text-xs text-blue-300 hover:text-blue-200"
+      >
+        Mark all read
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white divide-y divide-gray-100 overflow-y-auto max-h-64">
+    @if (isNotificationsLoading()) {
+    <div class="w-full flex items-center justify-center">
+      <svg
+        style="height: 56px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 200 200"
+      >
+        <circle
+          fill="#2C096F"
+          stroke="#2C096F"
+          stroke-width="2"
+          r="15"
+          cx="40"
+          cy="100"
+        >
+          <animate
+            attributeName="opacity"
+            calcMode="spline"
+            dur="2"
+            values="1;0;1;"
+            keySplines=".5 0 .5 1;.5 0 .5 1"
+            repeatCount="indefinite"
+            begin="-.4"
+          ></animate>
+        </circle>
+        <circle
+          fill="#2C096F"
+          stroke="#2C096F"
+          stroke-width="2"
+          r="15"
+          cx="100"
+          cy="100"
+        >
+          <animate
+            attributeName="opacity"
+            calcMode="spline"
+            dur="2"
+            values="1;0;1;"
+            keySplines=".5 0 .5 1;.5 0 .5 1"
+            repeatCount="indefinite"
+            begin="-.2"
+          ></animate>
+        </circle>
+        <circle
+          fill="#2C096F"
+          stroke="#2C096F"
+          stroke-width="2"
+          r="15"
+          cx="160"
+          cy="100"
+        >
+          <animate
+            attributeName="opacity"
+            calcMode="spline"
+            dur="2"
+            values="1;0;1;"
+            keySplines=".5 0 .5 1;.5 0 .5 1"
+            repeatCount="indefinite"
+            begin="0"
+          ></animate>
+        </circle>
+      </svg>
+    </div>
+    } @else { @if (notifications?.length) { @for (notification of notifications;
+    track notification._id) {
+
+    <app-notification-drop-card
+      [notification]="notification"
+    ></app-notification-drop-card>
+    } } @else {
+    <div class="flex align-center justify-center p-3">
+      <p class="text-black">No Notifications Found</p>
+    </div>
+    } }
+
+    <!-- Settings Footer -->
+    <div class="bg-gray-50 p-2 rounded-b-lg border-t border-gray-100">
+      <div class="flex items-center justify-end space-x-2">
+        <span class="text-xs text-gray-500">Show notifications</span>
+
+        <label class="inline-flex items-center cursor-pointer">
+          <input
+          (change)="onNotificationStatusChange()"
+            [(ngModel)]="isNotificationsChecked"
+            type="checkbox"
+            value=""
+            class="sr-only peer"
+          />
+          <div
+            class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"
+          ></div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
