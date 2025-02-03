@@ -8,10 +8,12 @@ import { Observable, Subscription } from 'rxjs';
 import { selectUser } from '../../../store/user/user.selector';
 import { User } from '../navbar.model';
 import { loadUser } from '../../../store/user/user.actions';
+import { NotificationSocketService } from '../../../notification/notification.socket.service';
+import { NotificationComponent } from "./notification/notification.component";
 
 @Component({
   selector: 'app-project-nav-bar',
-  imports: [NgClass, RouterLink, RouterLinkActive],
+  imports: [NgClass, RouterLink, RouterLinkActive, NotificationComponent],
   templateUrl: './project-nav-bar.component.html',
   styleUrl: './project-nav-bar.component.css',
 })
@@ -19,12 +21,22 @@ export class ProjectNavBarComponent implements OnInit {
   private readonly themeService = inject(ThemeModeService);
   private readonly destroyRef = inject(DestroyRef);
 
+  private readonly notificationSocketService = inject(
+    NotificationSocketService
+  );
+
   user$: Observable<any>;
 
   constructor(private store: Store) {
     this.store.dispatch(loadUser());
 
     this.user$ = this.store.select(selectUser);
+
+    this.notificationSocketService.connect();
+
+    this.destroyRef.onDestroy(() => {
+      this.notificationSocketService.onDestroy();
+    });
   }
 
   projectId = signal<null | string>(null);
