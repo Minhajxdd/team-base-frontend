@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { NotificationSocketService } from '../../../../notification/notification.socket.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment.development';
 import { ToastModule } from 'primeng/toast';
 import { NotificationCardComponent } from './notification-card/notification-card.component';
+import { Notification } from './notification.model';
 
 @Component({
   selector: 'app-notification',
@@ -11,24 +12,42 @@ import { NotificationCardComponent } from './notification-card/notification-card
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
   private readonly notificationSocketService = inject(
     NotificationSocketService
   );
   private http = inject(HttpClient);
 
+  private worker!: Worker;
+
+  currentNotification = signal<Notification | null>(null);
+
   ngOnInit(): void {
+    this.worker = new Worker(
+      new URL('./notification.worker.ts', import.meta.url)
+    );
+
     this.notificationSocketService.on('notification').subscribe({
       next: (data: Notification) => {
-        console.log(`This is the data from notification`);
-        console.log(data);
+        this.worker.postMessage(data);
       },
       error: (err) => {
-        console.log(`This is the error from notification`);
         console.log(err);
       },
     });
-    this.sendSampleNotificaoitn()
+
+    this.worker.onmessage = ({ data }) => {
+      this.currentNotification.set(data);
+      setTimeout(() => {
+        this.currentNotification.set(null);
+      }, 5100);
+    };
+
+    this.sendSampleNotificaoitn();
+  }
+
+  ngOnDestroy(): void {
+    this.worker.terminate();
   }
 
   sendSampleNotificaoitn() {

@@ -4,5 +4,6 @@
   <div class="top_nav_profile_popup_card"></div>
 </div>
 
-
-<app-notification-card ></app-notification-card>
+@if(currentNotification()) {
+<app-notification-card></app-notification-card>
+}
