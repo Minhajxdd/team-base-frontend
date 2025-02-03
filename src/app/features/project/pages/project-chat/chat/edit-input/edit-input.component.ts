@@ -47,9 +47,10 @@ export class EditInputComponent {
     const data = {
       text: this.value,
       chatId: this.messages()?._id,
-    }
+      uuid: this.messages()?.uuid,
+    };
     this.chatSocketService.emit('edit-message', data);
 
-    this.onClose()
+    this.onClose();
   }
 }

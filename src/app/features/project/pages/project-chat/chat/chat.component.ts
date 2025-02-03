@@ -25,6 +25,7 @@ import { EditInputComponent } from './edit-input/edit-input.component';
 import { EditInputService } from './edit-input/edit-input.service';
 import { DeleteInputComponent } from './delete-input/delete-input.component';
 import { DeleteInputService } from './delete-input/delete-input.service';
+import { UuidUtils } from '../../../../../shared/utils/uuid.utils';
 
 @Component({
   selector: 'app-chat',
@@ -52,7 +53,8 @@ export class ChatComponent {
     private chatSocketService: ChatSocketService,
     private destoryRef: DestroyRef,
     private store: Store,
-    private editInputService: EditInputService
+    private editInputService: EditInputService,
+    private uuidUtils: UuidUtils
   ) {
     const subscription = this.store.select(selectUser).subscribe((data) => {
       this.user = data;
@@ -94,7 +96,7 @@ export class ChatComponent {
       .on('edit-message')
       .subscribe((data: ChatModel) => {
         this.messages = this.messages.map((chat: ChatModel) => {
-          return chat._id === data._id ? { ...chat, text: data.text } : chat;
+          return chat.uuid === data.uuid ? { ...chat, text: data.text } : chat;
         });
       });
 
@@ -136,7 +138,8 @@ export class ChatComponent {
   messages: ChatModel[] = [];
 
   onSendMessage(message: string) {
-    this.chatSocketService.emit('message', { text: message });
+    const uuid = this.uuidUtils.generateUUID();
+    this.chatSocketService.emit('message', { text: message, uuid });
     this.scrollChatDiv();
   }
 
