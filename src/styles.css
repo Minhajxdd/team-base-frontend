@@ -7,11 +7,6 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   height: 100vh;
-  overflow-x: hidden;
-}
-
-body {
-  overflow: hidden;
 }
 
 
