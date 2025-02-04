@@ -15,6 +15,6 @@ export class TaskCardComponent {
   task = input.required<BoardCardModel>();
 
   onOpenDetails() {
-    this.taskModelService.setData(this.task());
+    this.taskModelService.setData(this.task()._id);
   }
 }

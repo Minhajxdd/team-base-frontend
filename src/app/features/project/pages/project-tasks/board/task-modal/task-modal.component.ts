@@ -1,16 +1,18 @@
 import {
-  AfterViewInit,
   Component,
   DestroyRef,
-  OnInit,
   signal,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { CdkPortal, PortalModule } from '@angular/cdk/portal';
 import { TaskModalSubtaskComponent } from './task-modal-subtask/task-modal-subtask.component';
 import { TaskModelService } from './task-model.service';
-import { BoardCardModel } from '../board.model';
+import { Store } from '@ngrx/store';
+import { TaskModalFetchService } from './task-modal.service';
+import { selectProjectId } from '../../../../store/project.selector';
+import { TaskModel } from './task-modal.model';
 
 @Component({
   selector: 'app-task-modal',
@@ -19,28 +21,65 @@ import { BoardCardModel } from '../board.model';
   styleUrl: './task-modal.component.css',
 })
 export class TaskModalComponent {
-  
-  task = signal<BoardCardModel | null>(null);
+  taskId = signal<string | null>(null);
+  projectId!: string;
+
+  task = signal<TaskModel | null>(null);
+
+  isLoading = signal<boolean>(true);
+
   constructor(
     private overlay: Overlay,
     private taskModelService: TaskModelService,
-    private destoryRef: DestroyRef
+    private destoryRef: DestroyRef,
+    private taskModalFetchService: TaskModalFetchService,
+    private store: Store
   ) {
+    const subscription1 = this.store
+      .select(selectProjectId)
+      .subscribe((data) => {
+        this.projectId = data;
+      });
+
     const subscription = this.taskModelService.getData().subscribe({
       next: (data) => {
-        if(data) {
-          this.task.set(data);
+        if (data) {
+          this.taskId.set(data);
           this.openModal();
+          this.fetchTaskData();
         } else {
           this.closeModal();
         }
-
       },
     });
 
     this.destoryRef.onDestroy(() => {
       subscription.unsubscribe();
-    })
+      subscription1.unsubscribe();
+    });
+  }
+
+  fetchTaskData() {
+    this.isLoading.set(true);
+
+    const taskId = this.taskId();
+
+    if (taskId) {
+      const subscription = this.taskModalFetchService
+        .getTasks(this.projectId, taskId)
+        .subscribe({
+          next: (data) => {
+            this.task.set(data);
+          },
+          complete: () => {
+            this.isLoading.set(false);
+          },
+        });
+
+      this.destoryRef.onDestroy(() => {
+        subscription.unsubscribe();
+      });
+    }
   }
 
   @ViewChild(CdkPortal) portal!: CdkPortal;

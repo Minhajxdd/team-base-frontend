@@ -6,13 +6,13 @@ import { BoardCardModel } from '../board.model';
   providedIn: 'root',
 })
 export class TaskModelService {
-  private dataSubject = new Subject<BoardCardModel | null>();
+  private dataSubject = new Subject<string | null>();
 
-  setData(task: BoardCardModel) {
-    this.dataSubject.next(task);
+  setData(taskId: string) {
+    this.dataSubject.next(taskId);
   }
 
-  getData(): Observable<BoardCardModel | null> {
+  getData(): Observable<string | null> {
     return this.dataSubject.asObservable();
   }
 }

@@ -1,9 +1,9 @@
 <!-- HTML -->
 <div class="subtask">
-  <input type="checkbox" id="toggleCheckbox" class="toggle-checkbox">
+  <input  [checked]="subTask()?.done" type="checkbox" id="toggleCheckbox" class="toggle-checkbox">
 
   <span>
-    This is the name of the subtask
+    {{ subTask()?.title }}
   </span>
 
   <button class="delete-btn" aria-label="Delete subtask">

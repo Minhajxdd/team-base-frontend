@@ -123,3 +123,62 @@ select:focus {
   background-color: #e8f5e9;
   color: #2e7d32;
 }
+
+.subtask:hover {
+  .add_task_btn {
+    visibility: visible;
+  }
+}
+
+.add_task_btn {
+  margin-left: 5px;
+  transition: 300ms;
+  padding: 0 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 0, 0, 0);
+  visibility: hidden;
+}
+
+.add_task_btn:hover {
+  background-color: rgba(245, 231, 231, 0);
+  border: 1px solid red;
+}
+
+.subtask_title_div {
+  display: flex;
+  align-items: center;
+}
+
+#subtasks-container {
+  margin-top: 10px;
+}
+
+.bg-secondary {
+  background-color: var(--bg-primary);
+}
+
+.skeleton {
+  @apply relative overflow-hidden bg-secondary rounded;
+}
+
+.skeleton::after {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-600 to-transparent;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+
+.title-fonts {
+  color: #2563eb !important;
+  font-weight: bolder !important;
+  font-size: 1.2rem;
+}

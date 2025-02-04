@@ -1,17 +1,32 @@
 <div class="subtask form-group">
   <div class="subtask_title_div">
-    <label>Subtasks</label>
+    <label class="title-fonts">Subtasks</label>
     <div>
-      <button class="add_task_btn">+</button>
+      <button 
+        (click)="onAddNewtask()"
+      class="add_task_btn">+</button>
     </div>
   </div>
 
   <div id="subtasks-container">
     
-    
-    @for (subTask of subTasks(); track subTask._id) {
-      <app-sub-task-card></app-sub-task-card>
+    @if (subTasks()?.length) {
+      @for (subTask of subTasks(); track subTask._id) {
+        <app-sub-task-card [subTask]="subTask"></app-sub-task-card>
+      }
+
+    } @else if(!newTasks().length){
+      <span>No Subtasks..</span>
     }
+    @for (newTask of newTasks(); track newTask._id) {
+      <app-sub-task-card [subTask]="newTask"></app-sub-task-card>
+    }
+
+
 
   </div>
 </div>
+
+@if (openAddTask()) {
+  <app-add-task-input (onAddedTaskClose)="onNewTaskClose($event)" (addedSubTask)="onNewTask($event)" [taskId]="taskId()"></app-add-task-input>
+}

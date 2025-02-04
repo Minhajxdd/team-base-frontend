@@ -1,8 +1,106 @@
 <ng-template cdkPortal>
   <div class="container">
+    @if (isLoading()) {
+
     <div class="left-panel">
       <div class="form-group">
         <label for="title">Task Title</label>
+
+        <div class="skeleton">
+          <span class="invisible">tittle</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+
+        <div class="skeleton">
+          <h1 class="invisible text-xl">
+            descriptoin <br />
+            description
+          </h1>
+        </div>
+      </div>
+
+      <div class="subtask_title_div">
+        <label>Subtasks</label>
+        <div>
+          <button class="add_task_btn">+</button>
+        </div>
+      </div>
+      <div class="skeleton">
+        <h1 class="invisible text-xl">
+          descriptoin <br />
+          description
+        </h1>
+      </div>
+
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <div id="comments-container"></div>
+
+        <div class="skeleton">
+          <h1 class="invisible text-xl">
+            descriptoin <br />
+            description
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="form-group">
+        <label for="assigned">Assigned To</label>
+        <select id="assigned">
+          <option value="">Select user</option>
+          <option value="john">John Doe</option>
+          <option value="jane">Jane Smith</option>
+          <option value="mike">Mike Johnson</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <div
+          id="priority-badge"
+          class="priority-badge priority-low"
+          style="margin-top: 0.5rem"
+        >
+          Low
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="due-date">Due Date</label>
+        <input
+          type="text"
+          id="due-date"
+          placeholder="Select due date"
+          onfocus="(this.type='date')"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status">
+          <option value="todo">To Do</option>
+          <option value="in-progress">In Progress</option>
+          <option value="review">Review</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+    </div>
+
+    } @else {
+
+    <div class="left-panel">
+      <div class="form-group">
+        <label for="title" class="title-fonts" >Task Title</label>
 
         <div>
           <span>{{ task()?.title }}</span>
@@ -10,14 +108,14 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description" class="title-fonts">Description</label>
 
         <div>
           <span>{{ task()?.description }}</span>
         </div>
       </div>
 
-      <app-task-modal-subtask [subTasks]="task()?.subTasks"></app-task-modal-subtask>
+      <app-task-modal-subtask [taskId]="task()?._id" [subTasks]="task()?.subTasks"></app-task-modal-subtask>
 
       <div class="comments-section">
         <h3>Comments</h3>
@@ -82,5 +180,6 @@
         </select>
       </div>
     </div>
+    }
   </div>
 </ng-template>
