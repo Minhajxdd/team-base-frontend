@@ -1,0 +1,36 @@
+<div class="subtask form-group">
+  <div class="subtask_title_div">
+    <label class="title-fonts">Subtasks</label>
+    <div (click)="onAddNewComment()">
+      <button class="add_task_btn">+</button>
+    </div>
+  </div>
+
+  <div id="subtasks-container">
+  
+    @if (comments()?.length) {
+      @for (comment of comments(); track comment._id) {
+        <app-comments-card (deleteComment)="onDeleteComment($event)" [comment]="comment"></app-comments-card>
+      }
+
+    } @else if(!newComments().length){
+      <span>No Comments..</span>
+    }
+    @for (newcomment of newComments(); track newcomment._id) {
+      <app-comments-card [comment]="newcomment"></app-comments-card>
+    }
+
+  
+  
+  
+  </div>
+</div>
+
+@if (openAddComment()) {
+<app-add-comments-input
+  (newComment)="onNewComment($event)"
+  [projectId]="projectId()"
+  [taskId]="taskId()"
+  (closeInput)="onNewTaskClose($event)"
+></app-add-comments-input>
+}

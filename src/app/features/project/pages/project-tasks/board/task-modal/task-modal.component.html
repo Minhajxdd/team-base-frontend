@@ -100,7 +100,7 @@
 
     <div class="left-panel">
       <div class="form-group">
-        <label for="title" class="title-fonts" >Task Title</label>
+        <label for="title" class="title-fonts">Task Title</label>
 
         <div>
           <span>{{ task()?.title }}</span>
@@ -115,22 +115,15 @@
         </div>
       </div>
 
-      <app-task-modal-subtask [taskId]="task()?._id || ''" [subTasks]="task()?.subTasks"></app-task-modal-subtask>
+      <app-task-modal-subtask
+        [taskId]="task()?._id || ''"
+        [subTasks]="task()?.subTasks"
+      ></app-task-modal-subtask>
 
-      <div class="comments-section">
-        <h3>Comments</h3>
-        <div id="comments-container"></div>
-        <div class="form-group">
-          <textarea
-            id="new-comment"
-            rows="2"
-            placeholder="Add a comment..."
-          ></textarea>
-          <button class="btn btn-primary" style="margin-top: 0.5rem">
-            Add Comment
-          </button>
-        </div>
-      </div>
+      <app-task-modal-comments
+      [comments]="task()?.comments"
+        [taskId]="task()?._id || ''"
+      ></app-task-modal-comments>
     </div>
 
     <div class="right-panel">

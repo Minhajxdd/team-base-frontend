@@ -1,0 +1,15 @@
+.comment {
+    background-color: var(--bg-secondary);
+    border: 0.1px solid;
+    border-color: var(--text-primary);
+    border-radius: 5px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.fonts-color {
+    color: #a7ed9c !important;
+  }

@@ -4,6 +4,16 @@ export interface SubTask {
   _id: string;
 }
 
+export interface Comments {
+  comment: string;
+  date: string;
+  userId: {
+    full_name: string;
+    _id: string;
+  };
+  _id: string;
+}
+
 export interface TaskModel {
   _id: string;
   projectId: string;
@@ -19,4 +29,5 @@ export interface TaskModel {
   priority: number;
   deadline: string;
   subTasks: SubTask[];
+  comments: Comments[];
 }

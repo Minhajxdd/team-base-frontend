@@ -13,10 +13,11 @@ import { Store } from '@ngrx/store';
 import { TaskModalFetchService } from './task-modal.service';
 import { selectProjectId } from '../../../../store/project.selector';
 import { TaskModel } from './task-modal.model';
+import { TaskModalCommentsComponent } from "./task-modal-comments/task-modal-comments.component";
 
 @Component({
   selector: 'app-task-modal',
-  imports: [PortalModule, TaskModalSubtaskComponent],
+  imports: [PortalModule, TaskModalSubtaskComponent, TaskModalCommentsComponent],
   templateUrl: './task-modal.component.html',
   styleUrl: './task-modal.component.css',
 })
@@ -41,8 +42,19 @@ export class TaskModalComponent {
         this.projectId = data;
       });
 
+      // setTimeout(() => {
+      //   // Temporary data
+      //   this.taskId.set('678e20d74f37579d5b7b1ddc');
+      //   this.openModal();
+      //   this.fetchTaskData();
+
+      // }, 1000)
+
     const subscription = this.taskModelService.getData().subscribe({
       next: (data) => {
+        
+        // Remove this return too 
+        // return;
         if (data) {
           this.taskId.set(data);
           this.openModal();

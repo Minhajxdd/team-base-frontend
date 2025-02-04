@@ -1,0 +1,27 @@
+<div class="comment mt-2">
+  <div style="flex-direction: column" class="flex align-center justify-between">
+    <span class="fonts-color">{{ comment()?.userId?.full_name }}</span>
+    <span>{{ comment()?.comment }}</span>
+  </div>
+
+  <div
+    style="flex-direction: column; align-items: flex-end"
+    class="flex justify-between"
+  >
+    <span>{{ comment()?.date }}</span>
+
+    <div (click)="onDelete()">
+      <svg
+        class="cursor-pointer"
+        style="height: 18px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+        fill="currentColor"
+      >
+        <path
+          d="M135.2 17.7C141.3 7.4 151.9 0 163.8 0h120.4c11.9 0 22.5 7.4 28.6 17.7L384 64H64L135.2 17.7zM432 96l-34.1 392.2c-2.8 32.1-30 55.8-62.3 55.8H112.4c-32.3 0-59.5-23.7-62.3-55.8L16 96H432z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
