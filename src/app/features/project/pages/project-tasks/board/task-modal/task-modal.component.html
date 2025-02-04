@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <app-task-modal-subtask [taskId]="task()?._id" [subTasks]="task()?.subTasks"></app-task-modal-subtask>
+      <app-task-modal-subtask [taskId]="task()?._id || ''" [subTasks]="task()?.subTasks"></app-task-modal-subtask>
 
       <div class="comments-section">
         <h3>Comments</h3>

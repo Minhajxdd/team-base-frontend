@@ -1,7 +1,9 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, DestroyRef, input, signal } from '@angular/core';
 import { SubTaskCardComponent } from './sub-task-card/sub-task-card.component';
 import { SubTask } from '../task-modal.model';
 import { AddTaskInputComponent } from './add-task-input/add-task-input.component';
+import { Store } from '@ngrx/store';
+import { selectProjectId } from '../../../../../store/project.selector';
 
 @Component({
   selector: 'app-task-modal-subtask',
@@ -11,9 +13,23 @@ import { AddTaskInputComponent } from './add-task-input/add-task-input.component
 })
 export class TaskModalSubtaskComponent {
   subTasks = input.required<SubTask[] | undefined>();
-  taskId = input.required<string | undefined>();
+  taskId = input.required<string>();
 
   newTasks = signal<SubTask[]>([]);
+
+  projectId!: string;
+
+  constructor(private store: Store, private destroyRef: DestroyRef) {
+    const subscription = this.store
+      .select(selectProjectId)
+      .subscribe((data) => {
+        this.projectId = data;
+      });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
 
   openAddTask = signal<boolean>(false);
 
@@ -28,4 +44,5 @@ export class TaskModalSubtaskComponent {
   onNewTaskClose(value: boolean) {
     this.openAddTask.set(value);
   }
+
 }
