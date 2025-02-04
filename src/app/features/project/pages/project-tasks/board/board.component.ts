@@ -19,10 +19,17 @@ import {
 } from '../../../store/project.selector';
 import { ProjectTasksService } from '../project-tasks.service';
 import { NotificationSocketService } from '../../../../../shared/notification/notification.socket.service';
+import { TaskModalComponent } from './task-modal/task-modal.component';
 
 @Component({
   selector: 'app-board',
-  imports: [SkeletonModule, DragDropModule, CommonModule, TaskCardComponent],
+  imports: [
+    SkeletonModule,
+    DragDropModule,
+    CommonModule,
+    TaskCardComponent,
+    TaskModalComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css',
 })

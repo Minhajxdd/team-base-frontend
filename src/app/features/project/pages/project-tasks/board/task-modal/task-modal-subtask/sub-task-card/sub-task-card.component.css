@@ -1,0 +1,52 @@
+.subtask {
+
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  justify-content: space-between;
+}
+
+
+.toggle-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.subtask-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  background: transparent;
+  padding: 4px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  color: #888;
+}
+
+.delete-btn:hover {
+  color: #e74c3c;
+}
+
+.delete-btn svg {
+  width: 18px;
+  height: 18px;
+}

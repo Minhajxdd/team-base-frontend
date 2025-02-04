@@ -1,3 +1,9 @@
+export interface SubTasks {
+  _id: string;
+  title: string;
+  done: string;
+}
+
 export interface BoardCardModel {
   _id: string;
   projectId: string;
@@ -11,6 +17,7 @@ export interface BoardCardModel {
     full_name: string;
     isBlocked: boolean;
   };
+  subTasks: SubTasks[];
   priority: 1 | 2 | 3;
   deadline: Date;
 }
