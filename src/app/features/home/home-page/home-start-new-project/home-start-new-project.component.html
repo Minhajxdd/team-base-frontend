@@ -28,32 +28,63 @@
   [modal]="true"
   [style]="{ width: '25rem' }"
 >
-  <form [formGroup]="formGroup">
-    <div class="flex items-center gap-4 mb-4">
-      <label for="username" class="font-semibold w-24">Title</label>
-      <input 
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+ 
+  
+  <div class="flex items-center gap-4 mb-4">
+    <label for="title" class="font-semibold w-24">Title</label>
+    <input
       formControlName="title"
-      pInputText id="username" class="flex-auto" autocomplete="off" />
-    </div>
+      id="title"
+      type="text"
+      autocomplete="off"
+      class="flex-auto p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    />
+  </div>
 
-    <div class="flex items-center gap-4 mb-8">
-      <label for="description" class="font-semibold w-24">Description</label>
-      <textarea
+
+  
+  <div class="flex items-center gap-4 mb-4">
+    <label for="description" class="font-semibold w-24">Description</label>
+    <textarea
       formControlName="description"
-        pTextarea
-        pSize="small"
-        id="description"
-        cols="25"
-        rows="3"
-      ></textarea>
-    </div>
+      id="description"
+      rows="3"
+      cols="25"
+      class="flex-auto p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    ></textarea>
+  </div>
 
-    <div class="flex justify-end gap-2">
-      <p-button (onClick)="formToggle()" label="Cancel" severity="secondary" />
-      <p-button (onClick)="onSubmit()" label="Save" />
-    </div>
-  </form>
+
+  
+  <div class="flex items-center gap-4 mb-8">
+    <label for="capacity" class="font-semibold w-24">Capacity</label>
+    <input
+      formControlName="capacity"
+      id="capacity"
+      type="number"
+      class="w-[245px] p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    />
+  </div>
+
+  
+  <div class="flex justify-end gap-2">
+    <button
+      type="button"
+      (click)="formToggle()"
+      class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    >
+      Save
+    </button>
+  </div>
+</form>
+
 </p-dialog>
-
 
 <p-toast />

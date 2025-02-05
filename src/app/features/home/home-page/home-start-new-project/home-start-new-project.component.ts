@@ -51,37 +51,44 @@ export class HomeStartNewProjectComponent {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      const name = this.formGroup.value.title;
-      const description = this.formGroup.value.description;
+      
+      const capacity: number = this.formGroup.value.capacity ?? 0;
+      const title = this.formGroup.value.title ?? '';
+      const description = this.formGroup.value.description ?? '';
 
-      if (!name || !description) {
+      if (!title || !description || capacity === null || capacity <= 0) {
         return this.showWarningMessage('Invalid Input');
       }
 
+      
       const subscription = this.homeStartNewProjectService
-        .createProject({
-          name,
-          description,
-        })
-        .subscribe({
-          error: (err) => {
-            console.log(err);
-            return this.showWarningMessage('Something Went Wrong');
-          },
-          complete: () => {
-            this.isVisible = false;
-          },
-          next: (data) => {
-            this.homeComponentService.pushValues(data.data);
-          },
-        });
-
-      this.destoryRef.onDestroy(() => {
-        subscription.unsubscribe();
+      .createProject({
+        name: title,
+        description,
+        capacity,
+      })
+      .subscribe({
+        next: (data) => {
+          this.homeComponentService.pushValues(data.data);
+        },
+        error: (err) => {
+          console.error(err);
+          this.showWarningMessage('Something Went Wrong');
+        },
+        complete: () => {
+          this.isVisible = false;
+        },
       });
+
+    this.destoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+
+     
     } else {
       const titleErrors = this.formGroup.get('title')?.errors;
       const descriptionErrors = this.formGroup.get('description')?.errors;
+      const capacityErrors = this.formGroup.get('capacity')?.errors;
 
       if (titleErrors) {
         return this.showWarningMessage(
@@ -90,9 +97,15 @@ export class HomeStartNewProjectComponent {
         );
       }
       if (descriptionErrors) {
-        this.showWarningMessage(
+        return this.showWarningMessage(
           'Invalid Description:',
           'Description should not contain a number or symbol'
+        );
+      }
+      if (capacityErrors) {
+        return this.showWarningMessage(
+          'Invalid Capacity:',
+          'Capacity must be a non-negative number'
         );
       }
     }

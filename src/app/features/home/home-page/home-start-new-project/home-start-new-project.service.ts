@@ -9,7 +9,7 @@ import { CreateProjectResponse } from '../home-component.mode';
 export class HomeStartNewProjectService {
   private readonly http = inject(HttpClient);
 
-  createProject(projectData: { name: string; description: string }) {
+  createProject(projectData: { name: string; description: string, capacity: number }) {
  
     return this.http.post<CreateProjectResponse>(
       `${environment.back_end}/project/create`,

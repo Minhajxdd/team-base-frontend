@@ -11,6 +11,7 @@ export const NewProjectFormGroup = new FormGroup({
     noSymbolsOrNumbers(),
     notEmptySpaces(),
   ]),
+  capacity: new FormControl(0, [Validators.required, Validators.min(0)]),
 });
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';

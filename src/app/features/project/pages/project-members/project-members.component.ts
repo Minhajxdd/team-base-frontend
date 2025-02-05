@@ -1,9 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
