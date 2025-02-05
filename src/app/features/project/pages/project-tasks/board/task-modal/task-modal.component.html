@@ -129,49 +129,32 @@
 
     <div class="right-panel">
       <div class="form-group">
-        <label for="assigned">Assigned To</label>
-        <select id="assigned">
-          <option value="">Select user</option>
-          <option value="john">John Doe</option>
-          <option value="jane">Jane Smith</option>
-          <option value="mike">Mike Johnson</option>
-        </select>
+        <label class="title-fonts">Assigned To</label>
+        
+          <span class="text-black">{{task()?.assignedTo?.full_name }}</span>
+
       </div>
 
       <div class="form-group">
-        <label for="priority">Priority</label>
-        <select id="priority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+        <label class="title-fonts">Priority</label>
         <div
           id="priority-badge"
           class="priority-badge priority-low"
           style="margin-top: 0.5rem"
         >
-          Low
+        {{ task()?.priority }}
         </div>
       </div>
 
       <div class="form-group">
-        <label for="due-date">Due Date</label>
-        <input
-          type="text"
-          id="due-date"
-          placeholder="Select due date"
-          onfocus="(this.type='date')"
-        />
+        <label class="title-fonts">Due Date</label>
+        <span class="text-black">{{ task()?.deadline }}</span>
       </div>
 
       <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status">
-          <option value="todo">To Do</option>
-          <option value="in-progress">In Progress</option>
-          <option value="review">Review</option>
-          <option value="done">Done</option>
-        </select>
+        <label class="title-fonts">Status</label>
+   
+        <span class="text-black">{{ task()?.priority }}</span>
       </div>
     </div>
     }
