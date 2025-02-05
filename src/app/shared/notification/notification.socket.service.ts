@@ -13,8 +13,6 @@ export class NotificationSocketService {
     this.socket = io(`${environment.back_end}/notification`, {
       withCredentials: true,
     });
-
-    this.socket.emit('connect-notification');
   }
 
   emit(event: string, data: any) {
@@ -22,6 +20,8 @@ export class NotificationSocketService {
   }
 
   on(event: string): Observable<any> {
+    this.socket.emit('connect-notification');
+
     return new Observable((observer) => {
       this.socket.on(event, (data) => {
         observer.next(data);

@@ -17,6 +17,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
   );
   private worker!: Worker;
 
+  constructor() {
+    this.notificationSocketService.connect();
+  }
+
   currentNotification = signal<Notification | null>(null);
 
   showNotification: boolean = true;
@@ -26,11 +30,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
       new URL('./notification.worker.ts', import.meta.url)
     );
 
-    this.getShowNotification()
+    this.getShowNotification();
 
     this.notificationSocketService.on('notification').subscribe({
       next: (data: Notification) => {
         this.getShowNotification();
+
+        console.log('on notificatoiin ');
+        console.log(this.getShowNotification());
+        console.log(data);
 
         if (this.showNotification) {
           this.worker.postMessage(data);
@@ -47,7 +55,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.currentNotification.set(null);
       }, 5100);
     };
-
   }
 
   ngOnDestroy(): void {
