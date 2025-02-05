@@ -10,10 +10,12 @@ import { TaskModel } from './task-modal.model';
 import { TaskModalCommentsComponent } from './task-modal-comments/task-modal-comments.component';
 import { PriorityPipe } from '../../../../../../shared/pipes/priority.pipes';
 import { DatePipe } from '@angular/common';
+import { StatusPipe } from '../../../../../../shared/pipes/status.pipes';
 
 @Component({
   selector: 'app-task-modal',
   imports: [
+    StatusPipe,
     DatePipe,
     PortalModule,
     TaskModalSubtaskComponent,
