@@ -1,0 +1,24 @@
+<div class="p-4 border-b border-[color:var(--text-primary)]">
+  <div class="flex items-center">
+    <div
+
+      class="overflow-hidden
+      w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center"
+    >
+      <i class="fas fa-user text-blue-400"></i>
+
+    <img [src]="user.profile"
+        style="
+            object-fit: fill;
+        "
+    >
+
+    </div>
+    <div class="ml-3">
+      <div class="text-sm font-medium text-[color:var(--text-primary)]">
+        {{ user.fullName }}
+      </div>
+      <div class="text-xs text-[color:var(--accent-color)]">[ {{ role }} ]</div>
+    </div>
+  </div>
+</div>
