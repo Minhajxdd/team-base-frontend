@@ -142,7 +142,7 @@
           class="priority-badge priority-low"
           style="margin-top: 0.5rem"
         >
-        {{ task()?.priority }}
+        {{ task()?.priority | priority }}
         </div>
       </div>
 
@@ -154,7 +154,7 @@
       <div class="form-group">
         <label class="title-fonts">Status</label>
    
-        <span class="text-black">{{ task()?.priority }}</span>
+        <span class="text-black">{{ task()?.status }}</span>
       </div>
     </div>
     }

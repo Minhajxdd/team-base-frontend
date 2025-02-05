@@ -14,10 +14,11 @@ import { TaskModalFetchService } from './task-modal.service';
 import { selectProjectId } from '../../../../store/project.selector';
 import { TaskModel } from './task-modal.model';
 import { TaskModalCommentsComponent } from "./task-modal-comments/task-modal-comments.component";
+import { PriorityPipe } from '../../../../../../shared/pipes/priority.pipes';
 
 @Component({
   selector: 'app-task-modal',
-  imports: [PortalModule, TaskModalSubtaskComponent, TaskModalCommentsComponent],
+  imports: [PortalModule, TaskModalSubtaskComponent, TaskModalCommentsComponent, PriorityPipe],
   templateUrl: './task-modal.component.html',
   styleUrl: './task-modal.component.css',
 })
