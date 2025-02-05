@@ -1,7 +1,10 @@
+@import '@ctrl/ngx-emoji-mart/picker';
+
 /* Talwind css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 body {
   background-color: var(--bg-primary);

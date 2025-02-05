@@ -11,6 +11,10 @@
 >
   <div>
     <form class="flex items-center space-x-2">
+
+  
+      <app-emoji-card (onEmoji)="updateEmoji($event)"></app-emoji-card>
+
       <input
         [(ngModel)]="input"
         type="text"
