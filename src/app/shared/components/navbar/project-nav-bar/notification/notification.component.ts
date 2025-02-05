@@ -35,11 +35,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationSocketService.on('notification').subscribe({
       next: (data: Notification) => {
         this.getShowNotification();
-
-        console.log('on notificatoiin ');
-        console.log(this.getShowNotification());
-        console.log(data);
-
         if (this.showNotification) {
           this.worker.postMessage(data);
         }
