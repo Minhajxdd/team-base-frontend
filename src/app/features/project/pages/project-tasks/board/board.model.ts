@@ -16,6 +16,7 @@ export interface BoardCardModel {
     email: string;
     full_name: string;
     isBlocked: boolean;
+    profile?: string;
   };
   subTasks: SubTasks[];
   priority: 1 | 2 | 3;
