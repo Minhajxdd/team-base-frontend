@@ -1,7 +1,10 @@
 <div class="subtask form-group">
   <div class="subtask_title_div">
     <label class="title-fonts">Subtasks</label>
-    <div>
+    <div
+
+    [ngClass]="{ 'hidden': !projectRoleService.isAdmin() }"
+    >
       <button 
         (click)="onAddNewtask()"
       class="add_task_btn">+</button>
@@ -12,14 +15,14 @@
     
     @if (subTasks()?.length) {
       @for (subTask of subTasks(); track subTask._id) {
-        <app-sub-task-card [taskId]="taskId()" [projectId]="projectId" [subTask]="subTask"></app-sub-task-card>
+        <app-sub-task-card [assignedTo]="assignedTo()" [taskId]="taskId()" [projectId]="projectId" [subTask]="subTask"></app-sub-task-card>
       }
 
     } @else if(!newTasks().length){
       <span>No Subtasks..</span>
     }
     @for (newTask of newTasks(); track newTask._id) {
-      <app-sub-task-card [taskId]="taskId()" [projectId]="projectId" [subTask]="newTask"></app-sub-task-card>
+      <app-sub-task-card [assignedTo]="assignedTo()" [taskId]="taskId()" [projectId]="projectId" [subTask]="newTask"></app-sub-task-card>
     }
 
 

@@ -116,6 +116,7 @@
       </div>
 
       <app-task-modal-subtask
+      [assignedTo]="task()?.assignedTo?._id || ''"
         [taskId]="task()?._id || ''"
         [subTasks]="task()?.subTasks"
       ></app-task-modal-subtask>

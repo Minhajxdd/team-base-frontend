@@ -4,22 +4,30 @@ import { SubTask } from '../task-modal.model';
 import { AddTaskInputComponent } from './add-task-input/add-task-input.component';
 import { Store } from '@ngrx/store';
 import { selectProjectId } from '../../../../../store/project.selector';
+import { NgClass } from '@angular/common';
+import { ProjectRoleService } from '../../../../../shared/service/project.role.service';
 
 @Component({
   selector: 'app-task-modal-subtask',
-  imports: [SubTaskCardComponent, AddTaskInputComponent],
+  imports: [NgClass, SubTaskCardComponent, AddTaskInputComponent],
   templateUrl: './task-modal-subtask.component.html',
   styleUrl: './task-modal-subtask.component.css',
 })
 export class TaskModalSubtaskComponent {
   subTasks = input.required<SubTask[] | undefined>();
   taskId = input.required<string>();
+  assignedTo = input.required<string>();
+
 
   newTasks = signal<SubTask[]>([]);
 
   projectId!: string;
 
-  constructor(private store: Store, private destroyRef: DestroyRef) {
+  constructor(
+    private store: Store,
+    private destroyRef: DestroyRef,
+    protected projectRoleService: ProjectRoleService
+  ) {
     const subscription = this.store
       .select(selectProjectId)
       .subscribe((data) => {
@@ -44,5 +52,4 @@ export class TaskModalSubtaskComponent {
   onNewTaskClose(value: boolean) {
     this.openAddTask.set(value);
   }
-
 }

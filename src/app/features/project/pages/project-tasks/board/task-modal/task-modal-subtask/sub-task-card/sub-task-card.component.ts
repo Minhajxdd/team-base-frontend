@@ -1,10 +1,12 @@
 import { Component, DestroyRef, ElementRef, input, output } from '@angular/core';
 import { SubTask } from '../../task-modal.model';
 import { SubTaskService } from './sub-task.service';
+import { NgClass } from '@angular/common';
+import { ProjectRoleService } from '../../../../../../shared/service/project.role.service';
 
 @Component({
   selector: 'app-sub-task-card',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './sub-task-card.component.html',
   styleUrl: './sub-task-card.component.css',
 })
@@ -12,11 +14,13 @@ export class SubTaskCardComponent {
   projectId = input.required<string>();
   subTask = input.required<SubTask | undefined>();
   taskId = input.required<string>();
+  assignedTo = input.required<string>();
 
   constructor(
     private subTaskService: SubTaskService,
     private destoryRef: DestroyRef,
-    private ele: ElementRef
+    private ele: ElementRef,
+    protected projectRoleService: ProjectRoleService
   ) {}
 
   onEditTask() {
