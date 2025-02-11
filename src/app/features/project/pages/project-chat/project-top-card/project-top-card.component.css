@@ -1,0 +1,9 @@
+.video-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-icon {
+    font-size: 1.5rem;
+}
