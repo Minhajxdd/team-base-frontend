@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ProjectRolesGuard } from '../../core/guards/project.guard';
 import { UserAuthGuard } from '../../core/guards/user.guard';
 import { AppComponent } from '../../app.component';
+import { ProjectVideoCallComponent } from './pages/project-video-call/project-video-call.component';
 
 export const projectRoutes: Routes = [
   {
@@ -51,6 +52,10 @@ export const projectRoutes: Routes = [
               ),
             canActivate: [UserAuthGuard, ProjectRolesGuard],
           },
+          {
+            path: 'v-call',
+            component: ProjectVideoCallComponent,
+          }
         ],
       },
     ],

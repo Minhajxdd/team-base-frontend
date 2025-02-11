@@ -1,8 +1,9 @@
 import { Component, ElementRef, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-video-dialoge',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './confirm-video-dialoge.component.html',
   styleUrl: './confirm-video-dialoge.component.css',
 })
