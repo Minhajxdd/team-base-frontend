@@ -1,0 +1,31 @@
+<div class="mb-6">
+    <h3 class="text-md font-semibold text-gray-400 mb-3">To Do</h3>
+    <div class="space-y-3">
+
+
+        @for (todo of todos; track todo._id) {
+            <div class="bg-gray-700 p-3 rounded-lg">
+                <h4 class="font-medium"> {{ todo.title }} </h4>
+                <p class="text-sm text-gray-400">Due: {{ todo.deadline | date }} </p>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<div>
+    <h3 class="text-md font-semibold text-gray-400 mb-3">In Progress</h3>
+    <div class="space-y-3">
+
+
+        @for (progress of progresss; track progress._id) {
+            <div class="bg-gray-700 p-3 rounded-lg">
+                <h4 class="font-medium"> {{ progress.title }} </h4>
+                <p class="text-sm text-gray-400">Due: {{ progress.deadline | date }} </p>
+            </div>
+
+        }
+
+    </div>
+</div>
