@@ -1,0 +1,13 @@
+<div class="bg-gray-800 p-4 rounded-lg">
+    <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+    <div class="grid grid-cols-2 gap-4">
+        <button 
+        [routerLink]="['/project', projectId, 'chats']"
+        class="bg-indigo-600 p-4 rounded-lg hover:bg-indigo-700 flex items-center justify-center">
+            <span>Open Chat</span>
+        </button>
+        <button class="bg-indigo-600 p-4 rounded-lg hover:bg-indigo-700 flex items-center justify-center">
+            <span>Start Video Call</span>
+        </button>
+    </div>
+</div>
