@@ -15,23 +15,21 @@ export class ProjectVideoCallSocket {
     });
 
     this.socket.on('connect', () => {
-        console.log(`[ SFU ] Socket Connected`);
-    })
-
+      console.log(`[ SFU ] Socket Connected`);
+    });
   }
 
   emit(event: string, data: any) {
     this.socket.emit(event, data);
   }
 
-  emitWithAck(event: string, data: any): Observable<any> {
-    return new Observable((observer) => {
+  emitWithAck(event: string, data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.socket.timeout(5000).emit(event, data, (err: any, response: any) => {
         if (err) {
-          observer.error(err);
+          reject(err);
         } else {
-          observer.next(response);
-          observer.complete();
+          resolve(response);
         }
       });
     });
