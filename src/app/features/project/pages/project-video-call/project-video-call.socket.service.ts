@@ -13,6 +13,11 @@ export class ProjectVideoCallSocket {
     this.socket = io(`${environment.back_end}/sfu`, {
       withCredentials: true,
     });
+
+    this.socket.on('connect', () => {
+        console.log(`[SFU] Socket Connected`);
+    })
+
   }
 
   emit(event: string, data: any) {
