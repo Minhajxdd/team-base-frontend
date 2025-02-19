@@ -1,0 +1,9 @@
+.chat-actions {
+    transition: 100ms;
+}
+
+.chat-box:hover {
+  .chat-actions {
+    display: flex;
+  }
+}
