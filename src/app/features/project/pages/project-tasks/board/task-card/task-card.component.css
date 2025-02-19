@@ -8,3 +8,14 @@
   display: flex;
   justify-content: space-between;
 }
+
+.open-details-icon {
+  visibility: hidden;
+  transition: 300ms;
+}
+
+.task-card:hover {
+  .open-details-icon {
+    visibility: visible;
+  }
+}

@@ -1,7 +1,7 @@
 <div class="task-card">
   <div class="task-top-div">
     <div class="task-title">{{ task().title }}</div>
-    <div (click)="onOpenDetails()">
+    <div class="open-details-icon" (click)="onOpenDetails()">
       <svg
         style="cursor: pointer"
         fill="var(--text-primary)"
@@ -29,21 +29,19 @@
   <div class="task-description">{{ task().description }}</div>
 
   <div class="task-developer">
-
     @if (task().assignedTo.profile) {
-      <div style="overflow: hidden" class="developer-avatar">
-        <img
-          style="max-width: 100%; height: auto"
-          [src]="task().assignedTo.profile"
-          alt=""
-        />
-      </div>
+    <div style="overflow: hidden" class="developer-avatar">
+      <img
+        style="max-width: 100%; height: auto"
+        [src]="task().assignedTo.profile"
+        alt=""
+      />
+    </div>
 
     } @else {
-      <div class="developer-avatar"></div>
+    <div class="developer-avatar"></div>
 
     }
-
 
     <div class="developer-card">
       <div class="developer-name">{{ task().assignedTo.full_name }}</div>
