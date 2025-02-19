@@ -26,7 +26,6 @@
     "boxicons": "^2.1.4",
     "jwt-decode": "^4.0.0",
     "mediasoup-client": "^3.8.1",
-    "peerjs": "^1.5.4",
     "primeng": "^19.0.2",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.1",
