@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProjectVideoCallSocket } from './project-video-call.socket.service';
+import { ProjectVideoCallSocket } from './service/project-video-call.socket.service';
 
 @Component({
   selector: 'app-project-video-call',
