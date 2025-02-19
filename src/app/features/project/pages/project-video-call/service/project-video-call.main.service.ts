@@ -9,6 +9,7 @@ import { Socket } from 'socket.io-client';
 import { CreateProducerTransport } from '../media-soup-methods/create-producer-transport';
 import { CreateProducer } from '../media-soup-methods/create-producer';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ActiveUserFeed } from '../models/active-user-feed.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,16 @@ export class ProjectVideoCallMainService {
   private _consumers: ConsumerModel = {};
   private _socket!: Socket;
 
-  // private _localStream!: MediaStream;
+  // Local Streams
   private _localStreamSubject = new BehaviorSubject<MediaStream | null>(null);
-
   public localStream$: Observable<MediaStream | null> =
     this._localStreamSubject.asObservable();
+
+  // Feed Of Others
+  private _activeUsersFeedSubject = new BehaviorSubject<ActiveUserFeed[] | null>(null);
+  public activeUserFeed$: Observable<ActiveUserFeed[] | null> =
+    this._activeUsersFeedSubject.asObservable();
+
 
   private _producerTransport!: mediasoupTypes.Transport;
   private _videoProducer!: mediasoupTypes.Producer;
@@ -35,7 +41,54 @@ export class ProjectVideoCallMainService {
     private _CreateProducer: CreateProducer
   ) {
     this._socket = _socketService.getSocket();
+
+    this._socket.on(`updateActiveSpeakers`, this.updateActiveSpeakers);
+
+    this._socket.on(`newProducersToConsume`, this.newProducersToConsume);
   }
+
+  updateActiveSpeakers = async (newListOfActives: string[]) => {
+    // console.log(`updateActiveSpeakers : `);
+
+    console.log(newListOfActives);
+
+    let slot = 0;
+
+    const activeUsersFeed: ActiveUserFeed[] = [];
+
+    newListOfActives.forEach((aid) => {
+      if (aid !== this._audioProducer?.id) {
+        const consumerForThisSlot = this._consumers[aid];
+
+        activeUsersFeed.push({
+          stream: consumerForThisSlot?.combinedStream,
+          userName: consumerForThisSlot?.userName,
+        });
+
+        slot++;
+      }
+    });
+    
+    console.log(`===Active User Streams===`);
+    console.log(activeUsersFeed);
+    console.log(`===Active User Streams===`);
+
+    this._setActiveStream(activeUsersFeed);
+    
+    
+  };
+
+  newProducersToConsume = (consumeData: any) => {
+    // console.log(`newProducersToConsume : `);
+    // console.log(consumeData);
+
+    this._RequestTransportToConsume.requestTransportToConsume(
+      consumeData,
+      this._socket,
+      this._device,
+      this._consumers
+    );
+  };
 
   joinRoom = async (userName: string, roomName: string) => {
     const joinRoomResp = (await this._socket.emitWithAck('joinRoom', {
@@ -67,7 +120,7 @@ export class ProjectVideoCallMainService {
       audio: true,
     });
 
-    this.setLocalStream(localStream);
+    this._setLocalStream(localStream);
 
     // Calling send feed after enabling feed
     this.sendFeed();
@@ -105,11 +158,21 @@ export class ProjectVideoCallMainService {
     }
   };
 
-  setLocalStream(stream: MediaStream): void {
+  private _setLocalStream(stream: MediaStream): void {
     this._localStreamSubject.next(stream);
+  }
+
+  private _setActiveStream(activeUserFeed: ActiveUserFeed[]): void {
+    this._activeUsersFeedSubject.next(activeUserFeed);
+  }
+
+  getActiveStream(): ActiveUserFeed[] | null {
+    return this._activeUsersFeedSubject.getValue();
   }
 
   getLocalStream(): MediaStream | null {
     return this._localStreamSubject.getValue();
   }
+
+
 }

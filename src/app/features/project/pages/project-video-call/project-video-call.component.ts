@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ProjectVideoCallSocket } from './service/project-video-call.socket.service';
-import { UserFeedCardComponent } from "./components/user-feed-card/user-feed-card.component";
+import { Component, DestroyRef } from '@angular/core';
+import { UserFeedCardComponent } from './components/user-feed-card/user-feed-card.component';
+import { ProjectVideoCallMainService } from './service/project-video-call.main.service';
+import { ActiveUserFeed } from './models/active-user-feed.model';
 
 @Component({
   selector: 'app-project-video-call',
@@ -9,5 +10,22 @@ import { UserFeedCardComponent } from "./components/user-feed-card/user-feed-car
   styleUrl: './project-video-call.component.css',
 })
 export class ProjectVideoCallComponent {
-  constructor(private ProjectVideoCallSocket: ProjectVideoCallSocket) {}
+  usersFeeds: ActiveUserFeed[] = [];
+
+  constructor(
+    private _ProjectVideoCallMainService: ProjectVideoCallMainService,
+    private destoryRef: DestroyRef
+  ) {
+    const subscription =
+      this._ProjectVideoCallMainService.activeUserFeed$.subscribe({
+        next: (data) => {
+          if (data) {
+            this.usersFeeds = data;
+            console.log('userFeed')
+            console.log(this.usersFeeds);
+            console.log('userFeed')
+          }
+        },
+      });
+  }
 }
