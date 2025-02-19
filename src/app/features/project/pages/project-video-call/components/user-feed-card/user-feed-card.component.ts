@@ -21,9 +21,4 @@ export class UserFeedCardComponent {
       }
     });
   }
-
-  mute() {
-    console.log('mute audio');
-    this._ProjectVideoCallMainService.muteAudio();
-  }
 }
