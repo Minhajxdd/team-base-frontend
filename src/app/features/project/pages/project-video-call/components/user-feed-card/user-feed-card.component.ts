@@ -5,10 +5,25 @@ import { ProjectVideoCallMainService } from '../../service/project-video-call.ma
   selector: 'app-user-feed-card',
   imports: [],
   templateUrl: './user-feed-card.component.html',
-  styleUrl: './user-feed-card.component.css'
+  styleUrl: './user-feed-card.component.css',
 })
 export class UserFeedCardComponent {
-  constructor(private _ProjectVideoCallMainService: ProjectVideoCallMainService) {
+  localStream!: MediaStream;
+  constructor(
+    private _ProjectVideoCallMainService: ProjectVideoCallMainService
+  ) {
     this._ProjectVideoCallMainService.joinRoom('hello', 'world');
+    this._ProjectVideoCallMainService.enableFeed();
+
+    this._ProjectVideoCallMainService.localStream$.subscribe((stream) => {
+      if (stream) {
+        this.localStream = stream;
+      }
+    });
+  }
+
+  mute() {
+    console.log('mute audio');
+    this._ProjectVideoCallMainService.muteAudio();
   }
 }

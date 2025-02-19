@@ -1,7 +1,13 @@
+<button style="background-color: blue;" (click)="mute()">mute</button>
+
+
 <div class="person">
   <div class="mic"><i class='bx bx-microphone' ></i></div>
   <div id="container">
-    <video autoplay="true" id="videoElement"></video>
+    <video
+    [srcObject]="localStream"
+    autoplay="true" id="videoElement"></video>
   </div>
+  
   <div class="nameyou">You</div>
 </div>
