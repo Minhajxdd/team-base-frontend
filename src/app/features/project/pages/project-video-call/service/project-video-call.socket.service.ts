@@ -43,6 +43,10 @@ export class ProjectVideoCallSocket {
     });
   }
 
+  getSocket() {
+    return this.socket;
+  }
+
   connect() {
     this.socket.connect();
   }
