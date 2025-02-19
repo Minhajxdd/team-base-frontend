@@ -15,7 +15,7 @@ export class ProjectVideoCallSocket {
     });
 
     this.socket.on('connect', () => {
-        console.log(`[SFU] Socket Connected`);
+        console.log(`[ SFU ] Socket Connected`);
     })
 
   }
