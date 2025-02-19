@@ -49,6 +49,7 @@ export class ProjectVideoCallMainService {
 
   updateActiveSpeakers = async (newListOfActives: string[]) => {
     // console.log(`updateActiveSpeakers : `);
+    console.log(`********************updateActive speackers called********************`);
 
     console.log(newListOfActives);
 
