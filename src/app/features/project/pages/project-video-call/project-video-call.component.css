@@ -1,0 +1,344 @@
+body {
+  background: #202124;
+  font-family: "Segoe UI";
+}
+
+#ready {
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  background: #d9d9d9;
+  border-radius: 30px;
+  padding: 24px;
+  width: 441px;
+  height: 298px;
+}
+
+h3 {
+  font-family: "Segoe UI";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 47px;
+  margin: 0px;
+}
+
+.meetingstart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  align-items: flex-start;
+}
+
+button {
+  background: #6635fc;
+  border-radius: 30px;
+  border-width: 0px;
+  width: 140px;
+  text-align: center;
+  color: white;
+  font-family: "Segoe UI";
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  line-height: 36px;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
+  cursor: pointer;
+  justify-content: space-evenly;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+h4 {
+  font-family: "Segoe UI";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  color: #000000;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.copy {
+  background: #e7e7f5;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0px;
+  padding-left: 20px;
+  height: 40px;
+  padding-right: 10px;
+}
+.blue-color {
+  color: blue;
+}
+
+.permission {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0px;
+  font-family: "Segoe UI";
+  font-size: 15px;
+  color: hsl(213deg 5% 39%);
+  padding-right: 10px;
+}
+.main-container {
+  height: 100%;
+  display: flex;
+  padding-top: 5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.person {
+  background: #3b4045;
+  border-radius: 8px;
+  width: 400px;
+  height: 200px;
+  padding: 2px;
+  margin: 4px;
+}
+.symbol {
+  font-size: 50px;
+  text-align: center;
+  background: #e1546b;
+  color: white;
+  height: 60px;
+  width: 60px;
+  position: relative;
+  left: 114px;
+  top: 42px;
+  border-radius: 50%;
+  padding: 8px;
+}
+.name {
+  position: relative;
+  bottom: -25px;
+  left: -23px;
+  padding: 43px;
+  font-size: 15px;
+  color: #d9d9d9;
+}
+
+.mic {
+  text-align: center;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  background: #ffffff;
+  font-size: 12px;
+  padding: 4px;
+  position: relative;
+  top: 9px;
+  left: 255px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  margin-top: -15px;
+  padding: 10px;
+  font-weight: bolder;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon {
+  border-radius: 5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  
+}
+
+.bg-gray {
+  background: #3b4045;
+}
+
+.bg-dark-gray {
+  background: #202124;
+}
+
+.bg-red {
+  background: #cc0000;
+}
+.bg-blue {
+  background: blue;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 35px; /* Location of the box */
+  padding-left: 520px;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  border-radius: 20px;
+  background-color: #d9d9d9;
+  margin: auto;
+  padding: 10px;
+  width: 30%;
+  height: 85%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: +300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: +300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* The Close Button */
+.close {
+  color: #000000;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close2 {
+  color: #000000;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close2:hover,
+.close2:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 15px 16px;
+  font-family: "Segoe UI";
+  font-style: normal;
+}
+
+.modal-body {
+  padding: 2px 16px;
+  background-color: #d9d9d9;
+}
+
+.modal-footer {
+  padding: 230px 16px;
+  color: black;
+  font-family: "Segoe UI";
+  font-style: normal;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.msgbody {
+  background: #e7e7f5;
+  border-radius: 10px;
+  padding: 13px 27px;
+  text-align: center;
+}
+
+#sendbtn {
+  width: 50px;
+  height: 40px;
+  right: 50px;
+}
+
+#myText {
+  width: 350px;
+  height: 50px;
+  background: #e7e7f5;
+  border-radius: 40px;
+  border-color: E7E7F5;
+}
+
+#demo {
+  margin: 0px;
+}
+
+#videoElement {
+  width: 300px;
+  height: 193px;
+  background-color: #3b4045;
+  margin-top: -20px;
+}
+
+.nameyou {
+  position: relative;
+  bottom: 72px;
+  left: -23px;
+  padding: 43px;
+  font-size: 15px;
+  color: #d9d9d9;
+}
+
+.fa-solid fa-phone {
+  color: #ffffff;
+  background-color: #e7e7f5;
+}
+
+/*  */
+.icon-span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
