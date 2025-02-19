@@ -25,10 +25,11 @@ export class ProjectVideoCallMainService {
     this._localStreamSubject.asObservable();
 
   // Feed Of Others
-  private _activeUsersFeedSubject = new BehaviorSubject<ActiveUserFeed[] | null>(null);
+  private _activeUsersFeedSubject = new BehaviorSubject<
+    ActiveUserFeed[] | null
+  >(null);
   public activeUserFeed$: Observable<ActiveUserFeed[] | null> =
     this._activeUsersFeedSubject.asObservable();
-
 
   private _producerTransport!: mediasoupTypes.Transport;
   private _videoProducer!: mediasoupTypes.Producer;
@@ -49,7 +50,9 @@ export class ProjectVideoCallMainService {
 
   updateActiveSpeakers = async (newListOfActives: string[]) => {
     // console.log(`updateActiveSpeakers : `);
-    console.log(`********************updateActive speackers called********************`);
+    console.log(
+      `********************updateActive speackers called********************`
+    );
 
     console.log(newListOfActives);
 
@@ -69,19 +72,17 @@ export class ProjectVideoCallMainService {
         slot++;
       }
     });
-    
+
     console.log(`===Active User Streams===`);
     console.log(activeUsersFeed);
     console.log(`===Active User Streams===`);
 
     this._setActiveStream(activeUsersFeed);
-    
-    
   };
 
   newProducersToConsume = (consumeData: any) => {
-    // console.log(`newProducersToConsume : `);
-    // console.log(consumeData);
+    console.log(`newProducersToConsume : `);
+    console.log(consumeData);
 
     this._RequestTransportToConsume.requestTransportToConsume(
       consumeData,
@@ -175,5 +176,12 @@ export class ProjectVideoCallMainService {
     return this._localStreamSubject.getValue();
   }
 
+  async leaveRoom() {
+    await this._socket.emitWithAck('leaveRoom');
+    this._producerTransport.close();
 
+    for (const x in this._consumers) {
+      this._consumers[x].consumerTransport.close();
+    }
+  }
 }

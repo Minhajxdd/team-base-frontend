@@ -12,7 +12,7 @@ export class UserFeedCardComponent {
   constructor(
     private _ProjectVideoCallMainService: ProjectVideoCallMainService
   ) {
-    this._ProjectVideoCallMainService.joinRoom('hello', 'world');
+    this._ProjectVideoCallMainService.joinRoom("" +Math.random(), 'world');
     this._ProjectVideoCallMainService.enableFeed();
 
     this._ProjectVideoCallMainService.localStream$.subscribe((stream) => {

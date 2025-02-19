@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { ProjectVideoCallMainService } from '../../service/project-video-call.main.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bottom-dock',
@@ -10,7 +11,8 @@ import { ProjectVideoCallMainService } from '../../service/project-video-call.ma
 })
 export class BottomDockComponent {
   constructor(
-    private _ProjectVideoCallMainService: ProjectVideoCallMainService
+    private _ProjectVideoCallMainService: ProjectVideoCallMainService,
+    private router: Router
   ) {}
 
   isMuted = signal<boolean>(false);
@@ -19,5 +21,13 @@ export class BottomDockComponent {
     this.isMuted.set(!this.isMuted());
 
     this._ProjectVideoCallMainService.muteAudio();
+  }
+
+  leaveMeeting() {
+    console.log(`Leaving Meeting`);
+
+    this._ProjectVideoCallMainService.leaveRoom();
+
+    this.router.navigate(['']);
   }
 }
