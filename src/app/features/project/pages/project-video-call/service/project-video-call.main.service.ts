@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import { Device, types as mediasoupTypes } from 'mediasoup-client';
 
 import { ProjectVideoCallSocket } from './project-video-call.socket.service';
@@ -39,7 +39,8 @@ export class ProjectVideoCallMainService {
     private _socketService: ProjectVideoCallSocket,
     private _RequestTransportToConsume: RequestTransportToConsume,
     private _CreateProducerTransport: CreateProducerTransport,
-    private _CreateProducer: CreateProducer
+    private _CreateProducer: CreateProducer,
+    private _DestoryRef: DestroyRef
   ) {
     this._socket = _socketService.getSocket();
 
@@ -177,11 +178,22 @@ export class ProjectVideoCallMainService {
   }
 
   async leaveRoom() {
+    const subscription = this._localStreamSubject.subscribe((stream) => {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    });
+
     await this._socket.emitWithAck('leaveRoom');
     this._producerTransport.close();
 
     for (const x in this._consumers) {
       this._consumers[x].consumerTransport.close();
     }
+
+    this._DestoryRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
+
   }
 }
