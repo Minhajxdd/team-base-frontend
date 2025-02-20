@@ -3,17 +3,17 @@
 
   <div class="controls meeting-controls">
     <div
-      [ngClass]="{ 'bg-green-700': !isMuted() , 'bg-red-700': isMuted()}"
+      (click)="toggleMuted()"
+      [ngClass]="{ 'bg-green-700': !isMuted(), 'bg-red-700': isMuted() }"
       class="icon"
     >
-      @if (isMuted()) {
       <span
-        (click)="toggleMuted()"
-        class="icon-span bx bxs-microphone-off"
+        class="icon-span bx"
+        [ngClass]="{
+          'bxs-microphone': !isMuted(),
+          'bxs-microphone-off': isMuted()
+        }"
       ></span>
-      } @else {
-      <span (click)="toggleMuted()" class="icon-span bx bxs-microphone"></span>
-      }
     </div>
 
     <div class="bg-gray icon">
@@ -28,9 +28,7 @@
       <i class="icon-span bx bxs-share"></i>
     </div>
 
-    <div 
-      (click)="leaveMeeting()"
-    class="bg-red icon">
+    <div (click)="leaveMeeting()" class="bg-red icon">
       <i class="icon-span bx bxs-phone-off"></i>
     </div>
   </div>
