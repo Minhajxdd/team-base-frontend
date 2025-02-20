@@ -55,6 +55,7 @@ export const projectRoutes: Routes = [
           {
             path: ':projectId/v-call',
             component: ProjectVideoCallComponent,
+            canActivate: [UserAuthGuard, ProjectRolesGuard],
           }
         ],
       },

@@ -2,7 +2,7 @@ import { Component, DestroyRef } from '@angular/core';
 import { UserFeedCardComponent } from './components/user-feed-card/user-feed-card.component';
 import { ProjectVideoCallMainService } from './service/project-video-call.main.service';
 import { ActiveUserFeed } from './models/active-user-feed.model';
-import { BottomDockComponent } from "./components/bottom-dock/bottom-dock.component";
+import { BottomDockComponent } from './components/bottom-dock/bottom-dock.component';
 
 @Component({
   selector: 'app-project-video-call',
@@ -22,9 +22,6 @@ export class ProjectVideoCallComponent {
         next: (data) => {
           if (data) {
             this.usersFeeds = data;
-            console.log('userFeed')
-            console.log(this.usersFeeds);
-            console.log('userFeed')
           }
         },
       });
