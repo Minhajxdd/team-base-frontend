@@ -15,10 +15,11 @@ export class BottomDockComponent {
     private router: Router
   ) {}
 
-  isMuted = signal<boolean>(false);
+  isAudioMuted = signal<boolean>(false);
+  
 
   toggleMuted() {
-    this.isMuted.set(!this.isMuted());
+    this.isAudioMuted.set(!this.isAudioMuted());
 
     this._ProjectVideoCallMainService.muteAudio();
   }

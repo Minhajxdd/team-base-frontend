@@ -4,14 +4,14 @@
   <div class="controls meeting-controls">
     <div
       (click)="toggleMuted()"
-      [ngClass]="{ 'bg-green-700': !isMuted(), 'bg-red-700': isMuted() }"
+      [ngClass]="{ 'bg-green-700': !isAudioMuted(), 'bg-red-700': isAudioMuted() }"
       class="icon"
     >
       <span
         class="icon-span bx"
         [ngClass]="{
-          'bxs-microphone': !isMuted(),
-          'bxs-microphone-off': isMuted()
+          'bxs-microphone': !isAudioMuted(),
+          'bxs-microphone-off': isAudioMuted()
         }"
       ></span>
     </div>
