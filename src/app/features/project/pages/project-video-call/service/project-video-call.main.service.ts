@@ -161,6 +161,18 @@ export class ProjectVideoCallMainService {
     }
   };
 
+  mutevideo = () => {
+    if (this._videoProducer.paused) {
+      this._videoProducer.resume();
+
+      this._socket.emit('videoChange', 'unmute');
+    } else {
+      this._videoProducer.pause();
+
+      this._socket.emit('videoChange', 'mute');
+    }
+  };
+
   private _setLocalStream(stream: MediaStream): void {
     this._localStreamSubject.next(stream);
   }

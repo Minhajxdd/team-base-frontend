@@ -16,12 +16,18 @@ export class BottomDockComponent {
   ) {}
 
   isAudioMuted = signal<boolean>(false);
-  
+  isVideoMuted = signal<boolean>(false);  
 
   toggleMuted() {
     this.isAudioMuted.set(!this.isAudioMuted());
 
     this._ProjectVideoCallMainService.muteAudio();
+  }
+
+  toggleAudio() {
+    this.isVideoMuted.set(!this.isAudioMuted());
+
+    this._ProjectVideoCallMainService.mutevideo();
   }
 
   leaveMeeting() {

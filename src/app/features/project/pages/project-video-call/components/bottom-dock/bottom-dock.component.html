@@ -7,17 +7,28 @@
       [ngClass]="{ 'bg-green-700': !isAudioMuted(), 'bg-red-700': isAudioMuted() }"
       class="icon"
     >
-      <span
+      <i
         class="icon-span bx"
         [ngClass]="{
           'bxs-microphone': !isAudioMuted(),
           'bxs-microphone-off': isAudioMuted()
         }"
-      ></span>
+      ></i>
     </div>
 
-    <div class="bg-gray icon">
-      <i class="icon-span bx bxs-video"></i>
+    <div 
+    (click)="toggleAudio()"
+    [ngClass]="{ 'bg-gray': !isVideoMuted(), 'bg-red-700': isVideoMuted() }"
+    class="icon"
+    >
+      <i
+      class="icon-span bx"
+      [ngClass]="{
+        'bxs-video': !isVideoMuted(),
+        'bxs-video-off': isVideoMuted()
+      }"
+      ></i>
+      
     </div>
 
     <div class="bg-blue icon">
