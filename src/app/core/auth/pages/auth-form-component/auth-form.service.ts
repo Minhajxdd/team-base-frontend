@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment.development';
+import { environment } from '../../../../../environments/environmentts';
 import { DataModel } from './auth-form-component.model';
 import { catchError, tap, throwError } from 'rxjs';
 import { AuthService } from '../../auth.service';
