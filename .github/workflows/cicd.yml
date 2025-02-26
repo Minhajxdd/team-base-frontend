@@ -1,0 +1,38 @@
+name: Deploy TeamBase Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build docker image
+        run: docker build -t minhajxdd/teambase-frontend .
+
+      - name: Publish image to docker hub
+        run: docker push minhajxdd/teambase-frontend
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Delete old container
+        run: docker rm -f angular-app-container  
+      
+      - name: Delete old image
+        run: docker rmi -f minhajxdd/teambase-frontend  
+      
+      - name: Pull image from docker hub
+        run: docker pull minhajxdd/teambase-frontend
+      
+      - name: Run docker container
+        run: docker run -d -p 4200:4200 --name angular-app-container minhajxdd/teambase-frontend  
