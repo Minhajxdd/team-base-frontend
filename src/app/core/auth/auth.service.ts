@@ -5,8 +5,8 @@ import { of, switchMap, tap } from 'rxjs';
 
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 
-import { environment } from '../../../environments/environmentts';
 import { JwtStructure } from './models/auth.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

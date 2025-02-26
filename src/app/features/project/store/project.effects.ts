@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { map, exhaustMap, catchError, withLatestFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { environment } from '../../../../environments/environmentts';
+import { environment } from '../../../../environments/environment.js';
 import * as ProjectActions from './project.action';
 import { selectProjectId } from './project.selector';
 

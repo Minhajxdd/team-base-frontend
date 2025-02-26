@@ -2,7 +2,7 @@ declare var google: any;
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../../environments/environmentts';
+import { environment } from '../../../../environments/environment';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable({

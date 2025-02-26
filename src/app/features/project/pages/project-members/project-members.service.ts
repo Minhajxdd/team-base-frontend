@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environmentts';
+import { environment } from '../../../../../environments/environment.js';
 import { sentRequest, UsersResponse } from './project-members.model';
 import { MessageService } from 'primeng/api';
 import { catchError, throwError } from 'rxjs';

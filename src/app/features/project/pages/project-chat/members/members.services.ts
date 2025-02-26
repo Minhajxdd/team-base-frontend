@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environmentts';
+import { environment } from '../../../../../../environments/environment.js';
 import { projectMember } from '../../project-members/project-members-display/project-members.dispaly.model';
 
 @Injectable({
