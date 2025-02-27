@@ -23,6 +23,7 @@
     "@ngrx/effects": "^19.0.0",
     "@ngrx/store": "^19.0.0",
     "@primeng/themes": "^19.0.2",
+    "@zegocloud/zego-uikit-prebuilt": "^2.14.1",
     "boxicons": "^2.1.4",
     "jwt-decode": "^4.0.0",
     "mediasoup-client": "^3.8.1",
