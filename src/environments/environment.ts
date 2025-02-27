@@ -1,4 +1,4 @@
 export const environment = {
-  back_end: 'https://api.teambase.mohammedminhaj.blog',
+  back_end: 'http://localhost:3000',
   production: true,
 };

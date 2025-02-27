@@ -99,15 +99,15 @@ export class ProjectVideoCallMainService {
       roomName,
     })) as JoinRommResp;
 
+    console.log(joinRoomResp, ' response from join Room');
+
     this._device = new Device();
 
     await this._device.load({
       routerRtpCapabilities: joinRoomResp.routerRtpCapabilities,
     });
 
-    console.log(this._device);
-
-    console.log(joinRoomResp);
+    console.log(this._device, ' the newly created device');
 
     this._RequestTransportToConsume.requestTransportToConsume(
       joinRoomResp,
