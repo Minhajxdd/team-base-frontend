@@ -3,6 +3,8 @@ import { ProjectRolesGuard } from '../../core/guards/project.guard';
 import { UserAuthGuard } from '../../core/guards/user.guard';
 import { AppComponent } from '../../app.component';
 import { ProjectVideoCallComponent } from './pages/project-video-call/project-video-call.component';
+import { environment } from '../../../environments/environment';
+import { ZegoCloudComponent } from './pages/zego-cloud/zego-cloud.component';
 
 export const projectRoutes: Routes = [
   {
@@ -54,7 +56,7 @@ export const projectRoutes: Routes = [
           },
           {
             path: ':projectId/v-call',
-            component: ProjectVideoCallComponent,
+            component:environment.production ? ZegoCloudComponent : ProjectVideoCallComponent,
             canActivate: [UserAuthGuard, ProjectRolesGuard],
           }
         ],
