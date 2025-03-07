@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment.js';
 import { DataModel } from './auth-form-component.model';
 import { catchError, tap, throwError } from 'rxjs';
-import { AuthService } from '../../auth.service';
 import { RegisterResponseModel } from './auth-form.model';
 
 @Injectable({
@@ -11,7 +10,6 @@ import { RegisterResponseModel } from './auth-form.model';
 })
 export class AuthFormService {
   private readonly http = inject(HttpClient);
-  private readonly authService = inject(AuthService);
 
   register(userData: DataModel) {
     return this.http
