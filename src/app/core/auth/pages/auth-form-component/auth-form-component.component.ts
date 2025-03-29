@@ -1,6 +1,6 @@
 declare var google: any;
 
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
@@ -40,7 +40,19 @@ export class AuthFormComponentComponent implements OnInit {
     });
   }
 
+
   // Google Auth
+  @ViewChild('googleButton') googleButton!: ElementRef<HTMLButtonElement>;
+
+  onGoogleClick() {
+    const button = this.googleButton.nativeElement.querySelector('div[role="button"]') as HTMLElement;
+    if (button) {
+      button.click();
+    } else {
+      console.error('Google button not found');
+    }
+  }
+
   ngOnInit(): void {
     google.accounts.id.initialize({
       client_id:
@@ -49,10 +61,8 @@ export class AuthFormComponentComponent implements OnInit {
     });
 
     google.accounts.id.renderButton(document.getElementById('google-btn'), {
-      theme: 'filled_blue',
-      size: 'large',
-      shape: 'rectangle',
-      width: 360,
+      theme: 'outline',
+      size: 'large'
     });
   }
 

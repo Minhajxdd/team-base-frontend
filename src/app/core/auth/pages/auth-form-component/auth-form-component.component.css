@@ -80,3 +80,11 @@ input:-webkit-autofill {
   font-weight: bolder;
   color: red;
 }
+
+
+#google-btn {
+  display: flex;
+  justify-content: center;
+  max-width: 350px;
+  margin: auto;
+}
