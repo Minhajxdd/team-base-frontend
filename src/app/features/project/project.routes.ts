@@ -9,6 +9,11 @@ import { ProjectNavBarComponent } from '../../shared/components/navbar/project-n
 export const projectRoutes: Routes = [
   {
     path: 'project',
+    pathMatch: 'prefix',
+    redirectTo: ''
+  },
+  {
+    path: 'project',
     component: ProjectNavBarComponent,
     children: [
       {
