@@ -1,7 +1,7 @@
-import { getLocaleMonthNames, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectProjectId } from '../../../../features/project/store/project.selector';
 import { Observable, Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { NotificationComponent } from "./notification/notification.component";
 
 @Component({
   selector: 'app-project-nav-bar',
-  imports: [NgClass, RouterLink, RouterLinkActive, NotificationComponent],
+  imports: [NgClass, RouterLink, RouterLinkActive, NotificationComponent, RouterOutlet],
   templateUrl: './project-nav-bar.component.html',
   styleUrl: './project-nav-bar.component.css',
 })

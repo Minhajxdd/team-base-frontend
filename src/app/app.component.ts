@@ -1,35 +1,15 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { ThemeModeService } from './core/services/theme.service';
-import { NavBarService } from './shared/components/navbar/navbar.service';
-import { ProjectNavBarComponent } from './shared/components/navbar/project-nav-bar/project-nav-bar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProjectNavBarComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  navbarType = signal<null | 'user' | 'project' | 'admin'>(null);
-
-  constructor(
-    private readonly themeModeService: ThemeModeService,
-    private readonly router: Router,
-    private readonly navbarService: NavBarService,
-    private readonly destroyRef: DestroyRef
-  ) {
-    const subscription = this.navbarService
-      .navBar(this.router.events)
-      .subscribe((type) => {
-        this.navbarType.set(type);
-      });
-
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
-
-    // Initializing themes
+  constructor(private readonly themeModeService: ThemeModeService) {
     this.themeModeService.initializeTheme();
   }
 }
