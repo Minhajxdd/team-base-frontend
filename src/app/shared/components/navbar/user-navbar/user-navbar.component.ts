@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { ThemeModeService } from '../../../../core/services/theme.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
@@ -14,13 +14,14 @@ import { User } from '../navbar.model';
 
 @Component({
   selector: 'app-user-navbar',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css',
 })
 export class UserNavbarComponent implements OnDestroy {
   private readonly themeService = inject(ThemeModeService);
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   user$: Observable<any>;
   loading$: Observable<boolean>;
@@ -64,7 +65,10 @@ export class UserNavbarComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription1$!.unsubscribe();
-    this.subscription2$!.unsubscribe();
+    if(this.subscription1$) {
+      this.subscription1$!.unsubscribe();
+      this.subscription2$!.unsubscribe();
+    }
+
   }
 }

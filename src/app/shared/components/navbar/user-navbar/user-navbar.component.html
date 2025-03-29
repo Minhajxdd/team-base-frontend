@@ -1,6 +1,8 @@
 <header class="shadow-lg py-4">
   <div class="container mx-auto flex justify-between items-center px-6">
-    <h1 class="text-3xl font-bold cursor-pointer text-[var(--accent-color)]">
+    <h1 
+    [routerLink]="['']"
+    class="text-3xl font-bold cursor-pointer text-[var(--accent-color)]">
       TeamBase
     </h1>
     <nav class="flex items-center space-x-6">
@@ -63,3 +65,6 @@
     </nav>
   </div>
 </header>
+
+
+<ng-content></ng-content>
