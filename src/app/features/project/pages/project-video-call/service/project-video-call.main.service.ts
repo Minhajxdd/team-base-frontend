@@ -130,6 +130,8 @@ export class ProjectVideoCallMainService {
   };
 
   sendFeed = async () => {
+    console.log('Send Feed Started');
+
     this._producerTransport =
       await this._CreateProducerTransport.createProducerTransport(
         this._socket,
@@ -205,7 +207,6 @@ export class ProjectVideoCallMainService {
 
     this._DestoryRef.onDestroy(() => {
       subscription.unsubscribe();
-    })
-
+    });
   }
 }
