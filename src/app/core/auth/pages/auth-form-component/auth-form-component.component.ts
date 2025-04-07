@@ -148,6 +148,9 @@ export class AuthFormComponentComponent implements OnInit {
     };
 
     const subscription = this.authService.register(data).subscribe({
+      next: (data: any) => {
+        localStorage.setItem('auth-register-verify-email', data.email);
+      },
       error: (err: string) => {
 
       return this.errMsg.set(err);
