@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, input, OnInit, output } from '@angular/core';
+import { Component, DestroyRef, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -83,11 +83,6 @@ export class AddTaskFormComponent {
         )
         .subscribe({
           complete: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Successfully Task Assigned!',
-            });
-
             this.oncloseForm();
             this.projectTasksService.emitRefreshEvent();
           },

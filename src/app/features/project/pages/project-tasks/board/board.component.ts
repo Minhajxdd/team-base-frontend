@@ -81,8 +81,8 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     const subscription = this.projectTasksService
       .getRefreshListener()
-      .subscribe((data) => {
-        if (data) this.fetchUserData(data);
+      .subscribe(() => {
+        this.fetchUserData();
       });
 
     this.destoryRef.onDestroy(() => {
