@@ -1,7 +1,6 @@
 import {
   Component,
   DestroyRef,
-  inject,
   OnDestroy,
   OnInit,
   signal,
@@ -13,7 +12,6 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthOtpPageService } from './auth-otp-page.service';
 import { Router } from '@angular/router';
-import { sentRequest } from '../../../../features/project/pages/project-members/project-members.model';
 
 @Component({
   selector: 'app-auth-otp-page',
@@ -28,16 +26,16 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
 
   errMsg = signal<string>('');
 
-  private messageService = inject(MessageService);
-  private authOtpPageService = inject(AuthOtpPageService);
-  private router = inject(Router);
-  private destoryRef = inject(DestroyRef);
-
   timeLeft = signal<number>(300);
   timer: any;
   isRunning: boolean = false;
 
-  constructor() {
+  constructor(
+    private messageService: MessageService,
+    private authOtpPageService: AuthOtpPageService,
+    private router: Router,
+    private destoryRef: DestroyRef
+  ) {
     this.getEmail();
   }
 
@@ -131,9 +129,7 @@ export class AuthOtpPageComponent implements OnInit, OnDestroy {
 
   getEmail() {
     const email = localStorage.getItem('auth-register-verify-email');
-    
-    if(email) this.email = email;
 
-    console.log(email);
+    if (email) this.email = email;
   }
 }
