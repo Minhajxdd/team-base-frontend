@@ -1,16 +1,13 @@
 import { Routes } from '@angular/router';
 import { ProjectRolesGuard } from '../../core/guards/project.guard';
 import { UserAuthGuard } from '../../core/guards/user.guard';
-import { ProjectVideoCallComponent } from './pages/project-video-call/project-video-call.component';
-import { environment } from '../../../environments/environment';
-import { ZegoCloudComponent } from './pages/zego-cloud/zego-cloud.component';
 import { ProjectNavBarComponent } from '../../shared/components/navbar/project-nav-bar/project-nav-bar.component';
 
 export const projectRoutes: Routes = [
   {
     path: 'project',
     pathMatch: 'prefix',
-    redirectTo: ''
+    redirectTo: '',
   },
   {
     path: 'project',
@@ -58,9 +55,10 @@ export const projectRoutes: Routes = [
       },
       {
         path: ':projectId/v-call',
-        component: environment.production
-          ? ZegoCloudComponent
-          : ProjectVideoCallComponent,
+        loadComponent: () =>
+          import(
+            './pages/project-video-call/project-video-call.component'
+          ).then((m) => m.ProjectVideoCallComponent),
         canActivate: [UserAuthGuard, ProjectRolesGuard],
       },
     ],
