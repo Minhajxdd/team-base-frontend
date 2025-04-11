@@ -15,4 +15,11 @@ export class ProjectNotesService {
       { withCredentials: true }
     );
   }
+
+  deleteNotes(projectId: string, noteId: string) {
+    return this._http.delete(
+      `${environment.back_end}/project/${projectId}/notes/${noteId}`,
+      { withCredentials: true }
+    );
+  }
 }

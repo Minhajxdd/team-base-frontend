@@ -95,8 +95,7 @@ export class NotesFormComponent {
       const subscription = this._notesFormService.addNote(newNote, this.projectId)
       .subscribe({
         next: (data) => {
-          console.log(`data received from form`);
-          console.log(data);
+          this.save.emit(data);
         },
         complete: () => {
           this.isSubmitting = false;

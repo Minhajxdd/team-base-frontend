@@ -80,11 +80,22 @@ export class ProjectNotesComponent {
     const componentRef = this.overlayRef.attach(portal);
     componentRef.instance.close.subscribe(() => this.overlayRef.dispose());
     componentRef.instance.save.subscribe((noteData: Note) => {
+      this.notes.push(noteData);
       this.overlayRef.dispose();
     });
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.dispose());
   }
 
-  deleteNote(note: Note): void {
+  deleteNote(noteId: string): void {
+    const subscription = this._projectNotesService.deleteNotes(this.projectId, noteId)
+    .subscribe({
+      complete: () => {
+        this.notes = this.notes.filter((note) => note._id !== noteId);
+      }
+    });
+
+    this._destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
