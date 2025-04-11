@@ -1,0 +1,8 @@
+.main-container {
+    align-items: center;
+    width: 100% !important;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-left: 30px;
+  }

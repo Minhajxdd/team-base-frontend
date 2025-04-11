@@ -61,6 +61,13 @@ export const projectRoutes: Routes = [
           ).then((m) => m.ProjectVideoCallComponent),
         canActivate: [UserAuthGuard, ProjectRolesGuard],
       },
+      {
+        path: ':projectId/notes',
+        loadComponent: () => 
+          import('./pages/project-notes/project-notes.component')
+        .then((m) => m.ProjectNotesComponent),
+        canActivate: [UserAuthGuard, ProjectRolesGuard],
+      }
     ],
   },
 ];

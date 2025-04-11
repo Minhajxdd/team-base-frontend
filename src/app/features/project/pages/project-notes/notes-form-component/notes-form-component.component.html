@@ -1,0 +1,106 @@
+<div class="bg-[var(--bg-primary)] fixed top-1/2 left-1/2 max-w-sm max-h-[550px] w-full p-6 rounded-xl shadow-lg transform -translate-x-1/2 -translate-y-1/2">
+    <div>
+        <h2 class="text-2xl font-bold mb-6 font-extrabold text-[var(--text-primary)]"><span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Create New Note</span></h2>
+        <button 
+            (click)="onCancel()"
+        class="absolute top-7 right-5 text-gray-500 hover:text-gray-700" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+    </div>
+
+    
+    <form [formGroup]="noteForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+        <div>
+        <label for="title" class="block text-sm font-medium text-[(var(--text-primary))] mb-1">Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title"
+          class="bg-[(var(--text-primary))] w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+          [ngClass]="{'border-red-500': isFieldInvalid('title')}"
+        >
+        <div *ngIf="isFieldInvalid('title')" class="mt-1 text-red-500 text-sm">
+          <span *ngIf="noteForm.get('title')?.errors?.['required']">Title is required</span>
+          <span *ngIf="noteForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters</span>
+        </div>
+      </div>
+      
+      <div>
+        <label for="description" class="block text-sm font-medium text-[(var(--text-primary))] mb-1">Description</label>
+        <textarea 
+          id="description" 
+          formControlName="description"
+          rows="4"
+          class="bg-[(var(--text-primary))] w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-none"
+          [ngClass]="{'border-red-500': isFieldInvalid('description')}"
+        ></textarea>
+        <div *ngIf="isFieldInvalid('description')" class="mt-1 text-red-500 text-sm">
+          <span *ngIf="noteForm.get('description')?.errors?.['required']">Description is required</span>
+          <span *ngIf="noteForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+        </div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-[(var(--text-primary))]  mb-2">Note Color</label>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <div *ngFor="let color of colors" class="color-option">
+            <input 
+              type="radio" 
+              [id]="color.id" 
+              formControlName="color"
+              [value]="color.hex"
+              class="sr-only"
+            >
+            <label 
+              [for]="color.id" 
+              [style.backgroundColor]="color.hex"
+              class="block w-8 h-8 rounded-full cursor-pointer border-2 transition-all duration-200 hover:scale-110"
+              [ngClass]="{'border-gray-400': noteForm.get('color')?.value !== color.hex, 'border-black ring-2 ring-offset-2': noteForm.get('color')?.value === color.hex}"
+            ></label>
+          </div>
+        </div>
+        <div *ngIf="isFieldInvalid('color')" class="mt-1 text-red-500 text-sm">
+          Please select a color
+        </div>
+
+      </div>
+      
+      <div class="pt-2">
+        <button 
+          type="submit" 
+          [disabled]="noteForm.invalid"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+
+        @if (isSubmitting) {
+
+            <div class="w-full flex justify-center">
+                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" fill="#3498db">
+                    <circle cx="20" cy="20" r="18" stroke="#e0e0e0" stroke-width="4" fill="none"/>
+                    <circle cx="20" cy="20" r="18" stroke="#3498db" stroke-width="4" stroke-linecap="round" fill="none"
+                      stroke-dasharray="90 150"
+                      stroke-dashoffset="0">
+                      <animateTransform 
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 20 20"
+                        to="360 20 20"
+                        dur="1s"
+                        repeatCount="indefinite" />
+                    </circle>
+                  </svg>
+
+            </div>
+              
+
+        } @else {
+            Add Note
+        }
+
+        </button>
+      </div>
+    </form>
+  </div>
