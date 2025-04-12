@@ -39,7 +39,6 @@ a {
   left: 0;
   width: 56px;
   height: 100vh;
-  background-color: var(--first-color);
   padding: 1.25rem 0.5rem 2rem;
   -webkit-transition: 0.5s;
   transition: 0.5s;
