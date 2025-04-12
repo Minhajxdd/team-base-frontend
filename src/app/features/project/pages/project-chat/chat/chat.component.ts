@@ -127,9 +127,13 @@ export class ChatComponent {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       this.scrollChatDiv();
     }, 100);
+
+    this.destoryRef.onDestroy(() => {
+      clearTimeout(timer);
+    });
   }
 
   user!: User;

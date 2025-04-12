@@ -1,4 +1,4 @@
-import { Component, ElementRef, input } from '@angular/core';
+import { Component, DestroyRef, ElementRef, input } from '@angular/core';
 import { Notification } from '../notification.model';
 
 @Component({
@@ -10,10 +10,14 @@ import { Notification } from '../notification.model';
 export class NotificationCardComponent {
   notificationData = input<Notification | null>();
 
-  constructor(private ele: ElementRef) {
-    setTimeout(() => {
+  constructor(private ele: ElementRef, private _destoryRef: DestroyRef) {
+    const timer = setTimeout(() => {
       this.ele.nativeElement.remove();
     }, 5000);
+
+    this._destoryRef.onDestroy(() => {
+      clearTimeout(timer);
+    })
   }
 
   destoryComponent() {

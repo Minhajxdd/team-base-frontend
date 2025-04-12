@@ -25,9 +25,13 @@ export class ProjectRequestAcceptComponent {
     if (!token || !projectId) {
       this.displayText.set('Invalid Request');
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         this.router.navigate(['login']);
       }, 5000);
+
+      this.destroy.onDestroy(() => {
+        clearTimeout(timer);
+      })
     }
 
     const subscription = this.projectRequestAcceptService
@@ -36,16 +40,24 @@ export class ProjectRequestAcceptComponent {
         complete: () => {
           this.displayText.set('Successfully added to project');
 
-          setTimeout(() => {
+          const timer = setTimeout(() => {
             this.router.navigate(['']);
           }, 5000);
+
+          this.destroy.onDestroy(() => {
+            clearTimeout(timer);
+          })
         },
         error: () => {
           this.displayText.set('Invalid Request');
 
-          setTimeout(() => {
+          const timer = setTimeout(() => {
             this.router.navigate(['']);
           }, 5000);
+
+          this.destroy.onDestroy(() => {
+            clearTimeout(timer);
+          })
         },
       });
 

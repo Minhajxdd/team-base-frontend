@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { NotificationSocketService } from '../../../../notification/notification.socket.service';
 import { ToastModule } from 'primeng/toast';
 import { NotificationCardComponent } from './notification-card/notification-card.component';
@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   );
   private worker!: Worker;
 
-  constructor() {
+  constructor(private _destoryRef: DestroyRef) {
     this.notificationSocketService.connect();
   }
 
@@ -46,9 +46,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
     this.worker.onmessage = ({ data }) => {
       this.currentNotification.set(data);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         this.currentNotification.set(null);
       }, 5100);
+
+      this._destoryRef.onDestroy(() => {
+        clearTimeout(timer);
+      });
+      
     };
   }
 
