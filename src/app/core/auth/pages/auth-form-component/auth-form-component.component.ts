@@ -1,6 +1,14 @@
 declare var google: any;
 
-import { Component, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getAuthFormTemplate } from './auth-form.template';
@@ -9,6 +17,7 @@ import { authFormTemplateModel, googleData } from './auth-form.model';
 import { AuthFormService } from './auth-form.service';
 import { DataModel } from './auth-form-component.model';
 import { GoogleAuthService } from '../../services/auth.google.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-auth-form-component',
@@ -40,12 +49,13 @@ export class AuthFormComponentComponent implements OnInit {
     });
   }
 
-
   // Google Auth
   @ViewChild('googleButton') googleButton!: ElementRef<HTMLButtonElement>;
 
   onGoogleClick() {
-    const button = this.googleButton.nativeElement.querySelector('div[role="button"]') as HTMLElement;
+    const button = this.googleButton.nativeElement.querySelector(
+      'div[role="button"]'
+    ) as HTMLElement;
     if (button) {
       button.click();
     } else {
@@ -55,14 +65,13 @@ export class AuthFormComponentComponent implements OnInit {
 
   ngOnInit(): void {
     google.accounts.id.initialize({
-      client_id:
-        '137833444543-cfdelosuq0llrqo8sps3ef4khrn58jd7.apps.googleusercontent.com',
+      client_id: environment.gooogle_client_id,
       callback: (resp: any) => this.handleLogin(resp),
     });
 
     google.accounts.id.renderButton(document.getElementById('google-btn'), {
       theme: 'outline',
-      size: 'large'
+      size: 'large',
     });
   }
 
@@ -152,8 +161,7 @@ export class AuthFormComponentComponent implements OnInit {
         localStorage.setItem('auth-register-verify-email', data.email);
       },
       error: (err: string) => {
-
-      return this.errMsg.set(err);
+        return this.errMsg.set(err);
       },
       complete: () => {
         this.router.navigate(['register', 'verify']);
@@ -180,8 +188,7 @@ export class AuthFormComponentComponent implements OnInit {
 
     const subscription = this.authService.login(data).subscribe({
       error: (err: string) => {
-
-      return this.errMsg.set(err);
+        return this.errMsg.set(err);
       },
       complete: () => {
         this.router.navigate(['']);
