@@ -1,0 +1,107 @@
+/* Modern Toggle Switch */
+.toggle-checkbox:checked {
+    @apply right-0 border-[#00ADB5];
+    transform: translateX(100%);
+  }
+  
+  .toggle-checkbox:checked + .toggle-label {
+    @apply bg-[#00ADB5];
+  }
+  
+  .toggle-checkbox {
+    @apply left-0 border-gray-600;
+    transform: translateX(0%);
+  }
+  
+  .toggle-label {
+    @apply block overflow-hidden h-6 rounded-full;
+  }
+  
+  /* Custom Form Elements */
+  .form-input:focus, .form-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(0, 173, 181, 0.3);
+  }
+  
+  /* Input Animations */
+  .form-input, .form-textarea {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  
+  /* Card Animations */
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Animations for elements */
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1A1E24;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #00ADB5;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #018E95;
+  }
+  
+  /* Placeholder styling */
+  ::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Focus styles for better usability */
+  button:focus {
+    outline: 2px solid rgba(0, 173, 181, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* Card animation */
+  .profile-card {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  /* For notifications */
+  .notification-enter {
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  .notification-exit {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
