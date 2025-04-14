@@ -20,7 +20,7 @@ import { selectUser } from '../../../shared/store/user/user.selector';
 import { UserNavbarComponent } from '../../../shared/components/navbar/user-navbar/user-navbar.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ProfileEditService } from './profile-edit.service';
-import { UserProfileModel } from './profile-edit.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile-edit',
@@ -30,6 +30,7 @@ import { UserProfileModel } from './profile-edit.model';
     ProfileImageCardComponent,
     UserNavbarComponent,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.css'],
@@ -217,10 +218,8 @@ export class ProfileEditComponent implements OnDestroy, OnInit {
   }
 
   getProfileData() {
-    const subscription = this._profileEditService.getProfile()
-    .subscribe({
+    const subscription = this._profileEditService.getProfile().subscribe({
       next: (data) => {
-
         const user = data.data.user;
 
         setTimeout(() => {
@@ -232,13 +231,11 @@ export class ProfileEditComponent implements OnDestroy, OnInit {
             hobbies: user.hobbies,
             socialMedia: user.socialMedia,
             isPublic: user.isPublic,
-          })
+          });
 
           this.skills = data.data.user.skills;
-          
-        }, 10)
-        
-      }
+        }, 10);
+      },
     });
 
     this._destoryRef.onDestroy(() => {

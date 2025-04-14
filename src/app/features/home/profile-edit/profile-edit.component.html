@@ -97,6 +97,7 @@
                   placeholder="••••••••"
                 >
                 <button 
+                  [routerLink]="['/reset-password']"
                   type="button" 
                   (click)="resetPassword()" 
                   [disabled]="passwordResetSent"
