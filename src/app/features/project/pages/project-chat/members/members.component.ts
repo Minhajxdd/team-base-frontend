@@ -36,7 +36,6 @@ export class MembersComponent implements OnInit, OnDestroy {
   onlineMembers!: Set<string>;
 
   ngOnInit(): void {
-    this.chatSocketService.connect();
     const subscription = this.chatSocketService.on('userList').subscribe({
       next: (data: { users: string[] }) => {
         this.onlineMembers = new Set(data.users);
