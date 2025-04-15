@@ -12,11 +12,20 @@
     Your Projects
   </h3>
   <ul class="space-y-4">
-    @for (project of allProjectDetails(); track project._id) {
-
-    <app-project-box [projectData]="project"></app-project-box>
-
+    @if (allProjectDetails() && allProjectDetails()!.length > 0) {
+      @for (project of allProjectDetails(); track project._id) {
+  
+      <app-project-box [projectData]="project"></app-project-box>
+  
+      }
+    } @else {
+      <li
+      class="bg-[#e9def2] text-[#222831] p-4 rounded-lg flex justify-between items-center hover:shadow-md"
+    >
+      <span class="font-medium text-black">You Have No Projects...</span>
+    </li>
     }
+
   </ul>
 </div>
 }
