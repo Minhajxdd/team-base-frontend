@@ -113,14 +113,14 @@
     
     @if (isProfileToggled()) {
     <div class="top_nav_profile_popup">
-      <div class="top_nav_profile_popup_card">
+      <div [routerLink]="['/profile']" class="top_nav_profile_popup_card">
         <i class="bx bx-user nav__icon"></i>
         <span>Profile</span>
       </div>
-      <div class="top_nav_profile_popup_card">
+      <!-- <div class="top_nav_profile_popup_card">
         <i class="bx bx-log-out nav__icon"></i>
         <span>Logout</span>
-      </div>
+      </div> -->
     </div>
     }
   </div>
