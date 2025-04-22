@@ -34,8 +34,6 @@ export class UserUnauthorizedAuthGuard implements CanActivate {
       }
     }
 
-    console.log(route.url)
-
     const authRouters = ['login', 'register'];
 
     if (!route.url.length) {
