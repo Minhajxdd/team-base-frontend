@@ -41,7 +41,7 @@ export class ProjectRequestAcceptComponent {
           this.displayText.set('Successfully added to project');
 
           const timer = setTimeout(() => {
-            this.router.navigate(['']);
+            this.router.navigate(['dashboard']);
           }, 5000);
 
           this.destroy.onDestroy(() => {
@@ -52,7 +52,7 @@ export class ProjectRequestAcceptComponent {
           this.displayText.set('Invalid Request');
 
           const timer = setTimeout(() => {
-            this.router.navigate(['']);
+            this.router.navigate(['dashboard']);
           }, 5000);
 
           this.destroy.onDestroy(() => {

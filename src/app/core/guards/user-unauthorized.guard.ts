@@ -37,7 +37,7 @@ export class UserUnauthorizedAuthGuard implements CanActivate {
     const authRouters = ['login', 'register'];
 
     if (authRouters.some((keyword) => route.url[0].path.includes(keyword))) {
-        this.router.navigate(['']);
+        this.router.navigate(['dashboard']);
     }
 
     return false;

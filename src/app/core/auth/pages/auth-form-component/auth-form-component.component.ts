@@ -96,7 +96,7 @@ export class AuthFormComponentComponent implements OnInit {
             return this.errMsg.set(err);
           },
           complete: () => {
-            this.router.navigate(['']);
+            this.router.navigate(['dashboard']);
           },
         });
 
@@ -191,7 +191,7 @@ export class AuthFormComponentComponent implements OnInit {
         return this.errMsg.set(err);
       },
       complete: () => {
-        this.router.navigate(['']);
+        this.router.navigate(['dashboard']);
       },
     });
 

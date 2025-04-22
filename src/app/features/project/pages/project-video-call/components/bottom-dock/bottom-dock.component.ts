@@ -35,6 +35,6 @@ export class BottomDockComponent {
 
     this._ProjectVideoCallMainService.leaveRoom();
 
-    window.location.href = '/';
+    window.location.href = '/dashboard';
   }
 }

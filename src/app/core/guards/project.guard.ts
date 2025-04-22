@@ -21,7 +21,7 @@ export class ProjectRolesGuard implements CanActivate {
     const projectId = route.params['projectId'];
 
     if (!projectId) {
-      this.router.navigate(['']);
+      this.router.navigate(['dashboard']);
       return of(false);
     }
 
@@ -32,7 +32,7 @@ export class ProjectRolesGuard implements CanActivate {
       first(),
       map(() => true),
       catchError(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['dashboard']);
         return of(false);
       })
     );
