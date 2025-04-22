@@ -1,1 +1,491 @@
-<p>main-page works!</p>
+<div id="main-wrapper">
+    
+    <!-- Navbar -->
+    <nav class="bg-slate-900 border-b border-slate-800 fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center">
+                        <i class='bx bx-git-branch text-blue-500 text-2xl mr-2'></i>
+                        <span class="text-xl font-bold gradient-text">TeamBase</span>
+                    </a>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="#" class="text-blue-300 hover:text-blue-100 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#features" class="text-gray-300 hover:text-blue-100 px-3 py-2 text-sm font-medium">Features</a>
+                        <a href="#testimonials" class="text-gray-300 hover:text-blue-100 px-3 py-2 text-sm font-medium">Testimonials</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a [routerLink]="['/login']" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Login</a>
+                    <a [routerLink]="['/register']" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 hero-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-10">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        <span class="gradient-text">Streamline</span> Your Project Workflow
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 mb-8">
+                        The modern solution for teams to collaborate, manage tasks, and deliver projects on time. Boost productivity with our intuitive project management platform.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a [routerLink]="['/register']" class="gradient-bg hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg text-center transition duration-300">
+                            Get Started Now
+                        </a>
+                        <!-- <a href="#" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-8 rounded-lg text-center flex items-center justify-center transition duration-300">
+                            <i class='bx bx-play-circle mr-2 text-2xl'></i> Watch Demo
+                        </a> -->
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-12 md:mt-0">
+                    <div class="relative rounded-lg overflow-hidden shadow-2xl border border-slate-700">
+                        <img src="dashboard-image.png" alt="TeamBase Dashboard" class="w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <h3 class="text-blue-400 text-4xl font-bold">10k+</h3>
+                    <p class="text-slate-300 mt-2">Active Users</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-blue-400 text-4xl font-bold">25k+</h3>
+                    <p class="text-slate-300 mt-2">Projects Completed</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-blue-400 text-4xl font-bold">98%</h3>
+                    <p class="text-slate-300 mt-2">Satisfaction Rate</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-blue-400 text-4xl font-bold">150+</h3>
+                    <p class="text-slate-300 mt-2">Enterprise Clients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">Everything you need to manage your projects efficiently and boost team productivity</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bx-list-check text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Task Management</h3>
+                    <p class="text-slate-300 mb-6">Create, assign and track tasks with ease. Set priorities, deadlines, and watch your team's progress in real-time.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Task Management" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bxs-chalkboard  text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Kanban Board</h3>
+                    <p class="text-slate-300 mb-6">Visualize your workflow with customizable Kanban boards. Drag and drop tasks between columns to show progress.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Kanban Board" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bx-chat text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Team Chat</h3>
+                    <p class="text-slate-300 mb-6">Communicate with your team in real-time. Share files, create group chats, and keep all conversations organized.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Team Chat" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bxs-video text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Video Calls</h3>
+                    <p class="text-slate-300 mb-6">Host video meetings directly from the platform. Share screens and collaborate with your team no matter where they are.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Video Calls" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bx-line-chart text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Analytics & Reports</h3>
+                    <p class="text-slate-300 mb-6">Gain insights into your team's performance with comprehensive reports and analytics dashboards.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Analytics Dashboard" class="w-full">
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 transition duration-300 card-hover">
+                    <div class="bg-blue-600 inline-block p-3 rounded-lg mb-6">
+                        <i class='bx bxs-lock text-white text-2xl'></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Advanced Security</h3>
+                    <p class="text-slate-300 mb-6">Keep your data safe with enterprise-grade security features. Control access and permissions for each team member.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="/api/placeholder/400/250" alt="Security Features" class="w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-20 bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How TeamBase Works</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">Simple steps to transform your project management</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">1</div>
+                    <h3 class="text-xl font-bold mt-6 mb-3">Sign Up</h3>
+                    <p class="text-slate-300">Create your account and set up your workspace in minutes.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">2</div>
+                    <h3 class="text-xl font-bold mt-6 mb-3">Invite Team</h3>
+                    <p class="text-slate-300">Add team members and assign roles and permissions.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">3</div>
+                    <h3 class="text-xl font-bold mt-6 mb-3">Create Projects</h3>
+                    <p class="text-slate-300">Set up your projects and define tasks, milestones, and deadlines.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">4</div>
+                    <h3 class="text-xl font-bold mt-6 mb-3">Collaborate</h3>
+                    <p class="text-slate-300">Work together seamlessly and watch productivity soar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
+                <p class="text-xl text-slate-300 max-w-3xl mx-auto">Trusted by thousands of teams worldwide</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400">
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 mb-6">"TeamBase has revolutionized how we manage our projects. The collaborative features and intuitive interface have increased our team's productivity by 40%."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-4">JS</div>
+                        <div>
+                            <h4 class="font-bold">Jane Smith</h4>
+                            <p class="text-slate-400 text-sm">Project Manager, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400">
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 mb-6">"The Kanban board feature is a game-changer. We can now visualize our entire workflow and identify bottlenecks instantly. Couldn't be happier with this tool!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">MJ</div>
+                        <div>
+                            <h4 class="font-bold">Michael Johnson</h4>
+                            <p class="text-slate-400 text-sm">CTO, StartupX</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400">
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                            <i class='bx bxs-star text-2xl'></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 mb-6">"We've tried several project management tools before, but TeamBase is by far the most comprehensive and user-friendly. The integrated video calls feature saves us so much time."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold mr-4">AL</div>
+                        <div>
+                            <h4 class="font-bold">Amanda Lee</h4>
+                            <p class="text-slate-400 text-sm">Team Lead, DesignHub</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section (Replace Pricing) -->
+<section id="benefits" class="py-20 bg-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose TeamBase</h2>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto">Experience the advantages that make teams more productive</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Benefit 1 -->
+            <div class="bg-slate-900 rounded-xl p-8 border border-slate-700 transition duration-300 hover:border-blue-500">
+                <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class='bx bxs-zap text-white text-2xl'></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Boost Productivity</h3>
+                <p class="text-slate-300 mb-6">Streamline workflows and eliminate bottlenecks with our intuitive task management system. Teams report up to 40% increase in productivity.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Automated task assignment</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Smart deadline reminders</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Progress tracking</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Benefit 2 -->
+            <div class="bg-gradient-to-b from-blue-900 to-slate-900 rounded-xl p-8 border border-blue-700 transform scale-105 shadow-xl">
+                <div class="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class='bx bxs-group text-white text-2xl' ></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Better Collaboration</h3>
+                <p class="text-slate-300 mb-6">Break down silos and enable seamless teamwork. Real-time updates and communication tools keep everyone on the same page.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Integrated chat & video calls</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>File sharing & collaboration</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Team activity dashboard</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Benefit 3 -->
+            <div class="bg-slate-900 rounded-xl p-8 border border-slate-700 transition duration-300 hover:border-blue-500">
+                <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class='bx bx-line-chart text-white text-2xl'></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Data-Driven Insights</h3>
+                <p class="text-slate-300 mb-6">Leverage powerful analytics to understand team performance and make informed decisions for continuous improvement.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Performance metrics</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Customizable reports</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class='bx bx-check text-green-500 mr-2'></i>
+                        <span>Resource optimization</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-16">
+            <a href="#" class="gradient-bg text-white font-bold py-4 px-10 rounded-lg inline-block hover:opacity-90 transition duration-300 text-lg">
+                Start Your Journey
+            </a>
+            <p class="text-slate-400 mt-4">No credit card required. Get started in minutes.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Project Management?</h2>
+            <p class="text-xl mb-10 max-w-3xl mx-auto">Join thousands of teams who have already improved their productivity with TeamBase</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a [routerLink]="['/register']" class="bg-white text-blue-800 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg text-lg transition duration-300">
+                    Start Now
+                </a>
+                <a href="#" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-800 font-bold py-4 px-8 rounded-lg text-lg transition duration-300">
+                    Schedule Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2">
+                    <a href="#" class="flex items-center mb-6">
+                        <i class='bx bx-network-chart text-blue-500 text-2xl mr-2'></i>
+                        <span class="text-xl font-bold gradient-text">TeamBase</span>
+                    </a>
+                    <p class="text-slate-400 mb-6">
+                        Modern project management for modern teams. Streamline your workflow and boost productivity.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-blue-400">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400">
+                            <i class="fab fa-facebook text-lg"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Product</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Features</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Integrations</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Pricing</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Updates</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">About</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Blog</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Careers</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Help Center</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Documentation</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Contact Us</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-blue-300">Status</a></li>
+                    </ul>
+</div>
+            </div>
+            <div class="border-t border-slate-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-slate-400 text-sm mb-4 md:mb-0">
+                        © 2025 TeamBase. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-slate-400 hover:text-blue-300 text-sm">Privacy Policy</a>
+                        <a href="#" class="text-slate-400 hover:text-blue-300 text-sm">Terms of Service</a>
+                        <a href="#" class="text-slate-400 hover:text-blue-300 text-sm">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button class="gradient-bg text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center">
+            <i class='bx bx-support mr-2' ></i>Get Support
+        </button>
+    </div>
+
+    <!-- JavaScript for simple interactions -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-opacity-95', 'shadow-md');
+            } else {
+                navbar.classList.remove('bg-opacity-95', 'shadow-md');
+            }
+        });
+
+        // FAQ accordions
+        document.querySelectorAll('.bg-slate-900 button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+    </script>
+
+</div>

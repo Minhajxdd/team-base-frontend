@@ -1,0 +1,22 @@
+
+#main-wrapper {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+}
+.gradient-text {
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gradient-bg {
+    background: linear-gradient(90deg, #1e3a8a, #1e40af);
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+}
+.hero-pattern {
+    background-image: radial-gradient(rgba(59, 130, 246, 0.1) 2px, transparent 2px);
+    background-size: 30px 30px;
+}
